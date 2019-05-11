@@ -11,7 +11,6 @@ current_dir = os.path.dirname(os.path.realpath(__file__)).replace("\\", "/")
 class Ui_MainWindow(object):
     def __init__(self):
 
-        print("test")
         # save_at directory
         self.save_dir = ""
 
