@@ -596,7 +596,7 @@ class Ui_MainWindow(object):
         self.action_mono_4_polarisations.setText(_translate("MainWindow", "Mono - 4 polarisations"))
         self.action_tof_no_polarisation.setText(_translate("MainWindow", "TOF - No polarisation"))
         self.actionAlgorithm_info.setText(_translate("MainWindow", "Algorithm info"))
-        self.actionVersion.setText(_translate("MainWindow", "Version 2.1.1"))
+        self.actionVersion.setText(_translate("MainWindow", "Version 190511"))
         self.pushButton_redraw_refl.setText(_translate("MainWindow", "Redraw reflectivity"))
 
         item = self.tableWidget_data_points.horizontalHeaderItem(0)
@@ -1097,10 +1097,9 @@ class Ui_MainWindow(object):
     def menu_info(self):
         msgBox = QtWidgets.QMessageBox()
         msgBox.setWindowIcon(QtGui.QIcon(current_dir + "\icon.png"))
-        msgBox.setText("BoToFit V2.1.1\n\n"
+        msgBox.setText("BoToFit V.190511\n\n"
                        "Algorithm: Boris.Toperverg@ruhr-uni-bochum.de\n"
-                       "GUI: Alexey.Klechikov@gmail.com\n\n"
-                       "2019.04.16")
+                       "GUI: Alexey.Klechikov@gmail.com\n\n")
         msgBox.exec_()
 
     def menu_algorithm(self):
