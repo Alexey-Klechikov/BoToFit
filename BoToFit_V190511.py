@@ -1,4 +1,4 @@
-﻿from PyQt5 import QtCore, QtGui, QtWidgets
+﻿from PyQt5 import QtCore, QtGui, QtWidgets, QtTest
 import os, psutil, time, math, numpy, shutil
 import pyqtgraph as pg
 from scipy.interpolate import InterpolatedUnivariateSpline
@@ -1022,7 +1022,8 @@ class Ui_MainWindow(object):
 
         # check every second if BoToFit is done
         while file_to_wait not in os.listdir(self.lineEdit_data_folder_name.text()):
-            time.sleep(1)
+
+            QtTest.QTest.qWait(1000)
 
             # check if it crashed
             proc_list = []
@@ -1039,7 +1040,7 @@ class Ui_MainWindow(object):
                 return
 
         # wait 5 sec more to make sure that FitFunct file is ready
-        time.sleep(5)
+        QtTest.QTest.qWait(5000)
 
         # when its done, kill its process
         for proc in psutil.process_iter():
@@ -1062,10 +1063,10 @@ class Ui_MainWindow(object):
         # run multiGrPr and wait until it finished to work
         os.startfile(self.lineEdit_data_folder_name.text() + "multiGrPr.bat")
         while "SLD_profile.dat" not in os.listdir(self.lineEdit_data_folder_name.text()):
-            time.sleep(1)
+            QtTest.QTest.qWait(1000)
 
         while os.path.getsize(self.lineEdit_data_folder_name.text() + 'SLD_profile.dat') < 1:
-            time.sleep(1)
+            QtTest.QTest.qWait(1000)
 
         # draw SLD
         self.draw_SLD()
