@@ -1,0 +1,790 @@
+FilmTOF1000x4 results:
+resolution function:  19 points, sigma_0 = 0.12*e-3 A-1, region = +/-3.0 sigma_0
+The first  1 experimental points are excluded
+The  last  1 experimental points are excluded
+Correction of "zero": q_corr = -0.6000E-01*e-3 A-1
+ *************************************************************************
+   0 iterate              PARAMETERS       ERRORS     FACTORS
+    Layer   1
+   1    thickness         0.121439E+03      fixed
+   2    Re{Nb}            0.353112E-05      fixed
+   3    Im{Nb}            0.333000E-08      fixed
+   4    N_p               0.000000E+00      fixed
+   5    <Cos(d_gamma)>    0.000000E+00      fixed
+   6    Debye-Waller      0.643462E+01      fixed
+    Layer   2
+   7    thickness         0.636745E+02      fixed
+   8    Re{Nb}            0.402036E-05      fixed
+   9    Im{Nb}            0.635000E-08      fixed
+  10    N_p               0.505000E-05      fixed
+  11    <Cos(d_gamma)>    0.100000E+01 +/- 0.38E-02    0.509E+01
+  12    Debye-Waller      0.103799E+02      fixed
+    Layer   3
+  13    thickness         0.292646E+03      fixed
+  14    Re{Nb}           -0.662268E-06      fixed
+  15    Im{Nb}            0.166724E-07      fixed
+  16    N_p               0.145469E-06      fixed
+  17    <Cos(d_gamma)>    0.100000E+01 +/- 0.60E-01    0.148E+01
+  18    Debye-Waller      0.127430E+02 +/- 0.23E+00    0.265E+01
+    Layer   4
+  19    thickness         0.398277E+02      fixed
+  20    Re{Nb}            0.653000E-05      fixed
+  21    Im{Nb}            0.861000E-09      fixed
+  22    N_p               0.000000E+00      fixed
+  23    <Cos(d_gamma)>    0.000000E+00      fixed
+  24    Debye-Waller      0.151869E+02      fixed
+    Substrate
+  25    Re{Nb}            0.207000E-05      fixed
+  26    Im{Nb}            0.144000E-10      fixed
+  27    N_p               0.000000E+00      fixed
+  28    <Cos(d_gamma)>    0.000000E+00      fixed
+  29    Debye-Waller      0.183683E+02      fixed
+ 
+  30    <Cos(gamma)>     -0.100000E+01 +/- 0.58E-02    0.477E+01
+  31    <Sin(gamma)>      0.000000E+00      fixed
+  32    <Sin^2(gamma)>    0.204207E+00 +/- 0.65E-02    0.261E+01
+ 
+  33    total scaling     0.161775E+00 +/- 0.46E-03    0.319E+01
+  34    alpha_0           0.500000E-05      fixed
+  35    background        0.246952E-04 +/- 0.49E-05    0.134E+01
+  36    Pi(x)             0.000000E+00      fixed
+  37    Pi(y)             0.982112E+00 +/- 0.49E-02    0.525E+01
+  38    Pi(z)             0.000000E+00      fixed
+  39    Pf(x)             0.000000E+00      fixed
+  40    Pf(y)             0.979034E+00 +/- 0.49E-02    0.170E+01
+  41    Pf(z)             0.000000E+00      fixed
+   D=<Cos(gam)^2>-<Cos(gam)>^2: -0.2042E+00 +/-  0.13E-01
+   hi_sq.norm: .3025E+03
+ *************************************************************************
+   1 iterate              PARAMETERS       ERRORS     FACTORS
+    Layer   1
+   1    thickness         0.121439E+03      fixed
+   2    Re{Nb}            0.353112E-05      fixed
+   3    Im{Nb}            0.333000E-08      fixed
+   4    N_p               0.000000E+00      fixed
+   5    <Cos(d_gamma)>    0.000000E+00      fixed
+   6    Debye-Waller      0.643462E+01      fixed
+    Layer   2
+   7    thickness         0.636745E+02      fixed
+   8    Re{Nb}            0.402036E-05      fixed
+   9    Im{Nb}            0.635000E-08      fixed
+  10    N_p               0.505000E-05      fixed
+  11    <Cos(d_gamma)>    0.900000E+00 +/- 0.39E-02    0.439E+01
+  12    Debye-Waller      0.103799E+02      fixed
+    Layer   3
+  13    thickness         0.292646E+03      fixed
+  14    Re{Nb}           -0.662268E-06      fixed
+  15    Im{Nb}            0.166724E-07      fixed
+  16    N_p               0.145469E-06      fixed
+  17    <Cos(d_gamma)>    0.956386E+00 +/- 0.64E-01    0.144E+01
+  18    Debye-Waller      0.121019E+02 +/- 0.27E+00    0.249E+01
+    Layer   4
+  19    thickness         0.398277E+02      fixed
+  20    Re{Nb}            0.653000E-05      fixed
+  21    Im{Nb}            0.861000E-09      fixed
+  22    N_p               0.000000E+00      fixed
+  23    <Cos(d_gamma)>    0.000000E+00      fixed
+  24    Debye-Waller      0.151869E+02      fixed
+    Substrate
+  25    Re{Nb}            0.207000E-05      fixed
+  26    Im{Nb}            0.144000E-10      fixed
+  27    N_p               0.000000E+00      fixed
+  28    <Cos(d_gamma)>    0.000000E+00      fixed
+  29    Debye-Waller      0.183683E+02      fixed
+ 
+  30    <Cos(gamma)>     -0.946384E+00 +/- 0.62E-02    0.431E+01
+  31    <Sin(gamma)>      0.000000E+00      fixed
+  32    <Sin^2(gamma)>    0.206512E+00 +/- 0.75E-02    0.233E+01
+ 
+  33    total scaling     0.156735E+00 +/- 0.45E-03    0.269E+01
+  34    alpha_0           0.500000E-05      fixed
+  35    background        0.136187E-04 +/- 0.49E-05    0.134E+01
+  36    Pi(x)             0.000000E+00      fixed
+  37    Pi(y)             0.983394E+00 +/- 0.55E-02    0.473E+01
+  38    Pi(z)             0.000000E+00      fixed
+  39    Pf(x)             0.000000E+00      fixed
+  40    Pf(y)             0.978445E+00 +/- 0.54E-02    0.168E+01
+  41    Pf(z)             0.000000E+00      fixed
+   D=<Cos(gam)^2>-<Cos(gam)>^2: -0.1022E+00 +/-  0.14E-01
+   hi_sq.norm: .2058E+03
+ *************************************************************************
+   2 iterate              PARAMETERS       ERRORS     FACTORS
+    Layer   1
+   1    thickness         0.121439E+03      fixed
+   2    Re{Nb}            0.353112E-05      fixed
+   3    Im{Nb}            0.333000E-08      fixed
+   4    N_p               0.000000E+00      fixed
+   5    <Cos(d_gamma)>    0.000000E+00      fixed
+   6    Debye-Waller      0.643462E+01      fixed
+    Layer   2
+   7    thickness         0.636745E+02      fixed
+   8    Re{Nb}            0.402036E-05      fixed
+   9    Im{Nb}            0.635000E-08      fixed
+  10    N_p               0.505000E-05      fixed
+  11    <Cos(d_gamma)>    0.800000E+00 +/- 0.41E-02    0.384E+01
+  12    Debye-Waller      0.103799E+02      fixed
+    Layer   3
+  13    thickness         0.292646E+03      fixed
+  14    Re{Nb}           -0.662268E-06      fixed
+  15    Im{Nb}            0.166724E-07      fixed
+  16    N_p               0.145469E-06      fixed
+  17    <Cos(d_gamma)>    0.866962E+00 +/- 0.69E-01    0.141E+01
+  18    Debye-Waller      0.118200E+02 +/- 0.31E+00    0.231E+01
+    Layer   4
+  19    thickness         0.398277E+02      fixed
+  20    Re{Nb}            0.653000E-05      fixed
+  21    Im{Nb}            0.861000E-09      fixed
+  22    N_p               0.000000E+00      fixed
+  23    <Cos(d_gamma)>    0.000000E+00      fixed
+  24    Debye-Waller      0.151869E+02      fixed
+    Substrate
+  25    Re{Nb}            0.207000E-05      fixed
+  26    Im{Nb}            0.144000E-10      fixed
+  27    N_p               0.000000E+00      fixed
+  28    <Cos(d_gamma)>    0.000000E+00      fixed
+  29    Debye-Waller      0.183683E+02      fixed
+ 
+  30    <Cos(gamma)>     -0.898454E+00 +/- 0.69E-02    0.398E+01
+  31    <Sin(gamma)>      0.000000E+00      fixed
+  32    <Sin^2(gamma)>    0.207258E+00 +/- 0.86E-02    0.205E+01
+ 
+  33    total scaling     0.152443E+00 +/- 0.45E-03    0.229E+01
+  34    alpha_0           0.500000E-05      fixed
+  35    background        0.734667E-05 +/- 0.49E-05    0.132E+01
+  36    Pi(x)             0.000000E+00      fixed
+  37    Pi(y)             0.984379E+00 +/- 0.61E-02    0.438E+01
+  38    Pi(z)             0.000000E+00      fixed
+  39    Pf(x)             0.000000E+00      fixed
+  40    Pf(y)             0.977084E+00 +/- 0.61E-02    0.173E+01
+  41    Pf(z)             0.000000E+00      fixed
+   D=<Cos(gam)^2>-<Cos(gam)>^2: -0.1448E-01 +/-  0.15E-01
+   hi_sq.norm: .1397E+03
+ *************************************************************************
+   3 iterate              PARAMETERS       ERRORS     FACTORS
+    Layer   1
+   1    thickness         0.121439E+03      fixed
+   2    Re{Nb}            0.353112E-05      fixed
+   3    Im{Nb}            0.333000E-08      fixed
+   4    N_p               0.000000E+00      fixed
+   5    <Cos(d_gamma)>    0.000000E+00      fixed
+   6    Debye-Waller      0.643462E+01      fixed
+    Layer   2
+   7    thickness         0.636745E+02      fixed
+   8    Re{Nb}            0.402036E-05      fixed
+   9    Im{Nb}            0.635000E-08      fixed
+  10    N_p               0.505000E-05      fixed
+  11    <Cos(d_gamma)>    0.735881E+00 +/- 0.43E-02    0.357E+01
+  12    Debye-Waller      0.103799E+02      fixed
+    Layer   3
+  13    thickness         0.292646E+03      fixed
+  14    Re{Nb}           -0.662268E-06      fixed
+  15    Im{Nb}            0.166724E-07      fixed
+  16    N_p               0.145469E-06      fixed
+  17    <Cos(d_gamma)>    0.766962E+00 +/- 0.71E-01    0.138E+01
+  18    Debye-Waller      0.119985E+02 +/- 0.33E+00    0.220E+01
+    Layer   4
+  19    thickness         0.398277E+02      fixed
+  20    Re{Nb}            0.653000E-05      fixed
+  21    Im{Nb}            0.861000E-09      fixed
+  22    N_p               0.000000E+00      fixed
+  23    <Cos(d_gamma)>    0.000000E+00      fixed
+  24    Debye-Waller      0.151869E+02      fixed
+    Substrate
+  25    Re{Nb}            0.207000E-05      fixed
+  26    Im{Nb}            0.144000E-10      fixed
+  27    N_p               0.000000E+00      fixed
+  28    <Cos(d_gamma)>    0.000000E+00      fixed
+  29    Debye-Waller      0.183683E+02      fixed
+ 
+  30    <Cos(gamma)>     -0.872692E+00 +/- 0.75E-02    0.386E+01
+  31    <Sin(gamma)>      0.000000E+00      fixed
+  32    <Sin^2(gamma)>    0.205647E+00 +/- 0.93E-02    0.187E+01
+ 
+  33    total scaling     0.150153E+00 +/- 0.45E-03    0.209E+01
+  34    alpha_0           0.500000E-05      fixed
+  35    background        0.604442E-05 +/- 0.48E-05    0.130E+01
+  36    Pi(x)             0.000000E+00      fixed
+  37    Pi(y)             0.984779E+00 +/- 0.67E-02    0.426E+01
+  38    Pi(z)             0.000000E+00      fixed
+  39    Pf(x)             0.000000E+00      fixed
+  40    Pf(y)             0.975571E+00 +/- 0.66E-02    0.181E+01
+  41    Pf(z)             0.000000E+00      fixed
+   D=<Cos(gam)^2>-<Cos(gam)>^2:  0.3276E-01 +/-  0.16E-01
+                       sqrt(D):  0.1810E+00 + 0.40E-01 - 0.52E-01
+   hi_sq.norm: .1096E+03
+ *************************************************************************
+   4 iterate              PARAMETERS       ERRORS     FACTORS
+    Layer   1
+   1    thickness         0.121439E+03      fixed
+   2    Re{Nb}            0.353112E-05      fixed
+   3    Im{Nb}            0.333000E-08      fixed
+   4    N_p               0.000000E+00      fixed
+   5    <Cos(d_gamma)>    0.000000E+00      fixed
+   6    Debye-Waller      0.643462E+01      fixed
+    Layer   2
+   7    thickness         0.636745E+02      fixed
+   8    Re{Nb}            0.402036E-05      fixed
+   9    Im{Nb}            0.635000E-08      fixed
+  10    N_p               0.505000E-05      fixed
+  11    <Cos(d_gamma)>    0.687224E+00 +/- 0.45E-02    0.341E+01
+  12    Debye-Waller      0.103799E+02      fixed
+    Layer   3
+  13    thickness         0.292646E+03      fixed
+  14    Re{Nb}           -0.662268E-06      fixed
+  15    Im{Nb}            0.166724E-07      fixed
+  16    N_p               0.145469E-06      fixed
+  17    <Cos(d_gamma)>    0.666962E+00 +/- 0.73E-01    0.135E+01
+  18    Debye-Waller      0.123479E+02 +/- 0.34E+00    0.210E+01
+    Layer   4
+  19    thickness         0.398277E+02      fixed
+  20    Re{Nb}            0.653000E-05      fixed
+  21    Im{Nb}            0.861000E-09      fixed
+  22    N_p               0.000000E+00      fixed
+  23    <Cos(d_gamma)>    0.000000E+00      fixed
+  24    Debye-Waller      0.151869E+02      fixed
+    Substrate
+  25    Re{Nb}            0.207000E-05      fixed
+  26    Im{Nb}            0.144000E-10      fixed
+  27    N_p               0.000000E+00      fixed
+  28    <Cos(d_gamma)>    0.000000E+00      fixed
+  29    Debye-Waller      0.183683E+02      fixed
+ 
+  30    <Cos(gamma)>     -0.856260E+00 +/- 0.80E-02    0.381E+01
+  31    <Sin(gamma)>      0.000000E+00      fixed
+  32    <Sin^2(gamma)>    0.203129E+00 +/- 0.98E-02    0.174E+01
+ 
+  33    total scaling     0.148648E+00 +/- 0.45E-03    0.196E+01
+  34    alpha_0           0.500000E-05      fixed
+  35    background        0.601344E-05 +/- 0.48E-05    0.128E+01
+  36    Pi(x)             0.000000E+00      fixed
+  37    Pi(y)             0.985035E+00 +/- 0.72E-02    0.422E+01
+  38    Pi(z)             0.000000E+00      fixed
+  39    Pf(x)             0.000000E+00      fixed
+  40    Pf(y)             0.974131E+00 +/- 0.71E-02    0.192E+01
+  41    Pf(z)             0.000000E+00      fixed
+   D=<Cos(gam)^2>-<Cos(gam)>^2:  0.6369E-01 +/-  0.17E-01
+                       sqrt(D):  0.2524E+00 + 0.31E-01 - 0.36E-01
+   hi_sq.norm: .9185E+02
+ *************************************************************************
+   5 iterate              PARAMETERS       ERRORS     FACTORS
+    Layer   1
+   1    thickness         0.121439E+03      fixed
+   2    Re{Nb}            0.353112E-05      fixed
+   3    Im{Nb}            0.333000E-08      fixed
+   4    N_p               0.000000E+00      fixed
+   5    <Cos(d_gamma)>    0.000000E+00      fixed
+   6    Debye-Waller      0.643462E+01      fixed
+    Layer   2
+   7    thickness         0.636745E+02      fixed
+   8    Re{Nb}            0.402036E-05      fixed
+   9    Im{Nb}            0.635000E-08      fixed
+  10    N_p               0.505000E-05      fixed
+  11    <Cos(d_gamma)>    0.522706E+00 +/- 0.54E-02    0.323E+01
+  12    Debye-Waller      0.103799E+02      fixed
+    Layer   3
+  13    thickness         0.292646E+03      fixed
+  14    Re{Nb}           -0.662268E-06      fixed
+  15    Im{Nb}            0.166724E-07      fixed
+  16    N_p               0.145469E-06      fixed
+  17    <Cos(d_gamma)>    0.266962E+00 +/- 0.80E-01    0.127E+01
+  18    Debye-Waller      0.140910E+02 +/- 0.38E+00    0.177E+01
+    Layer   4
+  19    thickness         0.398277E+02      fixed
+  20    Re{Nb}            0.653000E-05      fixed
+  21    Im{Nb}            0.861000E-09      fixed
+  22    N_p               0.000000E+00      fixed
+  23    <Cos(d_gamma)>    0.000000E+00      fixed
+  24    Debye-Waller      0.151869E+02      fixed
+    Substrate
+  25    Re{Nb}            0.207000E-05      fixed
+  26    Im{Nb}            0.144000E-10      fixed
+  27    N_p               0.000000E+00      fixed
+  28    <Cos(d_gamma)>    0.000000E+00      fixed
+  29    Debye-Waller      0.183683E+02      fixed
+ 
+  30    <Cos(gamma)>     -0.810421E+00 +/- 0.11E-01    0.402E+01
+  31    <Sin(gamma)>      0.000000E+00      fixed
+  32    <Sin^2(gamma)>    0.192155E+00 +/- 0.12E-01    0.138E+01
+ 
+  33    total scaling     0.144194E+00 +/- 0.45E-03    0.166E+01
+  34    alpha_0           0.500000E-05      fixed
+  35    background        0.745456E-05 +/- 0.47E-05    0.121E+01
+  36    Pi(x)             0.000000E+00      fixed
+  37    Pi(y)             0.986128E+00 +/- 0.96E-02    0.469E+01
+  38    Pi(z)             0.000000E+00      fixed
+  39    Pf(x)             0.000000E+00      fixed
+  40    Pf(y)             0.968783E+00 +/- 0.95E-02    0.269E+01
+  41    Pf(z)             0.000000E+00      fixed
+   D=<Cos(gam)^2>-<Cos(gam)>^2:  0.1511E+00 +/-  0.22E-01
+                       sqrt(D):  0.3887E+00 + 0.27E-01 - 0.29E-01
+   hi_sq.norm: .5544E+02
+ *************************************************************************
+   6 iterate              PARAMETERS       ERRORS     FACTORS
+    Layer   1
+   1    thickness         0.121439E+03      fixed
+   2    Re{Nb}            0.353112E-05      fixed
+   3    Im{Nb}            0.333000E-08      fixed
+   4    N_p               0.000000E+00      fixed
+   5    <Cos(d_gamma)>    0.000000E+00      fixed
+   6    Debye-Waller      0.643462E+01      fixed
+    Layer   2
+   7    thickness         0.636745E+02      fixed
+   8    Re{Nb}            0.402036E-05      fixed
+   9    Im{Nb}            0.635000E-08      fixed
+  10    N_p               0.505000E-05      fixed
+  11    <Cos(d_gamma)>    0.297186E+00 +/- 0.95E-02    0.674E+01
+  12    Debye-Waller      0.103799E+02      fixed
+    Layer   3
+  13    thickness         0.292646E+03      fixed
+  14    Re{Nb}           -0.662268E-06      fixed
+  15    Im{Nb}            0.166724E-07      fixed
+  16    N_p               0.145469E-06      fixed
+  17    <Cos(d_gamma)>   -0.512377E+00 +/- 0.80E-01    0.171E+01
+  18    Debye-Waller      0.191406E+02 +/- 0.38E+00    0.143E+01
+    Layer   4
+  19    thickness         0.398277E+02      fixed
+  20    Re{Nb}            0.653000E-05      fixed
+  21    Im{Nb}            0.861000E-09      fixed
+  22    N_p               0.000000E+00      fixed
+  23    <Cos(d_gamma)>    0.000000E+00      fixed
+  24    Debye-Waller      0.151869E+02      fixed
+    Substrate
+  25    Re{Nb}            0.207000E-05      fixed
+  26    Im{Nb}            0.144000E-10      fixed
+  27    N_p               0.000000E+00      fixed
+  28    <Cos(d_gamma)>    0.000000E+00      fixed
+  29    Debye-Waller      0.183683E+02      fixed
+ 
+  30    <Cos(gamma)>     -0.831959E+00 +/- 0.29E-01    0.769E+01
+  31    <Sin(gamma)>      0.000000E+00      fixed
+  32    <Sin^2(gamma)>    0.213306E+00 +/- 0.53E-01    0.196E+01
+ 
+  33    total scaling     0.142072E+00 +/- 0.47E-03    0.151E+01
+  34    alpha_0           0.500000E-05      fixed
+  35    background        0.941704E-05 +/- 0.45E-05    0.114E+01
+  36    Pi(x)             0.000000E+00      fixed
+  37    Pi(y)             0.994989E+00 +/- 0.17E-01    0.876E+01
+  38    Pi(z)             0.000000E+00      fixed
+  39    Pf(x)             0.000000E+00      fixed
+  40    Pf(y)             0.964134E+00 +/- 0.17E-01    0.692E+01
+  41    Pf(z)             0.000000E+00      fixed
+   D=<Cos(gam)^2>-<Cos(gam)>^2:  0.9454E-01 +/-  0.72E-01
+                       sqrt(D):  0.3075E+00 + 0.10E+00 - 0.16E+00
+   hi_sq.norm: .4173E+02
+ *************************************************************************
+   7 iterate              PARAMETERS       ERRORS     FACTORS
+    Layer   1
+   1    thickness         0.121439E+03      fixed
+   2    Re{Nb}            0.353112E-05      fixed
+   3    Im{Nb}            0.333000E-08      fixed
+   4    N_p               0.000000E+00      fixed
+   5    <Cos(d_gamma)>    0.000000E+00      fixed
+   6    Debye-Waller      0.643462E+01      fixed
+    Layer   2
+   7    thickness         0.636745E+02      fixed
+   8    Re{Nb}            0.402036E-05      fixed
+   9    Im{Nb}            0.635000E-08      fixed
+  10    N_p               0.505000E-05      fixed
+  11    <Cos(d_gamma)>    0.277033E+00 +/- 0.10E-01    0.867E+01
+  12    Debye-Waller      0.103799E+02      fixed
+    Layer   3
+  13    thickness         0.292646E+03      fixed
+  14    Re{Nb}           -0.662268E-06      fixed
+  15    Im{Nb}            0.166724E-07      fixed
+  16    N_p               0.145469E-06      fixed
+  17    <Cos(d_gamma)>   -0.523592E+00 +/- 0.69E-01    0.191E+01
+  18    Debye-Waller      0.193838E+02 +/- 0.38E+00    0.141E+01
+    Layer   4
+  19    thickness         0.398277E+02      fixed
+  20    Re{Nb}            0.653000E-05      fixed
+  21    Im{Nb}            0.861000E-09      fixed
+  22    N_p               0.000000E+00      fixed
+  23    <Cos(d_gamma)>    0.000000E+00      fixed
+  24    Debye-Waller      0.151869E+02      fixed
+    Substrate
+  25    Re{Nb}            0.207000E-05      fixed
+  26    Im{Nb}            0.144000E-10      fixed
+  27    N_p               0.000000E+00      fixed
+  28    <Cos(d_gamma)>    0.000000E+00      fixed
+  29    Debye-Waller      0.183683E+02      fixed
+ 
+  30    <Cos(gamma)>     -0.882998E+00 +/- 0.35E-01    0.935E+01
+  31    <Sin(gamma)>      0.000000E+00      fixed
+  32    <Sin^2(gamma)>    0.313306E+00 +/- 0.68E-01    0.222E+01
+ 
+  33    total scaling     0.142412E+00 +/- 0.47E-03    0.150E+01
+  34    alpha_0           0.500000E-05      fixed
+  35    background        0.743861E-05 +/- 0.45E-05    0.114E+01
+  36    Pi(x)             0.000000E+00      fixed
+  37    Pi(y)             0.998049E+00 +/- 0.17E-01    0.886E+01
+  38    Pi(z)             0.000000E+00      fixed
+  39    Pf(x)             0.000000E+00      fixed
+  40    Pf(y)             0.965472E+00 +/- 0.17E-01    0.702E+01
+  41    Pf(z)             0.000000E+00      fixed
+   D=<Cos(gam)^2>-<Cos(gam)>^2: -0.9299E-01 +/-  0.92E-01
+   hi_sq.norm: .4152E+02
+ *************************************************************************
+   8 iterate              PARAMETERS       ERRORS     FACTORS
+    Layer   1
+   1    thickness         0.121439E+03      fixed
+   2    Re{Nb}            0.353112E-05      fixed
+   3    Im{Nb}            0.333000E-08      fixed
+   4    N_p               0.000000E+00      fixed
+   5    <Cos(d_gamma)>    0.000000E+00      fixed
+   6    Debye-Waller      0.643462E+01      fixed
+    Layer   2
+   7    thickness         0.636745E+02      fixed
+   8    Re{Nb}            0.402036E-05      fixed
+   9    Im{Nb}            0.635000E-08      fixed
+  10    N_p               0.505000E-05      fixed
+  11    <Cos(d_gamma)>    0.262727E+00 +/- 0.11E-01    0.106E+02
+  12    Debye-Waller      0.103799E+02      fixed
+    Layer   3
+  13    thickness         0.292646E+03      fixed
+  14    Re{Nb}           -0.662268E-06      fixed
+  15    Im{Nb}            0.166724E-07      fixed
+  16    N_p               0.145469E-06      fixed
+  17    <Cos(d_gamma)>   -0.517290E+00 +/- 0.62E-01    0.205E+01
+  18    Debye-Waller      0.195125E+02 +/- 0.38E+00    0.139E+01
+    Layer   4
+  19    thickness         0.398277E+02      fixed
+  20    Re{Nb}            0.653000E-05      fixed
+  21    Im{Nb}            0.861000E-09      fixed
+  22    N_p               0.000000E+00      fixed
+  23    <Cos(d_gamma)>    0.000000E+00      fixed
+  24    Debye-Waller      0.151869E+02      fixed
+    Substrate
+  25    Re{Nb}            0.207000E-05      fixed
+  26    Im{Nb}            0.144000E-10      fixed
+  27    N_p               0.000000E+00      fixed
+  28    <Cos(d_gamma)>    0.000000E+00      fixed
+  29    Debye-Waller      0.183683E+02      fixed
+ 
+  30    <Cos(gamma)>     -0.925026E+00 +/- 0.36E-01    0.910E+01
+  31    <Sin(gamma)>      0.000000E+00      fixed
+  32    <Sin^2(gamma)>    0.401205E+00 +/- 0.81E-01    0.238E+01
+ 
+  33    total scaling     0.142631E+00 +/- 0.47E-03    0.150E+01
+  34    alpha_0           0.500000E-05      fixed
+  35    background        0.610800E-05 +/- 0.45E-05    0.114E+01
+  36    Pi(x)             0.000000E+00      fixed
+  37    Pi(y)             0.100000E+01 +/- 0.17E-01    0.886E+01  on bound
+  38    Pi(z)             0.000000E+00      fixed
+  39    Pf(x)             0.000000E+00      fixed
+  40    Pf(y)             0.966308E+00 +/- 0.74E-02    0.138E+01
+  41    Pf(z)             0.000000E+00      fixed
+   D=<Cos(gam)^2>-<Cos(gam)>^2: -0.2569E+00 +/-  0.10E+00
+   hi_sq.norm: .4140E+02
+ *************************************************************************
+   9 iterate              PARAMETERS       ERRORS     FACTORS
+    Layer   1
+   1    thickness         0.121439E+03      fixed
+   2    Re{Nb}            0.353112E-05      fixed
+   3    Im{Nb}            0.333000E-08      fixed
+   4    N_p               0.000000E+00      fixed
+   5    <Cos(d_gamma)>    0.000000E+00      fixed
+   6    Debye-Waller      0.643462E+01      fixed
+    Layer   2
+   7    thickness         0.636745E+02      fixed
+   8    Re{Nb}            0.402036E-05      fixed
+   9    Im{Nb}            0.635000E-08      fixed
+  10    N_p               0.505000E-05      fixed
+  11    <Cos(d_gamma)>    0.240667E+00 +/- 0.33E-02    0.122E+01
+  12    Debye-Waller      0.103799E+02      fixed
+    Layer   3
+  13    thickness         0.292646E+03      fixed
+  14    Re{Nb}           -0.662268E-06      fixed
+  15    Im{Nb}            0.166724E-07      fixed
+  16    N_p               0.145469E-06      fixed
+  17    <Cos(d_gamma)>   -0.495423E+00 +/- 0.48E-01    0.183E+01
+  18    Debye-Waller      0.196728E+02 +/- 0.36E+00    0.127E+01
+    Layer   4
+  19    thickness         0.398277E+02      fixed
+  20    Re{Nb}            0.653000E-05      fixed
+  21    Im{Nb}            0.861000E-09      fixed
+  22    N_p               0.000000E+00      fixed
+  23    <Cos(d_gamma)>    0.000000E+00      fixed
+  24    Debye-Waller      0.151869E+02      fixed
+    Substrate
+  25    Re{Nb}            0.207000E-05      fixed
+  26    Im{Nb}            0.144000E-10      fixed
+  27    N_p               0.000000E+00      fixed
+  28    <Cos(d_gamma)>    0.000000E+00      fixed
+  29    Debye-Waller      0.183683E+02      fixed
+ 
+  30    <Cos(gamma)>     -0.100000E+01 +/- 0.36E-01    0.910E+01  on bound
+  31    <Sin(gamma)>      0.000000E+00      fixed
+  32    <Sin^2(gamma)>    0.556041E+00 +/- 0.96E-01    0.221E+01
+ 
+  33    total scaling     0.142942E+00 +/- 0.43E-03    0.123E+01
+  34    alpha_0           0.500000E-05      fixed
+  35    background        0.416575E-05 +/- 0.45E-05    0.111E+01
+  36    Pi(x)             0.000000E+00      fixed
+  37    Pi(y)             0.100000E+01 +/- 0.17E-01    0.886E+01  on bound
+  38    Pi(z)             0.000000E+00      fixed
+  39    Pf(x)             0.000000E+00      fixed
+  40    Pf(y)             0.969818E+00 +/- 0.75E-02    0.138E+01
+  41    Pf(z)             0.000000E+00      fixed
+   D=<Cos(gam)^2>-<Cos(gam)>^2: -0.5560E+00 +/-  0.12E+00
+   hi_sq.norm: .4126E+02
+ *************************************************************************
+  10 iterate              PARAMETERS       ERRORS     FACTORS
+    Layer   1
+   1    thickness         0.121439E+03      fixed
+   2    Re{Nb}            0.353112E-05      fixed
+   3    Im{Nb}            0.333000E-08      fixed
+   4    N_p               0.000000E+00      fixed
+   5    <Cos(d_gamma)>    0.000000E+00      fixed
+   6    Debye-Waller      0.643462E+01      fixed
+    Layer   2
+   7    thickness         0.636745E+02      fixed
+   8    Re{Nb}            0.402036E-05      fixed
+   9    Im{Nb}            0.635000E-08      fixed
+  10    N_p               0.505000E-05      fixed
+  11    <Cos(d_gamma)>    0.240134E+00 +/- 0.33E-02    0.128E+01
+  12    Debye-Waller      0.103799E+02      fixed
+    Layer   3
+  13    thickness         0.292646E+03      fixed
+  14    Re{Nb}           -0.662268E-06      fixed
+  15    Im{Nb}            0.166724E-07      fixed
+  16    N_p               0.145469E-06      fixed
+  17    <Cos(d_gamma)>   -0.512116E+00 +/- 0.42E-01    0.185E+01
+  18    Debye-Waller      0.200579E+02 +/- 0.36E+00    0.125E+01
+    Layer   4
+  19    thickness         0.398277E+02      fixed
+  20    Re{Nb}            0.653000E-05      fixed
+  21    Im{Nb}            0.861000E-09      fixed
+  22    N_p               0.000000E+00      fixed
+  23    <Cos(d_gamma)>    0.000000E+00      fixed
+  24    Debye-Waller      0.151869E+02      fixed
+    Substrate
+  25    Re{Nb}            0.207000E-05      fixed
+  26    Im{Nb}            0.144000E-10      fixed
+  27    N_p               0.000000E+00      fixed
+  28    <Cos(d_gamma)>    0.000000E+00      fixed
+  29    Debye-Waller      0.183683E+02      fixed
+ 
+  30    <Cos(gamma)>     -0.100000E+01 +/- 0.36E-01    0.910E+01  on bound
+  31    <Sin(gamma)>      0.000000E+00      fixed
+  32    <Sin^2(gamma)>    0.687921E+00 +/- 0.99E-01    0.219E+01
+ 
+  33    total scaling     0.142809E+00 +/- 0.43E-03    0.121E+01
+  34    alpha_0           0.500000E-05      fixed
+  35    background        0.000000E+00 +/- 0.45E-05    0.111E+01  on bound
+  36    Pi(x)             0.000000E+00      fixed
+  37    Pi(y)             0.100000E+01 +/- 0.17E-01    0.886E+01  on bound
+  38    Pi(z)             0.000000E+00      fixed
+  39    Pf(x)             0.000000E+00      fixed
+  40    Pf(y)             0.973343E+00 +/- 0.75E-02    0.137E+01
+  41    Pf(z)             0.000000E+00      fixed
+   D=<Cos(gam)^2>-<Cos(gam)>^2: -0.6879E+00 +/-  0.12E+00
+   hi_sq.norm: .4120E+02
+ *************************************************************************
+  11 iterate              PARAMETERS       ERRORS     FACTORS
+    Layer   1
+   1    thickness         0.121439E+03      fixed
+   2    Re{Nb}            0.353112E-05      fixed
+   3    Im{Nb}            0.333000E-08      fixed
+   4    N_p               0.000000E+00      fixed
+   5    <Cos(d_gamma)>    0.000000E+00      fixed
+   6    Debye-Waller      0.643462E+01      fixed
+    Layer   2
+   7    thickness         0.636745E+02      fixed
+   8    Re{Nb}            0.402036E-05      fixed
+   9    Im{Nb}            0.635000E-08      fixed
+  10    N_p               0.505000E-05      fixed
+  11    <Cos(d_gamma)>    0.237617E+00 +/- 0.34E-02    0.150E+01
+  12    Debye-Waller      0.103799E+02      fixed
+    Layer   3
+  13    thickness         0.292646E+03      fixed
+  14    Re{Nb}           -0.662268E-06      fixed
+  15    Im{Nb}            0.166724E-07      fixed
+  16    N_p               0.145469E-06      fixed
+  17    <Cos(d_gamma)>   -0.498963E+00 +/- 0.33E-01    0.217E+01
+  18    Debye-Waller      0.212047E+02 +/- 0.36E+00    0.124E+01
+    Layer   4
+  19    thickness         0.398277E+02      fixed
+  20    Re{Nb}            0.653000E-05      fixed
+  21    Im{Nb}            0.861000E-09      fixed
+  22    N_p               0.000000E+00      fixed
+  23    <Cos(d_gamma)>    0.000000E+00      fixed
+  24    Debye-Waller      0.151869E+02      fixed
+    Substrate
+  25    Re{Nb}            0.207000E-05      fixed
+  26    Im{Nb}            0.144000E-10      fixed
+  27    N_p               0.000000E+00      fixed
+  28    <Cos(d_gamma)>    0.000000E+00      fixed
+  29    Debye-Waller      0.183683E+02      fixed
+ 
+  30    <Cos(gamma)>     -0.100000E+01 +/- 0.36E-01    0.910E+01  on bound
+  31    <Sin(gamma)>      0.000000E+00      fixed
+  32    <Sin^2(gamma)>    0.986964E+00 +/- 0.11E+00    0.249E+01
+ 
+  33    total scaling     0.142197E+00 +/- 0.43E-03    0.120E+01
+  34    alpha_0           0.500000E-05      fixed
+  35    background        0.000000E+00 +/- 0.45E-05    0.111E+01  on bound
+  36    Pi(x)             0.000000E+00      fixed
+  37    Pi(y)             0.100000E+01 +/- 0.17E-01    0.886E+01  on bound
+  38    Pi(z)             0.000000E+00      fixed
+  39    Pf(x)             0.000000E+00      fixed
+  40    Pf(y)             0.982674E+00 +/- 0.76E-02    0.134E+01
+  41    Pf(z)             0.000000E+00      fixed
+   D=<Cos(gam)^2>-<Cos(gam)>^2: -0.9870E+00 +/-  0.13E+00
+   hi_sq.norm: .4113E+02
+ *************************************************************************
+  12 iterate              PARAMETERS       ERRORS     FACTORS
+    Layer   1
+   1    thickness         0.121439E+03      fixed
+   2    Re{Nb}            0.353112E-05      fixed
+   3    Im{Nb}            0.333000E-08      fixed
+   4    N_p               0.000000E+00      fixed
+   5    <Cos(d_gamma)>    0.000000E+00      fixed
+   6    Debye-Waller      0.643462E+01      fixed
+    Layer   2
+   7    thickness         0.636745E+02      fixed
+   8    Re{Nb}            0.402036E-05      fixed
+   9    Im{Nb}            0.635000E-08      fixed
+  10    N_p               0.505000E-05      fixed
+  11    <Cos(d_gamma)>    0.235675E+00 +/- 0.34E-02    0.147E+01
+  12    Debye-Waller      0.103799E+02      fixed
+    Layer   3
+  13    thickness         0.292646E+03      fixed
+  14    Re{Nb}           -0.662268E-06      fixed
+  15    Im{Nb}            0.166724E-07      fixed
+  16    N_p               0.145469E-06      fixed
+  17    <Cos(d_gamma)>   -0.456301E+00 +/- 0.35E-01    0.241E+01
+  18    Debye-Waller      0.209078E+02 +/- 0.36E+00    0.124E+01
+    Layer   4
+  19    thickness         0.398277E+02      fixed
+  20    Re{Nb}            0.653000E-05      fixed
+  21    Im{Nb}            0.861000E-09      fixed
+  22    N_p               0.000000E+00      fixed
+  23    <Cos(d_gamma)>    0.000000E+00      fixed
+  24    Debye-Waller      0.151869E+02      fixed
+    Substrate
+  25    Re{Nb}            0.207000E-05      fixed
+  26    Im{Nb}            0.144000E-10      fixed
+  27    N_p               0.000000E+00      fixed
+  28    <Cos(d_gamma)>    0.000000E+00      fixed
+  29    Debye-Waller      0.183683E+02      fixed
+ 
+  30    <Cos(gamma)>     -0.100000E+01 +/- 0.36E-01    0.910E+01  on bound
+  31    <Sin(gamma)>      0.000000E+00      fixed
+  32    <Sin^2(gamma)>    0.926895E+00 +/- 0.10E+00    0.274E+01
+ 
+  33    total scaling     0.142066E+00 +/- 0.43E-03    0.120E+01
+  34    alpha_0           0.500000E-05      fixed
+  35    background        0.000000E+00 +/- 0.45E-05    0.111E+01  on bound
+  36    Pi(x)             0.000000E+00      fixed
+  37    Pi(y)             0.100000E+01 +/- 0.17E-01    0.886E+01  on bound
+  38    Pi(z)             0.000000E+00      fixed
+  39    Pf(x)             0.000000E+00      fixed
+  40    Pf(y)             0.980971E+00 +/- 0.76E-02    0.133E+01
+  41    Pf(z)             0.000000E+00      fixed
+   D=<Cos(gam)^2>-<Cos(gam)>^2: -0.9269E+00 +/-  0.13E+00
+   hi_sq.norm: .4113E+02
+ *************************************************************************
+  13 iterate              PARAMETERS       ERRORS     FACTORS
+    Layer   1
+   1    thickness         0.121439E+03      fixed
+   2    Re{Nb}            0.353112E-05      fixed
+   3    Im{Nb}            0.333000E-08      fixed
+   4    N_p               0.000000E+00      fixed
+   5    <Cos(d_gamma)>    0.000000E+00      fixed
+   6    Debye-Waller      0.643462E+01      fixed
+    Layer   2
+   7    thickness         0.636745E+02      fixed
+   8    Re{Nb}            0.402036E-05      fixed
+   9    Im{Nb}            0.635000E-08      fixed
+  10    N_p               0.505000E-05      fixed
+  11    <Cos(d_gamma)>    0.236172E+00 +/- 0.34E-02    0.150E+01
+  12    Debye-Waller      0.103799E+02      fixed
+    Layer   3
+  13    thickness         0.292646E+03      fixed
+  14    Re{Nb}           -0.662268E-06      fixed
+  15    Im{Nb}            0.166724E-07      fixed
+  16    N_p               0.145469E-06      fixed
+  17    <Cos(d_gamma)>   -0.469077E+00 +/- 0.34E-01    0.235E+01
+  18    Debye-Waller      0.210258E+02 +/- 0.36E+00    0.124E+01
+    Layer   4
+  19    thickness         0.398277E+02      fixed
+  20    Re{Nb}            0.653000E-05      fixed
+  21    Im{Nb}            0.861000E-09      fixed
+  22    N_p               0.000000E+00      fixed
+  23    <Cos(d_gamma)>    0.000000E+00      fixed
+  24    Debye-Waller      0.151869E+02      fixed
+    Substrate
+  25    Re{Nb}            0.207000E-05      fixed
+  26    Im{Nb}            0.144000E-10      fixed
+  27    N_p               0.000000E+00      fixed
+  28    <Cos(d_gamma)>    0.000000E+00      fixed
+  29    Debye-Waller      0.183683E+02      fixed
+ 
+  30    <Cos(gamma)>     -0.100000E+01 +/- 0.36E-01    0.910E+01  on bound
+  31    <Sin(gamma)>      0.000000E+00      fixed
+  32    <Sin^2(gamma)>    0.970889E+00 +/- 0.10E+00    0.268E+01
+ 
+  33    total scaling     0.142115E+00 +/- 0.43E-03    0.120E+01
+  34    alpha_0           0.500000E-05      fixed
+  35    background        0.000000E+00 +/- 0.45E-05    0.111E+01  on bound
+  36    Pi(x)             0.000000E+00      fixed
+  37    Pi(y)             0.100000E+01 +/- 0.17E-01    0.886E+01  on bound
+  38    Pi(z)             0.000000E+00      fixed
+  39    Pf(x)             0.000000E+00      fixed
+  40    Pf(y)             0.982789E+00 +/- 0.76E-02    0.133E+01
+  41    Pf(z)             0.000000E+00      fixed
+   D=<Cos(gam)^2>-<Cos(gam)>^2: -0.9709E+00 +/-  0.13E+00
+   hi_sq.norm: .4113E+02
+ *************************************************************************
+  14 iterate              PARAMETERS       ERRORS     FACTORS
+    Layer   1
+   1    thickness         0.121439E+03      fixed
+   2    Re{Nb}            0.353112E-05      fixed
+   3    Im{Nb}            0.333000E-08      fixed
+   4    N_p               0.000000E+00      fixed
+   5    <Cos(d_gamma)>    0.000000E+00      fixed
+   6    Debye-Waller      0.643462E+01      fixed
+    Layer   2
+   7    thickness         0.636745E+02      fixed
+   8    Re{Nb}            0.402036E-05      fixed
+   9    Im{Nb}            0.635000E-08      fixed
+  10    N_p               0.505000E-05      fixed
+  11    <Cos(d_gamma)>    0.235955E+00 +/- 0.34E-02    0.149E+01
+  12    Debye-Waller      0.103799E+02      fixed
+    Layer   3
+  13    thickness         0.292646E+03      fixed
+  14    Re{Nb}           -0.662268E-06      fixed
+  15    Im{Nb}            0.166724E-07      fixed
+  16    N_p               0.145469E-06      fixed
+  17    <Cos(d_gamma)>   -0.461596E+00 +/- 0.34E-01    0.239E+01
+  18    Debye-Waller      0.209795E+02 +/- 0.36E+00    0.124E+01
+    Layer   4
+  19    thickness         0.398277E+02      fixed
+  20    Re{Nb}            0.653000E-05      fixed
+  21    Im{Nb}            0.861000E-09      fixed
+  22    N_p               0.000000E+00      fixed
+  23    <Cos(d_gamma)>    0.000000E+00      fixed
+  24    Debye-Waller      0.151869E+02      fixed
+    Substrate
+  25    Re{Nb}            0.207000E-05      fixed
+  26    Im{Nb}            0.144000E-10      fixed
+  27    N_p               0.000000E+00      fixed
+  28    <Cos(d_gamma)>    0.000000E+00      fixed
+  29    Debye-Waller      0.183683E+02      fixed
+ 
+  30    <Cos(gamma)>     -0.100000E+01 +/- 0.36E-01    0.910E+01  on bound
+  31    <Sin(gamma)>      0.000000E+00      fixed
+  32    <Sin^2(gamma)>    0.951176E+00 +/- 0.10E+00    0.272E+01
+ 
+  33    total scaling     0.142095E+00 +/- 0.43E-03    0.120E+01
+  34    alpha_0           0.500000E-05      fixed
+  35    background        0.000000E+00 +/- 0.45E-05    0.111E+01  on bound
+  36    Pi(x)             0.000000E+00      fixed
+  37    Pi(y)             0.100000E+01 +/- 0.17E-01    0.886E+01  on bound
+  38    Pi(z)             0.000000E+00      fixed
+  39    Pf(x)             0.000000E+00      fixed
+  40    Pf(y)             0.982078E+00 +/- 0.76E-02    0.133E+01
+  41    Pf(z)             0.000000E+00      fixed
+   D=<Cos(gam)^2>-<Cos(gam)>^2: -0.9512E+00 +/-  0.13E+00
+   hi_sq.norm: .4113E+02
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
