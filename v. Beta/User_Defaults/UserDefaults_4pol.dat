@@ -20,7 +20,7 @@ f
 
 4                  "nlay" number of layers
 
-113  Layer 3 Fe3O4 
+113  Layer 1 Fe3O4 
 n
 2.55          nbr SLD Nb'  (in A**-2) *1e6  |
 n
@@ -33,7 +33,7 @@ f
 8       dw Debay-Waller in [AA]n
 n
 
-50        Layer 3 Au 
+50        Layer 2 Au 
 n
 4.5                 nbr SLD Nb'  (in A**-2) *1e6  |
 n
@@ -59,7 +59,7 @@ n
 16       dw Debay-Waller in [AA]n
 n
 
-18                 Layer 3 Ti 
+18                 Layer 4 Ti 
 n
 -1.95              nbr SLD Nb'  (in A**-2) *1e6  |
 f
