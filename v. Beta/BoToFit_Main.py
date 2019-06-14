@@ -235,9 +235,12 @@ class GUI(BoToFit_FrontEnd.Ui_MainWindow):
             self.label_wavelength.setText("Inc. ang. (mrad)")
 
         # load UserDefaults if such are presented
-        if self.default_entry in os.listdir(current_dir + "/User_Defaults"):
-            self.lineEdit_wavelength.setText("")
-            self.load_entry_file()
+        try:
+            if self.default_entry in os.listdir(current_dir + "/User_Defaults"):
+                self.lineEdit_wavelength.setText("")
+                self.load_entry_file()
+        except:
+            print("No 'User Defaults' found")
 
         # clear stuff, just in case
         self.clear_stuff()
