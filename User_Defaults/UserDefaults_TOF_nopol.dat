@@ -1,0 +1,50 @@
+17      incident angle in mrad
+473       "nn" number of experimental points in alpha (<1001)
+19       "j0" number of points for resolution function (odd) <102)
+0.07   "1e-3 d_Q" step for resolution function (in 1/A)
+0.21   "1e-3 sigma_0" min. width of resolution function (in 1/A)
+
+3         number of layers
+
+1711   layer 1 thickness in (A)   |hPMMA 1
+n
+1.059       nbr SLD Nb'- 1st element  (in A**-2)*1e6  |
+n
+0.003            SLD Nb'' (in A**-2) *1e6   |
+f
+20      dw Debye-Waller in [AA]
+n
+
+154      layer 2 thicknes in (A)    |dPS 2
+n
+6.407      nbr real SLD Nb'  (in A**-2) *1e6
+n
+0.0001              nbi im. part SLD Nb'' (in A**-2) *1e6    |
+f
+5 4.7   dw Debye-Waller in [AA]
+n
+
+25    layer thickness in Angstrom  SiO2 4
+n
+3.47      nbr SLD Nb'  (in A**-2) *1e6  |
+n
+0.00001               nbi SLD Nb'' (in A**-2) *1e6
+f
+5         dw Debye-Waller in [AA]
+n
+
+2.07               substrate's nuclear SLD Nb' (in A**-2) *1e6   | (Si)
+n
+0.00001           substrate's  nuclear SLD Nb'' (in A**-2)*1e6
+f
+6.5                dw Debye-Waller in [AA]
+f
+
+0.919084    ct  total scaling factor
+n
+0            alpha_0 crossover angle overillumination (in mrad)
+f
+0.000001    bgr
+n
+
+0.05              correction of the detector 'zero' (in mrad): alpha-da

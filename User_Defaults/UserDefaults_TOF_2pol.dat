@@ -1,0 +1,126 @@
+0               Pix incident polarization (polariser)
+f
+0.903225     Piy
+n
+0               Piz
+f
+
+0               Pfx outgoing polarization (No analyser)
+f
+0               Pfy
+f
+0               Pfz
+f
+
+8.73  incident angle in mrad
+221         "nn" number of experimental points in alpha (<1001)
+19             "j0" number of points for resolution function (odd) <102)
+0.02       "d_Q" step for resolution function (in 1/A)
+0.06       "sigma_0" min. width of resolution function (in 1/A)
+
+6                 number of layers
+
+40   layer 3 thickness in (A)  |Co70(?)Fe30
+f
+4.73447           nbr nuclear SLD Nb'  (in A**-2) *1e6   
+n 
+0.00635          nbi nuclear SLD Nb'' (in A**-2) *1e6    
+f
+0                 nbm magnetic SLD Np (in A**-2)*1e6      
+f
+1                 c=<cos(delta_gamma)>
+f
+15.803      dw Debye-Waller in [AA]
+n
+
+74.962      layer 1 thickness in (A)
+n    
+3.3787     nbr SLD Nb'- 1st element  (in A**-2)*1e6  |Ta
+f
+0.00333           SLD Nb'' (in A**-2) *1e6     |Ta
+f
+0                magnetic SLD Np (in A**-2)*1e6|
+f
+0                 c=<cos(delta_gamma)>
+f
+8.633      dw Debye-Waller in [AA]
+n
+
+66     layer 2 thickness in (A)  |Co70(?)Fe30
+n
+3.8901     nbr nuclear SLD Nb'  (in A**-2) *1e6   
+n 
+0.00635   nbi nuclear SLD Nb'' (in A**-2) *1e6    
+f
+5              nbm magnetic SLD Np (in A**-2)*1e6      
+f
+1                  c=<cos(delta_gamma)>
+f
+12      dw Debye-Waller in [AA]
+n
+
+290      4 thickness in Angstrom |Ir17Mn83
+n
+-0.528 	nbr SLD Nb'  (in A**-2) *1e6  |
+n
+0.0166        nbi SLD Nb'' (in A**-2) *1e6
+f
+0.152563          magnetic SLD Np (in A**-2) *1e6
+f
+1         c=<cos(delta_gamma)>
+f  
+12.335     dw Debye-Waller in [AA]
+n
+
+37.944    layer 5 thickness in (A)  |Cu
+n    
+6.53      nbr SLD Nb'- 1st element  (in A**-2)*1e6  |
+f
+0.003           SLD Nb'' (in A**-2) *1e6     |
+f
+0                magnetic SLD Np (in A**-2)*1e6|
+f
+0                 c=<cos(delta_gamma)>
+f
+13      dw Debye-Waller in [AA]
+n
+
+15                layer 5 thickness in (A)  |SiO2
+f    
+3                 nbr SLD Nb'- 1st element  (in A**-2)*1e6  |
+n
+0.00005            SLD Nb'' (in A**-2) *1e6     |
+f
+0                magnetic SLD Np (in A**-2)*1e6|
+f
+0                 c=<cos(delta_gamma)>
+f
+15                dw Debye-Waller in [AA]
+f
+
+2.07        2.14  nbr nuclear SLD Nb'  (in A**-2) *1e6   |Si
+f
+0.0000144            nbi nuclear SLD Nb'' (in A**-2) *1e6  |
+f
+0                 nbm magnetic SLD Np (in A**-2)*1e6    |
+f
+0                  c=<cos(delta_gamma)>
+f
+16       dw Debye-Waller in [AA]
+n
+
+1         cg: mean value <cos(gamma)> over big domains
+f
+0      sg: mean value <sin(gamma)> over big domains
+f
+0         sg2: mean value <sin^2(gamma)> over big domains
+f
+
+0.2630   ct  total scaling factor
+n
+0.05          alpha_0 crossover angle overillumination (in mrad)
+f
+0.0000019057    bgr
+n
+
+-0.02        correction of the 'zero' (in e-3 A-1)
