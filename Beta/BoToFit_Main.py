@@ -30,6 +30,7 @@ class GUI(BoToFit_FrontEnd.Ui_MainWindow):
         self.pushButton_start_fitting.clicked.connect(self.button_start_fitting)
         self.pushButton_redraw_refl.clicked.connect(self.button_redraw_refl)
         self.pushButton_load_entry.clicked.connect(self.load_entry_file)
+        self.pushButton_copy_to_start_fit.clicked.connect(self.copy_to_start_with)
         self.action_mono_no_polarisation.triggered.connect(self.mode_mono_no_pol)
         self.action_mono_2_polarisations.triggered.connect(self.mode_mono_2_pol)
         self.action_mono_4_polarisations.triggered.connect(self.mode_mono_4_pol)
@@ -325,6 +326,30 @@ class GUI(BoToFit_FrontEnd.Ui_MainWindow):
     def button_redraw_refl(self):
         self.graphicsView_refl_profile.getPlotItem().clear()
         self.draw_reflectivity()
+
+    # HERE
+    def copy_to_start_with(self):
+
+        for i in range(0, self.tableWidget_fit_results.rowCount()):
+            if not self.tableWidget_fit_results.item(i,0).checkState() == 2: continue
+
+            parameter = self.tableWidget_fit_results.item(i, 2).text().split()
+
+            if parameter[0] == "Layer":
+                start_fit_table_row = int(parameter[1]) - 1
+                if parameter[2] == "thickness": start_fit_table_column = 1
+                elif parameter[2] == "SLD": start_fit_table_column = 3
+                elif parameter[2] == "iSLD": start_fit_table_column = 5
+                elif parameter[2] == "roughness": start_fit_table_column = 11
+
+            elif parameter[0] == "Substrate":
+                start_fit_table_row = self.tableWidget_film.rowCount() - 1
+                if parameter[1] == "thickness": start_fit_table_column = 1
+                elif parameter[1] == "SLD": start_fit_table_column = 3
+                elif parameter[1] == "iSLD": start_fit_table_column = 5
+                elif parameter[1] == "roughness": start_fit_table_column = 11
+
+            self.tableWidget_film.item(start_fit_table_row, start_fit_table_column).setText(self.tableWidget_fit_results.item(i, 3).text())
 
     def button_start_fitting(self):
 
@@ -821,19 +846,22 @@ class GUI(BoToFit_FrontEnd.Ui_MainWindow):
 
                             try:
                                 self.tableWidget_fit_results.setRowHeight(i, 22)
-                                for j in range(0, 5):
+                                for j in range(0, 6):
                                     item = QtWidgets.QTableWidgetItem()
                                     item.setTextAlignment(QtCore.Qt.AlignCenter)
                                     item.setFlags(
-                                        QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsDragEnabled | QtCore.Qt.ItemIsUserCheckable)
+                                        QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsDragEnabled)
+                                    if j == 0:
+                                        item.setFlags(QtCore.Qt.ItemIsUserCheckable | QtCore.Qt.ItemIsEnabled)
+                                        item.setCheckState(QtCore.Qt.Unchecked)
                                     self.tableWidget_fit_results.setItem(i, j, item)
 
-                                self.tableWidget_fit_results.item(i, 0).setText(str(i + 1))
-                                self.tableWidget_fit_results.item(i, 1).setText(layer_name + " " + line.split()[1])
+                                self.tableWidget_fit_results.item(i, 1).setText(str(i + 1))
+                                self.tableWidget_fit_results.item(i, 2).setText(layer_name + " " + line.split()[1])
                                 if line.split()[1] in ['SLD', 'iSLD', 'mSLD']:
-                                    self.tableWidget_fit_results.item(i, 2).setText(str(round(float(line.split()[2]) * 10e5, 4)))
+                                    self.tableWidget_fit_results.item(i, 3).setText(str(round(float(line.split()[2]) * 10e5, 4)))
                                 else:
-                                    self.tableWidget_fit_results.item(i, 2).setText(str(float(line.split()[2])))
+                                    self.tableWidget_fit_results.item(i, 3).setText(str(float(line.split()[2])))
 
                                 if str(line.split()[3]) == "fixed": table_error = "fixed"
                                 elif str(line.split()[4]) == "infinite": table_error = "infinite"
@@ -842,8 +870,8 @@ class GUI(BoToFit_FrontEnd.Ui_MainWindow):
                                         table_error = str(line.split()[3]) + str(round(float(line.split()[4])* 10e5, 4))
                                     else: table_error = str(line.split()[3]) + str(float(line.split()[4]))
 
-                                self.tableWidget_fit_results.item(i, 3).setText(table_error)
-                                self.tableWidget_fit_results.item(i, 4).setText(str(float(line.split()[5])))
+                                self.tableWidget_fit_results.item(i, 4).setText(table_error)
+                                self.tableWidget_fit_results.item(i, 5).setText(str(float(line.split()[5])))
 
                             except: a = 1 # print("create_fit_results_table_error_1")
                             i += 1
