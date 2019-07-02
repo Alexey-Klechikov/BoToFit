@@ -6,45 +6,45 @@
 
 3   number of layers (excluding substrate) (<21)
 
-39    layer 1 (Layer 1) thickness (in A)
+0.0    layer 1 (Layer 1) thickness (in A)
 n   
-2.3     nbr nuclear SLD Nb'  (in A**-2) *1e6
+1.5734     nbr nuclear SLD Nb'  (in A**-2) *1e6
 n   
-0.0     nbi nuclear SLD Nb'' (in A**-2) *1e6
-f   
-20    dw Debye-Waller in [AA]
+0.3511     nbi nuclear SLD Nb'' (in A**-2) *1e6
+n   
+11.1983    dw Debye-Waller in [AA]
 n
 
-264    layer 2 (Layer 2) thickness (in A)
+246.025    layer 2 (Layer 2) thickness (in A)
 n   
-3.35     nbr nuclear SLD Nb'  (in A**-2) *1e6
+3.4246     nbr nuclear SLD Nb'  (in A**-2) *1e6
 n   
-0.0     nbi nuclear SLD Nb'' (in A**-2) *1e6
-f   
-50    dw Debye-Waller in [AA]
+0.0486     nbi nuclear SLD Nb'' (in A**-2) *1e6
+n   
+51.8109    dw Debye-Waller in [AA]
 n
 
-30    layer 3 (Layer 3) thickness (in A)
+28.8748    layer 3 (Layer 3) thickness (in A)
 n   
-2.9     nbr nuclear SLD Nb'  (in A**-2) *1e6
+5.5479     nbr nuclear SLD Nb'  (in A**-2) *1e6
 n   
 0.0     nbi nuclear SLD Nb'' (in A**-2) *1e6
-f   
-27    dw Debye-Waller in [AA]
+n   
+54.5395    dw Debye-Waller in [AA]
 n
 
-2.07    substrate's nbr nuclear SLD Nb'  (in A**-2) *1e6
-f   
-0.0    substrate's nbi nuclear SLD Nb'' (in A**-2) *1e6
-f   
-40    dw Debye-Waller in [AA]
+2.0174    substrate's nbr nuclear SLD Nb'  (in A**-2) *1e6
+n   
+0.0301    substrate's nbi nuclear SLD Nb'' (in A**-2) *1e6
+n   
+60.4229    dw Debye-Waller in [AA]
 n
 
 1   *ct  total scaling factor
-f   
-0   *alpha_0 crossover angle overillumination (in mrad)
+n   
+0.0   *alpha_0 crossover angle overillumination (in mrad)
 n   
 0.0   *bgr background
-f   
+n   
 
 0   correction of the detector 'zero' (in mrad)

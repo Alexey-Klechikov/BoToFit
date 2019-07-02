@@ -29,8 +29,8 @@ class GUI(BoToFit_FrontEnd.Ui_MainWindow):
         self.pushButton_remove_layer.clicked.connect(self.button_remove_layer)
         self.pushButton_start_fitting.clicked.connect(self.button_start_fitting)
         self.pushButton_redraw_refl.clicked.connect(self.button_redraw_refl)
+        self.pushButton_copy_to_start_fit.clicked.connect(self.button_copy_to_start_with)
         self.pushButton_load_entry.clicked.connect(self.load_entry_file)
-        self.pushButton_copy_to_start_fit.clicked.connect(self.copy_to_start_with)
         self.action_mono_no_polarisation.triggered.connect(self.mode_mono_no_pol)
         self.action_mono_2_polarisations.triggered.connect(self.mode_mono_2_pol)
         self.action_mono_4_polarisations.triggered.connect(self.mode_mono_4_pol)
@@ -38,9 +38,10 @@ class GUI(BoToFit_FrontEnd.Ui_MainWindow):
         self.action_tof_2_polarisations.triggered.connect(self.mode_tof_2_pol)
         self.action_tof_4_polarisations.triggered.connect(self.mode_tof_4_pol)
         self.actionVersion.triggered.connect(self.menu_info)
-
+        self.checkBox_fit_res_select_all.clicked.connect(self.fit_results_select_all)
         #
         self.lineEdit_save_at_dir.setPlaceholderText("default [" + str(current_dir) + "]")
+
     ##--> redefine user interface elements if TOF/Mono is selected and if polarisation is needed
     def mode_mono_no_pol(self):
         self.BoToFit_mode = 0
@@ -257,8 +258,6 @@ class GUI(BoToFit_FrontEnd.Ui_MainWindow):
 
         self.input_structure = [self.comboBox_1.currentText(), self.comboBox_2.currentText(), self.comboBox_3.currentText()]
 
-        self.label_need_wavelength.setVisible(False)
-
         if self.BoToFit_mode in [0, 3]:
             data_files = QtWidgets.QFileDialog().getOpenFileName(None, "FileNames", current_dir)
         else: data_files = QtWidgets.QFileDialog().getOpenFileNames(None, "FileNames", current_dir)
@@ -273,7 +272,6 @@ class GUI(BoToFit_FrontEnd.Ui_MainWindow):
         self.lineEdit_pts_num.clear()
 
         if self.BoToFit_mode in [0, 1, 2] and self.lineEdit_wavelength.text() == "":
-            self.label_need_wavelength.setVisible(True)
             self.statusbar.showMessage("Input wavelength and reimport the file")
         else:
             self.parse_data_files()
@@ -327,36 +325,54 @@ class GUI(BoToFit_FrontEnd.Ui_MainWindow):
         self.graphicsView_refl_profile.getPlotItem().clear()
         self.draw_reflectivity()
 
-    # HERE
-    def copy_to_start_with(self):
+    def button_copy_to_start_with(self):
 
         for i in range(0, self.tableWidget_fit_results.rowCount()):
             if not self.tableWidget_fit_results.item(i,0).checkState() == 2: continue
 
             parameter = self.tableWidget_fit_results.item(i, 2).text().split()
 
-            if parameter[0] == "Layer":
-                start_fit_table_row = int(parameter[1]) - 1
-                if parameter[2] == "thickness": start_fit_table_column = 1
-                elif parameter[2] == "SLD": start_fit_table_column = 3
-                elif parameter[2] == "iSLD": start_fit_table_column = 5
-                elif parameter[2] == "roughness": start_fit_table_column = 11
-
-            elif parameter[0] == "Substrate":
+            # Fill in the table:
+            # Substrate has 2 parameters, Layers have 3
+            if not len(parameter) == 1:
                 start_fit_table_row = self.tableWidget_film.rowCount() - 1
-                if parameter[1] == "thickness": start_fit_table_column = 1
-                elif parameter[1] == "SLD": start_fit_table_column = 3
-                elif parameter[1] == "iSLD": start_fit_table_column = 5
-                elif parameter[1] == "roughness": start_fit_table_column = 11
+                index = 1
+                if len(parameter) == 3:
+                    start_fit_table_row = int(parameter[1]) - 1
+                    index = 2
 
-            self.tableWidget_film.item(start_fit_table_row, start_fit_table_column).setText(self.tableWidget_fit_results.item(i, 3).text())
+                if parameter[index] == "thickness": start_fit_table_column = 1
+                elif parameter[index] == "SLD": start_fit_table_column = 3
+                elif parameter[index] == "iSLD": start_fit_table_column = 5
+                elif parameter[index] == "mSLD": start_fit_table_column = 7
+                elif parameter[index] == "cos(d-gamma)": start_fit_table_column = 9
+                elif parameter[index] == "roughness": start_fit_table_column = 11
+
+                self.tableWidget_film.item(start_fit_table_row, start_fit_table_column).setText(self.tableWidget_fit_results.item(i, 3).text())
+
+            if parameter[0] == 'Scaling_factor': self.lineEdit_scaling_factor.setText(self.tableWidget_fit_results.item(i, 3).text())
+            if parameter[0] == 'Overillumination': self.lineEdit_cross_overill.setText(self.tableWidget_fit_results.item(i, 3).text())
+            if parameter[0] == 'Background': self.lineEdit_background.setText(self.tableWidget_fit_results.item(i, 3).text())
+            if parameter[0] == '<Cos(gamma)>': self.lineEdit_cg.setText(self.tableWidget_fit_results.item(i, 3).text())
+            if parameter[0] == '<Sin(gamma)>': self.lineEdit_sg.setText(self.tableWidget_fit_results.item(i, 3).text())
+            if parameter[0] == '<Sin^2(gamma)>': self.lineEdit_sg2.setText(self.tableWidget_fit_results.item(i, 3).text())
+            if parameter[0] == 'Pi(y)': self.lineEdit_piy.setText(self.tableWidget_fit_results.item(i, 3).text())
+            if parameter[0] == 'Pf(y)': self.lineEdit_pfy.setText(self.tableWidget_fit_results.item(i, 3).text())
 
     def button_start_fitting(self):
 
         start_time = time.time()
 
+        # for Polarisation - check if User selected to fit both mSLD and cos(d-gamma) for the same layer
+        if not self.BoToFit_mode in [0, 3]:
+            for i in range(0, self.tableWidget_film.rowCount()):
+                if self.tableWidget_film.item(i, 8).checkState() == 0 and self.tableWidget_film.item(i, 10).checkState() == 0:
+                    self.statusbar.showMessage("mSLD and cos(d-gamma) can not be fitted together for the same layer")
+                    return
+
+        self.checkBox_fit_res_select_all.setChecked(False)
+
         self.statusbar.showMessage("Running...")
-        self.label_botofit_crashed.setVisible(0)
 
         data_files = []
         for file in self.lineEdit_data_file.text().split("'"):
@@ -404,8 +420,7 @@ class GUI(BoToFit_FrontEnd.Ui_MainWindow):
         if self.file_to_wait not in os.listdir(self.data_folder_name):
             self.clear_stuff()
             self.draw_reflectivity()
-            self.label_botofit_crashed.setVisible(1)
-            self.statusbar.showMessage("Crashed")
+            self.statusbar.showMessage("BoToFit crashed. Consider using more reasonable 'Start fit' values.")
             return
 
         # wait until fitting is done -> fill the table, draw graphs and create multiGrPr.ent using Fit2DBag.dat file
@@ -833,13 +848,14 @@ class GUI(BoToFit_FrontEnd.Ui_MainWindow):
                         elif line.split()[1] == 'N_p': line = line.replace("N_p", "mSLD")
                         elif line.split()[1] == 'Debye-Waller': line = line.replace("Debye-Waller", "roughness")
                         elif line.split()[1] == 'background': line = line.replace("background", "Background")
+                        elif line.split()[1] == '<Cos(delta_gamma': line = line.replace("<Cos(delta_gamma", "cos(d-gamma)")
 
                         if line.split()[0] == "hi_sq.norm:": self.lineEdit_chi_sq.setText(str("0") + str(line.split()[1]))
 
                         if line.split()[1] == "iterate": self.lineEdit_iter_number.setText(str(line.split()[0]))
 
                         # Fill table
-                        if line.split()[1] in ['thickness', 'SLD', 'iSLD', 'roughness', 'mSLD', '<Cos(delta_gamma', 'Scaling_factor',
+                        if line.split()[1] in ['thickness', 'SLD', 'iSLD', 'roughness', 'mSLD', 'cos(d-gamma)', 'Scaling_factor',
                                                'Overillumination', 'Background', '<Cos(gamma)>', '<Sin(gamma)>', '<Sin^2(gamma)>', 'Pi(x)', 'Pi(y)', 'Pi(z)', 'Pf(x)', 'Pf(y)', 'Pf(z)'] and not line.split()[3] == "fixed":
 
                             self.tableWidget_fit_results.insertRow(self.tableWidget_fit_results.rowCount())
@@ -878,7 +894,7 @@ class GUI(BoToFit_FrontEnd.Ui_MainWindow):
 
                         # Fill multiGrPr.ent
                         ## layers
-                        if line.split()[1] in ['thickness', 'SLD', 'iSLD', 'roughness', 'mSLD', '<Cos(delta_gamma'] and not layer_name == "Substrate ":
+                        if line.split()[1] in ['thickness', 'SLD', 'iSLD', 'roughness', 'mSLD', 'cos(d-gamma)'] and not layer_name == "Substrate ":
                             if line.split()[1] == 'thickness': multiGrPr_data[4+layer_num][0] = float(line.split()[2])
                             elif line.split()[1] == 'SLD': multiGrPr_data[4+layer_num][1] = float(line.split()[2]) * 10e+5
                             elif line.split()[1] == 'iSLD': multiGrPr_data[4+layer_num][2] = float(line.split()[2]) * 10e+5
@@ -889,7 +905,7 @@ class GUI(BoToFit_FrontEnd.Ui_MainWindow):
                                 layer_num += 1
 
                         ## substrate
-                        elif line.split()[1] in ['SLD', 'iSLD', 'roughness', 'mSLD', '<Cos(delta_gamma'] and layer_name == "Substrate ":
+                        elif line.split()[1] in ['SLD', 'iSLD', 'roughness', 'mSLD', 'cos(d-gamma)'] and layer_name == "Substrate ":
                             if line.split()[1] == 'SLD': multiGrPr_data[4+layer_num][0] = float(line.split()[2]) * 10e+5
                             elif line.split()[1] == 'iSLD': multiGrPr_data[4+layer_num][1] = float(line.split()[2]) * 10e+5
                             elif line.split()[1] == 'mSLD': multiGrPr_data[4 + layer_num][2] = float(line.split()[2]) * 10e+5
@@ -1032,10 +1048,10 @@ class GUI(BoToFit_FrontEnd.Ui_MainWindow):
                 points = line_number
 
             try:
-                for i in range(1, points):
-                    if not round(sld_1[points - i], 3) == round(sld_1[points], 3) and cut_1 == -1: cut_1 = points - i
-                for i in range(1, points):
-                    if not round(sld_2[points - i], 3) == round(sld_2[points], 3) and cut_2 == -1: cut_2 = points - i
+                for i in range(points, 0, -1):
+                    if not round(sld_1[i], 3) == round(sld_1[points], 3) and cut_1 == -1: cut_1 = i
+                for i in range(points, 0, -1):
+                    if not round(sld_2[i], 3) == round(sld_2[points], 3) and cut_2 == -1: cut_2 = i
             except:
                 print("No cut")
                 cut_1 = cut_2 = points
@@ -1154,6 +1170,23 @@ class GUI(BoToFit_FrontEnd.Ui_MainWindow):
             elif input_unit == "rad": output_value = float(input_value)
 
         return output_value
+
+    def fit_results_select_all(self):
+        if self.checkBox_fit_res_select_all.isChecked():
+            for i in range(0, self.tableWidget_fit_results.rowCount()):
+                item = QtWidgets.QTableWidgetItem()
+                item.setTextAlignment(QtCore.Qt.AlignCenter)
+                item.setFlags(QtCore.Qt.ItemIsUserCheckable | QtCore.Qt.ItemIsEnabled)
+                item.setCheckState(QtCore.Qt.Checked)
+                self.tableWidget_fit_results.setItem(i, 0, item)
+
+        else:
+            for i in range(0, self.tableWidget_fit_results.rowCount()):
+                item = QtWidgets.QTableWidgetItem()
+                item.setTextAlignment(QtCore.Qt.AlignCenter)
+                item.setFlags(QtCore.Qt.ItemIsUserCheckable | QtCore.Qt.ItemIsEnabled)
+                item.setCheckState(QtCore.Qt.Unchecked)
+                self.tableWidget_fit_results.setItem(i, 0, item)
 
     def BoToFit_calc_run(self, thread, module, entry, data, pts_to_skip_left, pts_to_skip_right):
 

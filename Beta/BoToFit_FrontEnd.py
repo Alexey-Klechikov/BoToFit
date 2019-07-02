@@ -28,6 +28,8 @@ class Ui_MainWindow(QtGui.QMainWindow):
         font_ee.setPointSize(7)
         font_ee.setBold(False)
 
+
+
         # Main Window
         MainWindow.setObjectName("MainWindow")
         MainWindow.setWindowModality(QtCore.Qt.NonModal)
@@ -147,6 +149,7 @@ class Ui_MainWindow(QtGui.QMainWindow):
         item.setText("cos(d-gamma)")
         item = self.tableWidget_film.horizontalHeaderItem(11)
         item.setText("roughness")
+        self.tableWidget_film.horizontalHeaderItem(4).setFont(font_headline)
         for i in range(0, 13):
             item = QtWidgets.QTableWidgetItem()
             item.setTextAlignment(QtCore.Qt.AlignCenter)
@@ -157,7 +160,9 @@ class Ui_MainWindow(QtGui.QMainWindow):
                     item.setCheckState(QtCore.Qt.Unchecked)
                 else:
                     item.setCheckState(QtCore.Qt.Checked)
+                item.setTextAlignment(QtCore.Qt.AlignCenter)
             self.tableWidget_film.setItem(0, i, item)
+
         item = self.tableWidget_film.item(0, 0)
         item.setText("substrate")
         item = self.tableWidget_film.item(0, 1)
@@ -394,12 +399,9 @@ class Ui_MainWindow(QtGui.QMainWindow):
         self.tableWidget_fit_results.setRowCount(0)
         for i in range(0, 6):
             item = QtWidgets.QTableWidgetItem()
-            if i == 1:
-                item.setFlags(QtCore.Qt.ItemIsUserCheckable | QtCore.Qt.ItemIsEnabled)
-                item.setCheckState(QtCore.Qt.Unchecked)
             self.tableWidget_fit_results.setHorizontalHeaderItem(i, item)
-        item = self.tableWidget_fit_results.horizontalHeaderItem(0)
-        item.setText("#")
+
+        self.tableWidget_fit_results.horizontalHeaderItem(0).setFont(font_headline)
         item = self.tableWidget_fit_results.horizontalHeaderItem(1)
         item.setText("No")
         item = self.tableWidget_fit_results.horizontalHeaderItem(2)
@@ -419,6 +421,9 @@ class Ui_MainWindow(QtGui.QMainWindow):
             self.tableWidget_fit_results.columnWidth(0)) - int(self.tableWidget_fit_results.columnWidth(1)) - int(self.tableWidget_fit_results.columnWidth(2)) - int(
                 self.tableWidget_fit_results.columnWidth(3)) - int(self.tableWidget_fit_results.columnWidth(4) - 5)))
         self.tableWidget_fit_results.verticalHeader().setVisible(False)
+        self.checkBox_fit_res_select_all = QtWidgets.QCheckBox(self.tableWidget_fit_results.horizontalHeader())
+        self.checkBox_fit_res_select_all.setGeometry(QtCore.QRect(self.tableWidget_fit_results.columnWidth(0) / 9, 1, 14, 14))
+        self.checkBox_fit_res_select_all.setObjectName("checkBox_fit_res_select_all")
         self.label_iter_numb = QtWidgets.QLabel(self.groupBox_fit_results)
         self.label_iter_numb.setGeometry(QtCore.QRect(10, 18, 161, 31))
         self.label_iter_numb.setObjectName("label_iter_numb")
@@ -440,7 +445,7 @@ class Ui_MainWindow(QtGui.QMainWindow):
         self.pushButton_copy_to_start_fit = QtWidgets.QPushButton(self.groupBox_fit_results)
         self.pushButton_copy_to_start_fit.setGeometry(QtCore.QRect(5, 372, 322, 15))
         self.pushButton_copy_to_start_fit.setObjectName("pushButton_copy_to_start_fit")
-        self.pushButton_copy_to_start_fit.setText("Use selected (#) values in 'Start Fit With' parameters")
+        self.pushButton_copy_to_start_fit.setText("Use selected (#) values as 'Start fit with' parameters")
 
         # Block: Reflectivity profile and Difference
         self.label_graphs_refl_and_diff = QtWidgets.QLabel(self.centralwidget)
@@ -452,7 +457,7 @@ class Ui_MainWindow(QtGui.QMainWindow):
         self.groupBox_refl_profile.setGeometry(QtCore.QRect(10, 393, 491, 316))
         self.groupBox_refl_profile.setObjectName("groupBox_refl_profile")
         self.graphicsView_refl_profile = pg.PlotWidget(self.centralwidget)
-        self.graphicsView_refl_profile.setGeometry(QtCore.QRect(12, 412, 488, 205))
+        self.graphicsView_refl_profile.setGeometry(QtCore.QRect(12, 412, 488, 215))
         self.graphicsView_refl_profile.setObjectName("graphicsView_refl_profile")
         self.graphicsView_refl_profile.getAxis("bottom").tickFont = font_graphs
         self.graphicsView_refl_profile.getAxis("bottom").setStyle(tickTextOffset=10)
@@ -465,7 +470,7 @@ class Ui_MainWindow(QtGui.QMainWindow):
         self.graphicsView_refl_profile.getAxis("right").tickFont = font_graphs_2
         self.graphicsView_refl_profile.getAxis("right").setStyle(tickTextOffset=-2)
         self.graphicsView_refl_diff = pg.PlotWidget(self.centralwidget)
-        self.graphicsView_refl_diff.setGeometry(QtCore.QRect(12, 607, 488, 91))
+        self.graphicsView_refl_diff.setGeometry(QtCore.QRect(12, 617, 488, 91))
         self.graphicsView_refl_diff.setObjectName("graphicsView_refl_diff")
         self.graphicsView_refl_diff.getAxis("bottom").tickFont = font_graphs
         self.graphicsView_refl_diff.getAxis("bottom").setStyle(tickTextOffset=10)
@@ -574,17 +579,6 @@ class Ui_MainWindow(QtGui.QMainWindow):
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
 
-        # Error messages
-        self.label_botofit_crashed = QtWidgets.QLabel(self.groupBox_fit_results)
-        self.label_botofit_crashed.setGeometry(QtCore.QRect(80, 260, 551, 20))
-        self.label_botofit_crashed.setObjectName("label_botofit_crashed")
-        self.label_botofit_crashed.setText("BoToFit crashed. Consider using more reasonable 'Start fit' values.")
-        self.label_botofit_crashed.setVisible(0)
-        self.label_need_wavelength = QtWidgets.QLabel(self.groupBox_fit_results)
-        self.label_need_wavelength.setGeometry(QtCore.QRect(20, 260, 551, 20))
-        self.label_need_wavelength.setObjectName("label_need_wavelength")
-        self.label_need_wavelength.setText("Input wavelength before importing files in Qz. Otherwice cant convert to ang(rad) for calculations.")
-        self.label_need_wavelength.setVisible(0)
         # lineEdit_pts_num and tableWidget_data_points are hidden from the user. Used to avoid reopenning data file multiple times
         self.lineEdit_pts_num = QtWidgets.QLineEdit(self.tab_scan_param)
         self.lineEdit_pts_num.setEnabled(False)
@@ -614,3 +608,4 @@ class Ui_MainWindow(QtGui.QMainWindow):
 
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
     ##<--
+
