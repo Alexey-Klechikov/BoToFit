@@ -1090,6 +1090,9 @@ class GUI(BoToFit_FrontEnd.Ui_MainWindow):
 
             with open(self.data_folder_name + file[0], 'r') as fit_funct_file:
                 for line in fit_funct_file.readlines():
+
+                    if line.split()[1] == "-Infinity": continue
+
                     try:
                         if self.BoToFit_mode in [3, 4, 5]: fit_funct_angle.append((float(line.split()[0])))
                         else:
@@ -1103,8 +1106,8 @@ class GUI(BoToFit_FrontEnd.Ui_MainWindow):
                 s = InterpolatedUnivariateSpline(numpy.array(fit_funct_angle), numpy.array(fit_funct_I), k=1)
 
             if self.tableWidget_data_points.item(i, 0).text() not in ("", "[]"):
-                scale_angle = numpy.array(self.tableWidget_data_points.item(i, 0).text()[1: -1].replace(",", "").split()).astype(float)[int(self.lineEdit_exclude_first.text()) : -int(self.lineEdit_exclude_last.text())]
-                data_I = numpy.array(self.tableWidget_data_points.item(i, 1).text()[1: -1].replace(",", "").split()).astype(float)[int(self.lineEdit_exclude_first.text()) : -int(self.lineEdit_exclude_last.text())]
+                scale_angle = numpy.array(self.tableWidget_data_points.item(i, 0).text()[1: -1].replace(",", "").split()).astype(float)[int(self.lineEdit_exclude_first.text()) : -int(self.lineEdit_exclude_last.text())-1]
+                data_I = numpy.array(self.tableWidget_data_points.item(i, 1).text()[1: -1].replace(",", "").split()).astype(float)[int(self.lineEdit_exclude_first.text()) : -int(self.lineEdit_exclude_last.text())-1]
 
                 for i in range(0, len(scale_angle)):
                     if data_I[i] != 0:
