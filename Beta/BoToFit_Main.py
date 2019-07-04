@@ -1049,9 +1049,9 @@ class GUI(BoToFit_FrontEnd.Ui_MainWindow):
 
             try:
                 for i in range(points, 0, -1):
-                    if not round(sld_1[i], 3) == round(sld_1[points], 3) and cut_1 == -1: cut_1 = i
+                    if not round(sld_1[i], 3) == round(sld_1[points-50], 3) and cut_1 == -1: cut_1 = i
                 for i in range(points, 0, -1):
-                    if not round(sld_2[i], 3) == round(sld_2[points], 3) and cut_2 == -1: cut_2 = i
+                    if not round(sld_2[i], 3) == round(sld_2[points-50], 3) and cut_2 == -1: cut_2 = i
             except:
                 print("No cut")
                 cut_1 = cut_2 = points
