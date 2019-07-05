@@ -431,6 +431,11 @@ class GUI(BoToFit_FrontEnd.Ui_MainWindow):
 
         self.draw_diff()
 
+        try:
+            os.remove(self.data_folder_name + 'SLD_profile.dat')
+        except:
+            print("Nothing to delete (SLD_profile.dat)")
+
         # run multiGrPr.exe
         subprocess.Popen(str(current_dir + '/BoToFit_Modules/multiGrPr.exe'), cwd=str(self.data_folder_name))
 
@@ -1048,15 +1053,15 @@ class GUI(BoToFit_FrontEnd.Ui_MainWindow):
                 points = line_number
 
             try:
-                for i in range(points, 0, -1):
-                    if not round(sld_1[i], 3) == round(sld_1[points-50], 3) and cut_1 == -1: cut_1 = i
-                for i in range(points, 0, -1):
-                    if not round(sld_2[i], 3) == round(sld_2[points-50], 3) and cut_2 == -1: cut_2 = i
+                for i in range(points-100, 0, -1):
+                    if not round(sld_1[i], 3) == round(sld_1[points - 100], 3) and cut_1 == -1: cut_1 = i
+                for i in range(points-100, 0, -1):
+                    if not round(sld_2[i], 3) == round(sld_2[points - 100], 3) and cut_2 == -1: cut_2 = i
             except:
                 print("No cut")
                 cut_1 = cut_2 = points
 
-            s4 = pg.PlotDataItem(dist[:max(cut_1, cut_2) + 50], sld_1[:max(cut_1, cut_2) + 50], pen=pg.mkPen(color=(255,0,0), width=2))
+            s4 = pg.PlotDataItem(dist[:max(cut_1, cut_2) + 50], sld_1[:max(cut_1, cut_2) + 50], penRussian=pg.mkPen(color=(255,0,0), width=2))
             self.graphicsView_sld_profile.addItem(s4)
 
             s5 = pg.PlotDataItem(dist[:max(cut_1, cut_2)+ 50], sld_2[:max(cut_1, cut_2) + 50], pen=pg.mkPen(color=(0,0,0), width=2))
@@ -1200,7 +1205,7 @@ class GUI(BoToFit_FrontEnd.Ui_MainWindow):
             try:
                 os.remove(self.data_folder_name + self.file_to_wait)
             except:
-                print("Nothing to delete")
+                print("Nothing to delete (FitFunct)")
 
             # check every second if BoToFit is done
             while self.file_to_wait not in os.listdir(self.data_folder_name):
