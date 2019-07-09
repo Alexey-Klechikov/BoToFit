@@ -904,7 +904,7 @@ class GUI(BoToFit_FrontEnd.Ui_MainWindow):
                             elif line.split()[1] == 'SLD': multiGrPr_data[4+layer_num][1] = float(line.split()[2]) * 10e+5
                             elif line.split()[1] == 'iSLD': multiGrPr_data[4+layer_num][2] = float(line.split()[2]) * 10e+5
                             elif line.split()[1] == 'mSLD': multiGrPr_data[4+layer_num][3] = float(line.split()[2]) * 10e+5
-                            elif line.split()[1] == '<Cos(delta_gamma': multiGrPr_data[4+layer_num][4] = float(line.split()[2])
+                            elif line.split()[1] == 'cos(d-gamma)': multiGrPr_data[4+layer_num][4] = float(line.split()[2])
                             elif line.split()[1] == 'roughness':
                                 multiGrPr_data[4+layer_num][5] = float(line.split()[2])
                                 layer_num += 1
@@ -914,11 +914,11 @@ class GUI(BoToFit_FrontEnd.Ui_MainWindow):
                             if line.split()[1] == 'SLD': multiGrPr_data[4+layer_num][0] = float(line.split()[2]) * 10e+5
                             elif line.split()[1] == 'iSLD': multiGrPr_data[4+layer_num][1] = float(line.split()[2]) * 10e+5
                             elif line.split()[1] == 'mSLD': multiGrPr_data[4 + layer_num][2] = float(line.split()[2]) * 10e+5
-                            elif line.split()[1] == '<Cos(delta_gamma': multiGrPr_data[4 + layer_num][3] = float(line.split()[2])
+                            elif line.split()[1] == 'cos(d-gamma)': multiGrPr_data[4 + layer_num][3] = float(line.split()[2])
                             elif line.split()[1] == 'roughness': multiGrPr_data[4 + layer_num][4] = float(line.split()[2])
 
                         ## end of file
-                        elif line.split()[1] in ['Scaling_factor', 'Overillumination', 'background', '<Cos(gamma)>', 'sg:', 'sg2:']:
+                        elif line.split()[1] in ['Scaling_factor', 'Overillumination', 'Background', '<Cos(gamma)>', '<Sin(gamma)>', '<Sin^2(gamma)>']:
                             if line.split()[1] == '<Cos(gamma)>': multiGrPr_data[4+self.tableWidget_film.rowCount()][0] = float(line.split()[2])
                             if line.split()[1] == '<Sin(gamma)>': multiGrPr_data[4 + self.tableWidget_film.rowCount()][1] = float(line.split()[2])
                             if line.split()[1] == '<Sin^2(gamma)>': multiGrPr_data[4 + self.tableWidget_film.rowCount()][2] = float(line.split()[2])
@@ -937,8 +937,6 @@ class GUI(BoToFit_FrontEnd.Ui_MainWindow):
             multiGrPr.write("\n")
 
         multiGrPr.close()
-
-        #self.mode_interface()
     ##<--
 
     ##--> draw graphs
@@ -1061,7 +1059,7 @@ class GUI(BoToFit_FrontEnd.Ui_MainWindow):
                 print("No cut")
                 cut_1 = cut_2 = points
 
-            s4 = pg.PlotDataItem(dist[:max(cut_1, cut_2) + 50], sld_1[:max(cut_1, cut_2) + 50], penRussian=pg.mkPen(color=(255,0,0), width=2))
+            s4 = pg.PlotDataItem(dist[:max(cut_1, cut_2) + 50], sld_1[:max(cut_1, cut_2) + 50], pen=pg.mkPen(color=(255,0,0), width=2))
             self.graphicsView_sld_profile.addItem(s4)
 
             s5 = pg.PlotDataItem(dist[:max(cut_1, cut_2)+ 50], sld_2[:max(cut_1, cut_2) + 50], pen=pg.mkPen(color=(0,0,0), width=2))
