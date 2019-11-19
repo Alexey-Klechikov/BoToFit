@@ -1,6 +1,8 @@
 ﻿from PyQt5 import QtCore, QtGui, QtWidgets, QtTest
-import os, psutil, time, math, numpy, threading, subprocess
+import os, psutil, time, math, threading, subprocess
 import pyqtgraph as pg
+import numpy as np
+import pandas as pd
 from scipy.interpolate import InterpolatedUnivariateSpline
 
 QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True)
@@ -368,22 +370,31 @@ class Ui_MainWindow(QtGui.QMainWindow):
         self.__create_element(self.menu_Tof, [999, 999, 999, 999], "menu_Tof", title="No TOF")
         self.menu_MenuBar.addAction(self.menu_Tof.menuAction())
         self.action_Mono_No_polarisation = QtWidgets.QAction(MainWindow)
-        self.__create_element(self.action_Mono_No_polarisation, [999, 999, 999, 999], "action_Mono_No_polarisation", checked=True, checkable=True, text="No polarisation")
+        self.__create_element(self.action_Mono_No_polarisation, [999, 999, 999, 999], "action_Mono_No_polarisation", checked=True, checkable=True, text="No polarisation") # Mode 0
         self.menu_Mono.addAction(self.action_Mono_No_polarisation)
+        self.action_Mono_No_polarisation_multi = QtWidgets.QAction(MainWindow)
+        self.__create_element(self.action_Mono_No_polarisation_multi, [999, 999, 999, 999], "action_Mono_No_polarisation_multi", checked=True, checkable=True, enabled=False, text="No polarisation (Multi)") # Mode 6
+        self.menu_Mono.addAction(self.action_Mono_No_polarisation_multi)
         self.action_Mono_2_polarisations = QtWidgets.QAction(MainWindow)
-        self.__create_element(self.action_Mono_2_polarisations, [999, 999, 999, 999], "action_Mono_2_polarisations", checked=True, checkable=True, text="2 polarisation")
+        self.__create_element(self.action_Mono_2_polarisations, [999, 999, 999, 999], "action_Mono_2_polarisations", checked=True, checkable=True, text="2 polarisation") # Mode 1
         self.menu_Mono.addAction(self.action_Mono_2_polarisations)
+        self.action_Mono_2_polarisations_multi = QtWidgets.QAction(MainWindow)
+        self.__create_element(self.action_Mono_2_polarisations_multi, [999, 999, 999, 999], "action_Mono_2_polarisations_multi", checked=True, checkable=True, enabled=False, text="2 polarisation (Multi)") # Mode 7
+        self.menu_Mono.addAction(self.action_Mono_2_polarisations_multi)
         self.action_Mono_4_polarisations = QtWidgets.QAction(MainWindow)
-        self.__create_element(self.action_Mono_4_polarisations, [999, 999, 999, 999], "action_Mono_4_polarisations", checked=True, checkable=True, text="4 polarisation")
+        self.__create_element(self.action_Mono_4_polarisations, [999, 999, 999, 999], "action_Mono_4_polarisations", checked=True, checkable=True, text="4 polarisation") # Mode 2
         self.menu_Mono.addAction(self.action_Mono_4_polarisations)
+        self.action_Mono_4_polarisations_multi = QtWidgets.QAction(MainWindow)
+        self.__create_element(self.action_Mono_4_polarisations_multi, [999, 999, 999, 999], "action_Mono_4_polarisations_multi", checked=True, checkable=True, text="4 polarisation (Multi)") # Mode 8
+        self.menu_Mono.addAction(self.action_Mono_4_polarisations_multi)
         self.action_Tof_No_polarisation = QtWidgets.QAction(MainWindow)
-        self.__create_element(self.action_Tof_No_polarisation, [999, 999, 999, 999], "action_Tof_No_polarisation", checked=True, checkable=True, text="No polarisation")
+        self.__create_element(self.action_Tof_No_polarisation, [999, 999, 999, 999], "action_Tof_No_polarisation", checked=True, checkable=True, text="No polarisation") # Mode 3
         self.menu_Tof.addAction(self.action_Tof_No_polarisation)
         self.action_Tof_2_polarisations = QtWidgets.QAction(MainWindow)
-        self.__create_element(self.action_Tof_2_polarisations, [999, 999, 999, 999], "action_Tof_2_polarisations", checked=True, checkable=True, text="2 polarisation")
+        self.__create_element(self.action_Tof_2_polarisations, [999, 999, 999, 999], "action_Tof_2_polarisations", checked=True, checkable=True, text="2 polarisation") # Mode 4
         self.menu_Tof.addAction(self.action_Tof_2_polarisations)
         self.action_Tof_4_polarisations = QtWidgets.QAction(MainWindow)
-        self.__create_element(self.action_Tof_4_polarisations, [999, 999, 999, 999], "action_Tof_4_polarisations", checked=True, checkable=True, text="4 polarisation")
+        self.__create_element(self.action_Tof_4_polarisations, [999, 999, 999, 999], "action_Tof_4_polarisations", checked=True, checkable=True, text="4 polarisation") # Mode 5
         self.menu_Tof.addAction(self.action_Tof_4_polarisations)
 
         # Statusbar
@@ -446,6 +457,9 @@ class GUI(Ui_MainWindow):
         self.action_Tof_No_polarisation.triggered.connect(self.program_mode)
         self.action_Tof_2_polarisations.triggered.connect(self.program_mode)
         self.action_Tof_4_polarisations.triggered.connect(self.program_mode)
+        self.action_Mono_No_polarisation_multi.triggered.connect(self.program_mode)
+        self.action_Mono_2_polarisations_multi.triggered.connect(self.program_mode)
+        self.action_Mono_4_polarisations_multi.triggered.connect(self.program_mode)
         self.actionVersion.triggered.connect(self.menu_info)
         self.checkBox_Fit_results_Select_all.clicked.connect(self.fit_results_Select_all)
         #
@@ -462,34 +476,42 @@ class GUI(Ui_MainWindow):
             action_mode = "action_Mono_No_polarisation"
 
         # program name, file to wait, default entry
-        self.MODE_SPECS = [["Film500x0.exe", "FitFunct.dat", "UserDefaults_nopol.dat"],
-                      ["Film500x2.exe", "Fit2DFunctDD.dat", "UserDefaults_2pol.dat"],
-                      ["Film500x4.exe", "Fit2DFunctDD.dat", "UserDefaults_4pol.dat"],
-                      ["FilmTOF500QX0.exe", "FitFunct.dat", "UserDefaults_TOF_nopol.dat"],
-                      ["FilmTOF500QX2.exe", "Fit2DFunctDD.dat", "UserDefaults_TOF_2pol.dat"],
-                      ["FilmTOF500QX4.exe", "Fit2DFunctDD.dat", "UserDefaults_TOF_4pol.dat"]]
+        self.MODE_SPECS = [ ["Film500x0.exe", "FitFunct.dat", "UserDefaults_nopol.dat"],
+                            ["Film500x2.exe", "Fit2DFunctDD.dat", "UserDefaults_2pol.dat"],
+                            ["Film500x4.exe", "Fit2DFunctDD.dat", "UserDefaults_4pol.dat"],
+                            ["FilmTOF500QX0.exe", "FitFunct.dat", "UserDefaults_TOF_nopol.dat"],
+                            ["FilmTOF500QX2.exe", "Fit2DFunctDD.dat", "UserDefaults_TOF_2pol.dat"],
+                            ["FilmTOF500QX4.exe", "Fit2DFunctDD.dat", "UserDefaults_TOF_4pol.dat"],
+                            ["XXXXXXXXXXXXXXXXX", "XXXXXXXXXXXXXXXXX", "XXXXXXXXXXXXXXXXX"],
+                            ["XXXXXXXXXXXXXXXXX", "XXXXXXXXXXXXXXXXX", "XXXXXXXXXXXXXXXXX"],
+                            ["Mult500x4d4Gr.exe", "Fit2DFunctDD.dat", "UserDefaults_4pol_multi.dat"]]
 
-        MODES = [self.action_Mono_No_polarisation, self.action_Mono_2_polarisations, self.action_Mono_4_polarisations, self.action_Tof_No_polarisation, self.action_Tof_2_polarisations, self.action_Tof_4_polarisations]
+        MODES = [self.action_Mono_No_polarisation, self.action_Mono_2_polarisations, self.action_Mono_4_polarisations, self.action_Tof_No_polarisation, self.action_Tof_2_polarisations, self.action_Tof_4_polarisations,
+                 self.action_Mono_No_polarisation_multi, self.action_Mono_2_polarisations_multi, self.action_Mono_4_polarisations_multi]
 
-        if action_mode == "action_Mono_No_polarisation": self.BoToFit_mode, checked = 0, [True, False, False, False, False, False]
-        elif action_mode == "action_Mono_2_polarisations": self.BoToFit_mode, checked = 1, [False, True, False, False, False, False]
-        elif action_mode == "action_Mono_4_polarisations": self.BoToFit_mode, checked = 2, [False, False, True, False, False, False]
-        elif action_mode == "action_Tof_No_polarisation": self.BoToFit_mode, checked = 3, [False, False, False, True, False, False]
-        elif action_mode == "action_Tof_2_polarisations": self.BoToFit_mode, checked = 4, [False, False, False, False, True, False]
-        elif action_mode == "action_Tof_4_polarisations": self.BoToFit_mode, checked = 5, [False, False, False, False, False, True]
+        if action_mode == "action_Mono_No_polarisation": self.BoToFit_mode = 0
+        elif action_mode == "action_Mono_2_polarisations": self.BoToFit_mode = 1
+        elif action_mode == "action_Mono_4_polarisations": self.BoToFit_mode = 2
+        elif action_mode == "action_Tof_No_polarisation": self.BoToFit_mode = 3
+        elif action_mode == "action_Tof_2_polarisations": self.BoToFit_mode = 4
+        elif action_mode == "action_Tof_4_polarisations": self.BoToFit_mode = 5
+        elif action_mode == "action_Mono_No_polarisation_multi": self.BoToFit_mode = 6
+        elif action_mode == "action_Mono_2_polarisations_multi": self.BoToFit_mode = 7
+        elif action_mode == "action_Mono_4_polarisations_multi": self.BoToFit_mode = 8
 
-        for index, index_checked in enumerate(checked):
-            MODES[index].setChecked(index_checked)
+        for index, mode in enumerate(MODES):
+            if index == self.BoToFit_mode: MODES[index].setChecked(True)
+            else: MODES[index].setChecked(False)
 
         # reformat table and polarisation parameters
         PARAMS_POL = [self.label_Scan_parameters_Piy, self.lineEdit_Scan_parameters_Piy, self.checkBox_Scan_parameters_Piy, self.label_Scan_parameters_Pfy, self.lineEdit_Scan_parameters_Pfy, self.checkBox_Scan_parameters_Pfy, self.label_Scan_parameters_Pfy, self.lineEdit_Scan_parameters_Pfy, self.checkBox_Scan_parameters_Pfy, self.label_Scan_parameters_Cg, self.lineEdit_Scan_parameters_Cg, self.checkBox_Scan_parameters_Cg, self.label_Scan_parameters_Sg, self.lineEdit_Scan_parameters_Sg, self.checkBox_Scan_parameters_Sg, self.label_Scan_parameters_Sg2, self.lineEdit_Scan_parameters_Sg2, self.checkBox_Scan_parameters_Sg2]
-        if self.BoToFit_mode in [0, 3]:
+        if self.BoToFit_mode in [0, 3, 6]:
             for param in PARAMS_POL: param.setEnabled(False)
             # columns with checkboxes can change their width depends on Windows scaling settings, so we correct our table
             col_width = [106, 106, 1, 106, 1, 106, 1, 0, 0, 0, 0, 106, 1]
             for i in range(0, 13): self.tableWidget_Film_description.setColumnWidth(i, col_width[i])
 
-        elif self.BoToFit_mode in [1, 2, 4, 5]:
+        elif self.BoToFit_mode in [1, 2, 4, 5, 7, 8]:
             for param in PARAMS_POL: param.setEnabled(True)
             # columns with checkboxes can change their width depends on Windows scaling settings, so we correct our table
             col_width = [65, 73, 1, 59, 1, 59, 1, 59, 1, 81, 1, 75, 1]
@@ -499,7 +521,7 @@ class GUI(Ui_MainWindow):
         # reformat checkboxes (I, dI, Qz, rad) and Wavelength/Inc.angle field
         CHECKBOXES = [self.comboBox_Data_file_Column_1, self.comboBox_Data_file_Column_2, self.comboBox_Data_file_Column_3]
 
-        if self.BoToFit_mode in [0, 1, 2]:
+        if self.BoToFit_mode in [0, 1, 2, 6, 7, 8]:
             if self.comboBox_Data_file_Column_1.count() < 4:
                 for checkbox in CHECKBOXES:
                     checkbox.addItem("")
@@ -515,8 +537,7 @@ class GUI(Ui_MainWindow):
             if self.MODE_SPECS[self.BoToFit_mode][2] in os.listdir(self.current_dir + "/User_Defaults"):
                 self.lineEdit_Scan_parameters_Wavelength.setText("")
                 self.load_entry_file()
-        except:
-            print("No 'User Defaults' found")
+        except: True
 
         # clear stuff, just in case
         self.clear_stuff()
@@ -532,7 +553,7 @@ class GUI(Ui_MainWindow):
 
         self.input_structure = [self.comboBox_Data_file_Column_1.currentText(), self.comboBox_Data_file_Column_2.currentText(), self.comboBox_Data_file_Column_3.currentText()]
 
-        if self.BoToFit_mode in [0, 3]:
+        if self.BoToFit_mode in [0, 3, 6]:
             data_files = QtWidgets.QFileDialog().getOpenFileName(None, "FileNames", self.current_dir)
         else: data_files = QtWidgets.QFileDialog().getOpenFileNames(None, "FileNames", self.current_dir)
 
@@ -545,19 +566,17 @@ class GUI(Ui_MainWindow):
         self.tableWidget_Data_points.clear()
         self.lineEdit_Number_of_points.clear()
 
-        if self.BoToFit_mode in [0, 1, 2] and self.lineEdit_Scan_parameters_Wavelength.text() == "":
+        if self.BoToFit_mode in [0, 1, 2, 6, 7, 8] and self.lineEdit_Scan_parameters_Wavelength.text() == "":
             self.statusbar.showMessage("Input wavelength and reimport the file")
         else:
             self.parse_Data_files()
             self.draw_reflectivity()
 
     def buttons_add_remove_layer(self):
-
         # check where we came from do required action
         try:
             sender_name = self.sender().objectName()
-        except:
-            sender_name = "None"
+        except: sender_name = "None"
 
         if sender_name == "pushButton_Film_description_Remove_layer":
             # remove lines from {tableWidget_Film_description}
@@ -566,10 +585,8 @@ class GUI(Ui_MainWindow):
 
         else:
             # add lines into {tableWidget_Film_description}
-            if self.tableWidget_Film_description.currentRow() >= 0:
-                i = self.tableWidget_Film_description.currentRow()
-            else:
-                i = 0
+            if self.tableWidget_Film_description.currentRow() >= 0: i = self.tableWidget_Film_description.currentRow()
+            else: i = 0
 
             self.tableWidget_Film_description.insertRow(i)
             self.tableWidget_Film_description.setRowHeight(i, 21)
@@ -579,10 +596,8 @@ class GUI(Ui_MainWindow):
                 item.setTextAlignment(QtCore.Qt.AlignCenter)
                 if j in (2, 4, 6, 8, 10, 12):
                     item.setFlags(QtCore.Qt.ItemIsUserCheckable | QtCore.Qt.ItemIsEnabled)
-                    if j == 6:
-                        item.setCheckState(QtCore.Qt.Checked)
-                    else:
-                        item.setCheckState(QtCore.Qt.Unchecked)
+                    if j == 6: item.setCheckState(QtCore.Qt.Checked)
+                    else: item.setCheckState(QtCore.Qt.Unchecked)
 
                 self.tableWidget_Film_description.setItem(i, j, item)
 
@@ -604,11 +619,9 @@ class GUI(Ui_MainWindow):
             # Fill in the table:
             # Substrate has 2 parameters, Layers have 3
             if not len(parameter) == 1:
-                start_fit_table_row = self.tableWidget_Film_description.rowCount() - 1
-                index = 1
+                index, start_fit_table_row = 1, self.tableWidget_Film_description.rowCount() - 1
                 if len(parameter) == 3:
-                    start_fit_table_row = int(parameter[1]) - 1
-                    index = 2
+                    index, start_fit_table_row = 2, int(parameter[1]) - 1
 
                 if parameter[index] == "thickness": start_fit_table_column = 1
                 elif parameter[index] == "SLD": start_fit_table_column = 3
@@ -633,7 +646,7 @@ class GUI(Ui_MainWindow):
         start_time = time.time()
 
         # for Polarisation - check if User selected to fit both mSLD and cos(d-gamma) for the same layer
-        if not self.BoToFit_mode in [0, 3]:
+        if not self.BoToFit_mode in [0, 3, 6]:
             for i in range(0, self.tableWidget_Film_description.rowCount()):
                 if self.tableWidget_Film_description.item(i, 8).checkState() == 0 and self.tableWidget_Film_description.item(i, 10).checkState() == 0:
                     self.statusbar.showMessage("mSLD and cos(d-gamma) can not be fitted together for the same layer")
@@ -702,8 +715,7 @@ class GUI(Ui_MainWindow):
 
         try:
             os.remove(self.data_folder_name + 'SLD_profile.dat')
-        except:
-            print("Nothing to delete (SLD_profile.dat)")
+        except: True
 
         # run multiGrPr.exe
         subprocess.Popen(str(self.current_dir + '/BoToFit_Modules/multiGrPr.exe'), cwd=str(self.data_folder_name))
@@ -721,7 +733,7 @@ class GUI(Ui_MainWindow):
         elapsed_time = time.time() - start_time
         self.statusbar.showMessage("Finished in " + str(round(float(elapsed_time), 1)) + " seconds")
 
-        if "ang(Qz)" in self.input_structure and self.BoToFit_mode in [0, 1, 2]: self.export_for_user()
+        if "ang(Qz)" in self.input_structure and self.BoToFit_mode in [0, 1, 2, 6, 7, 8]: self.export_for_user()
     ##<--
 
     ##--> menu options
@@ -750,13 +762,13 @@ class GUI(Ui_MainWindow):
 
         # reformat data to *I *dI *angle(rad) in Mono mode
 
-        if self.BoToFit_mode in [0, 3]:
+        if self.BoToFit_mode in [0, 3, 6]:
             files.append(self.lineEdit_Data_file.text())
         else:
             for i in self.lineEdit_Data_file.text().split("'"):
                 if i.rfind("_uu") > 0 or i.rfind("_UU") > 0: files.append(i)
 
-            if self.BoToFit_mode in [2, 5]:
+            if self.BoToFit_mode in [2, 5, 8]:
 
                 for i in self.lineEdit_Data_file.text().split("'"):
                     if i.rfind("_dd") > 0 or i.rfind("_DD") > 0: files.append(i)
@@ -773,10 +785,7 @@ class GUI(Ui_MainWindow):
 
         j = 0
         for file in files:
-            exper_points_number = 0
-            data_angle = []
-            data_I = []
-            data_dI = []
+            exper_points_number, data_angle, data_I, data_dI = 0, [], [], []
 
             with open(file, 'r') as data_file_input:
                 for i, line in enumerate(data_file_input.readlines()):
@@ -836,197 +845,138 @@ class GUI(Ui_MainWindow):
 
         if entry_file == "": return
 
-        row = 0
-        col = 1
-        scaling_fact_line = piy_line = pfy_line = wavelength_line = cg_line = -1000
+        ENTRY = pd.read_csv(entry_file, header=None, squeeze=True)
 
-        with open(str(entry_file), "r") as file:
-            for line_number, line in enumerate(file.readlines()):
-                if not self.BoToFit_mode == 0 and not self.BoToFit_mode == 3 :
-                    # Piy incident polarization (polariser)
-                    if line.rfind("Piy") > 0:
-                        self.lineEdit_Scan_parameters_Piy.setText(line.split()[0])
-                        piy_line = line_number + 1
-                    if line_number == piy_line: self.__set_checked(self.checkBox_Scan_parameters_Piy, line.split()[0])
+        index_reference = 0
+        if not self.BoToFit_mode in [0, 3, 6]:
+            self.lineEdit_Scan_parameters_Piy.setText(ENTRY[2].split()[0]) # Piy incident polarization (polariser)
+            self.__set_checked(self.checkBox_Scan_parameters_Piy, ENTRY[3].split()[0])
+            self.lineEdit_Scan_parameters_Pfy.setText(ENTRY[8].split()[0]) # Pfy outgoing polarization (analyser)
+            self.__set_checked(self.checkBox_Scan_parameters_Pfy, ENTRY[9].split()[0])
+            index_reference = 12
 
-                    # Pfy outgoing polarization (analyser)
-                    if line.rfind("Pfy") > 0:
-                        self.lineEdit_Scan_parameters_Pfy.setText(line.split()[0])
-                        pfy_line = line_number + 1
-                    if line_number == pfy_line: self.__set_checked(self.checkBox_Scan_parameters_Pfy, line.split()[0])
+        self.lineEdit_Scan_parameters_Wavelength.setText(ENTRY[index_reference].split()[0]) # wavelength or incident angle
+        self.lineEdit_Scan_parameters_Number_of_pts_for_resolution_function.setText(ENTRY[index_reference+2].split()[0]) # number of experimental points in alpha
+        self.lineEdit_Scan_parameters_Step_for_resolution_function.setText(ENTRY[index_reference+3].split()[0]) # step for resolution function (in mrad)
+        self.lineEdit_Scan_parameters_Sigma.setText(ENTRY[index_reference+4].split()[0]) # "sigma" of resolution function (in mrad)
 
-                    # cg: mean value <cos(gamma)> over big domains
-                    if line.rfind("cos(gamma)") > 0:
-                        self.lineEdit_Scan_parameters_Cg.setText(line.split()[0])
-                        cg_line = line_number + 1
-                    if line_number == cg_line: self.__set_checked(self.checkBox_Scan_parameters_Cg, line.split()[0])
-                    # sg: mean value <sin(gamma)> over big domains
-                    if line_number == cg_line + 1: self.lineEdit_Scan_parameters_Sg.setText(line.split()[0])
-                    if line_number == cg_line + 2: self.__set_checked(self.checkBox_Scan_parameters_Sg, line.split()[0])
-                    # sg2: mean value <sin^2(gamma)> over big domains
-                    if line_number == cg_line + 3: self.lineEdit_Scan_parameters_Sg2.setText(line.split()[0])
-                    if line_number == cg_line + 4: self.__set_checked(self.checkBox_Scan_parameters_Sg2, line.split()[0])
+        number_of_layers = int(ENTRY[index_reference+5].split()[0])
+        
+        # delete all layers except substrate
+        while not self.tableWidget_Film_description.rowCount() == 1:
+            self.tableWidget_Film_description.removeRow(0)
+        # add layers
+        for i in range(0, number_of_layers):
+            self.buttons_add_remove_layer()
+            self.tableWidget_Film_description.item(0, 0).setText("Layer " + str(number_of_layers - i))
+        # fill the table
+        row, col, index_reference = 0, 1, index_reference+6
+        for row in range(0, number_of_layers+1):
+            if not row == number_of_layers:
+                self.tableWidget_Film_description.item(row, col).setText(ENTRY[index_reference].split()[0].replace("d", "e")) # Thickness
+                self.__set_checked(self.tableWidget_Film_description.item(row, col + 1), ENTRY[index_reference+1].split()[0])
+            else: index_reference -= 2
+            self.tableWidget_Film_description.item(row, col + 2).setText(ENTRY[index_reference + 2].split()[0].replace("d", "e"))  # SLD
+            self.__set_checked(self.tableWidget_Film_description.item(row, col + 3), ENTRY[index_reference+3].split()[0])
+            self.tableWidget_Film_description.item(row, col + 4).setText(ENTRY[index_reference + 4].split()[0].replace("d", "e"))  # iSLD
+            self.__set_checked(self.tableWidget_Film_description.item(row, col + 5), ENTRY[index_reference+5].split()[0])
+            if self.BoToFit_mode in [0, 3, 6]:
+                self.tableWidget_Film_description.item(row, col + 10).setText(ENTRY[index_reference + 6].split()[0].replace("d", "e"))  # roughness
+                self.__set_checked(self.tableWidget_Film_description.item(row, col + 11), ENTRY[index_reference + 7].split()[0])
+                index_reference = index_reference + 8
+            else:
+                self.tableWidget_Film_description.item(row, col + 6).setText(ENTRY[index_reference + 6].split()[0].replace("d", "e"))  # mSLD
+                self.__set_checked(self.tableWidget_Film_description.item(row, col + 7), ENTRY[index_reference+7].split()[0])
+                self.tableWidget_Film_description.item(row, col + 8).setText(ENTRY[index_reference + 8].split()[0].replace("d", "e"))  # cos(d-gamma)
+                self.__set_checked(self.tableWidget_Film_description.item(row, col + 9), ENTRY[index_reference+9].split()[0])
+                self.tableWidget_Film_description.item(row, col + 10).setText(ENTRY[index_reference + 10].split()[0].replace("d", "e"))  # roughness
+                self.__set_checked(self.tableWidget_Film_description.item(row, col + 11), ENTRY[index_reference+11].split()[0])
+                index_reference = index_reference + 12
 
-                # wavelength or incident angle
-                '''
-                BoToFit entry is almost the same for Mono and TOF modes.
-                The only difference is that "incident angle" is used instead of "wavelength".
-                '''
-                if line.rfind("wavelength") > 0 or line.rfind("incident angle") > 0:
-                    self.lineEdit_Scan_parameters_Wavelength.setText(line.split()[0])
-                    wavelength_line = line_number
+        if not self.BoToFit_mode in [0, 3, 6]:
+            # cg: mean value <cos(gamma)> over big domains
+            self.lineEdit_Scan_parameters_Cg.setText(ENTRY[index_reference].split()[0])
+            self.__set_checked(self.checkBox_Scan_parameters_Cg, ENTRY[index_reference + 1].split()[0])
+            # sg: mean value <sin(gamma)> over big domains
+            self.lineEdit_Scan_parameters_Sg.setText(ENTRY[index_reference + 2].split()[0])
+            self.__set_checked(self.checkBox_Scan_parameters_Sg, ENTRY[index_reference + 3].split()[0])
+            # sg2: mean value <sin^2(gamma)> over big domains
+            self.lineEdit_Scan_parameters_Sg2.setText(ENTRY[index_reference + 4].split()[0])
+            self.__set_checked(self.checkBox_Scan_parameters_Sg2, ENTRY[index_reference + 5].split()[0])
+        else: index_reference -= 6
 
-                # number of experimental points in alpha
-                if line_number == wavelength_line + 2: self.lineEdit_Scan_parameters_Number_of_pts_for_resolution_function.setText(
-                    line.split()[0])
-                # step for resolution function (in mrad)
-                if line_number == wavelength_line + 3: self.lineEdit_Scan_parameters_Step_for_resolution_function.setText(line.split()[0])
-                # "sigma" of resolution function (in mrad)
-                if line_number == wavelength_line + 4: self.lineEdit_Scan_parameters_Sigma.setText(line.split()[0])
-                # correction of the detector 'zero' (in mrad): alpha-da
-                if line.rfind("correction of the") > 0: self.lineEdit_Scan_parameters_Zero_correction.setText(
-                    line.split()[0])
-
-                # ct  total scaling factor
-                if line.rfind("scaling factor") > 0:
-                    self.lineEdit_Scan_parameters_Scaling_factor.setText(line.split()[0])
-                    scaling_fact_line = line_number + 1
-                if line_number == scaling_fact_line: self.__set_checked(self.checkBox_Scan_parameters_Scaling_factor, line.split()[0])
-                # alpha_0 crossover angle overillumination (in mrad)
-                if line_number == scaling_fact_line + 1: self.lineEdit_Scan_parameters_Crossover_overillumination.setText(line.split()[0])
-                if line_number == scaling_fact_line + 2: self.__set_checked(self.checkBox_Scan_parameters_Crossover_overillumination, line.split()[0])
-                # bgr 'background'
-                if line_number == scaling_fact_line + 3: self.lineEdit_Scan_parameters_Background.setText(line.split()[0])
-                if line_number == scaling_fact_line + 4: self.__set_checked(self.checkBox_Scan_parameters_Background, line.split()[0])
-
-                if line.rfind("number of layers") > 0:
-                    number_of_layers = int(line.split()[0])  # excluding substrate
-                    layers_description_line = line_number
-                    # delete all layers except substrate
-                    while not self.tableWidget_Film_description.item(0, 0).text() == "substrate":
-                        self.tableWidget_Film_description.removeRow(0)
-                    # add i layers
-                    for i in range(0, number_of_layers):
-                        self.buttons_add_remove_layer()
-                        self.tableWidget_Film_description.item(0, 0).setText("Layer " + str(number_of_layers - i))
-
-                try:
-                    if line_number > layers_description_line + 1 and not line == "":
-
-                        # I hide 4 columns in NoPol mode, so we skip them
-                        if self.BoToFit_mode in [0, 3] and col == 7: col = 11
-
-                        if col <= 12 and row <= number_of_layers:
-                            if line.split()[0] == "n": self.tableWidget_Film_description.item(row, col).setCheckState(0)
-                            elif line.split()[0] == "f": self.tableWidget_Film_description.item(row, col).setCheckState(2)
-                            else: self.tableWidget_Film_description.item(row, col).setText(line.split()[0].replace("d", "e"))
-
-                            col += 1
-                            if col > 12 and row < number_of_layers:  # every layer has 12 rows to fill
-                                col = 1
-                                row += 1
-
-                            if col == 1 and row == number_of_layers:  # then we fill substrate layer
-                                col = 3
-
-                except:
-                    a = 1  # print("load_entry_file - skip this : " + line)
+        # ct  total scaling factor
+        self.lineEdit_Scan_parameters_Scaling_factor.setText(ENTRY[index_reference + 6].split()[0])
+        self.__set_checked(self.checkBox_Scan_parameters_Scaling_factor, ENTRY[index_reference + 7].split()[0])
+        # alpha_0 crossover angle overillumination (in mrad)
+        self.lineEdit_Scan_parameters_Crossover_overillumination.setText(ENTRY[index_reference + 8].split()[0])
+        self.__set_checked(self.checkBox_Scan_parameters_Crossover_overillumination, ENTRY[index_reference + 9].split()[0])
+        # bgr 'background'
+        self.lineEdit_Scan_parameters_Background.setText(ENTRY[index_reference + 10].split()[0])
+        self.__set_checked(self.checkBox_Scan_parameters_Background, ENTRY[index_reference + 11].split()[0])
+        # correction of the detector 'zero' (in mrad)
+        self.lineEdit_Scan_parameters_Zero_correction.setText(ENTRY[index_reference + 12].split()[0])
 
     def create_entry_for_BoToFit(self):
         '''
         BoToFit needs its own entry file, so we make one using data from the table
         '''
 
+        ENTRY = []
+
+        if self.BoToFit_mode not in [0, 3, 6]:
+            # incident polarization (polariser)
+            ENTRY.append("0     Pix incident polarization (polariser)\nf\n" + self.lineEdit_Scan_parameters_Piy.text() + '    Piy\n' + self.__check_checked(self.checkBox_Scan_parameters_Piy) + "\n" + "0     Piz\nf\n\n")
+            # outgoing polarization (analyser)
+            ENTRY.append("0     Pfx outgoing polarization (analyser)\nf\n" + self.lineEdit_Scan_parameters_Pfy.text() + '    Pfy\n' + self.__check_checked(self.checkBox_Scan_parameters_Pfy) + "\n" + "0     Pfz\nf\n\n")
+
+        if not self.BoToFit_mode in [3, 4, 5]: ENTRY.append(self.lineEdit_Scan_parameters_Wavelength.text() + '    wavelength (in Angstrem)\n')
+        else: ENTRY.append(self.lineEdit_Scan_parameters_Wavelength.text() + '    incident angle (in mrad)\n')
+
+        ENTRY.append(self.lineEdit_Number_of_points.text() + "   *nn number of experimental points in alpha (<1001)\n")
+        ENTRY.append(self.lineEdit_Scan_parameters_Number_of_pts_for_resolution_function.text() + "    *j0 number of points for resolution function (odd) (<102)\n")
+        ENTRY.append(self.lineEdit_Scan_parameters_Step_for_resolution_function.text() + "    step for resolution function (in mrad)\n")
+        ENTRY.append(self.lineEdit_Scan_parameters_Sigma.text() + "     *sigma of resolution function (in mrad)\n\n")
+        ENTRY.append(str(self.tableWidget_Film_description.rowCount() - 1) + "   number of layers (excluding substrate) (<21)\n\n")
+        # read the table
+        for i in range(0, self.tableWidget_Film_description.rowCount()):
+            comment = ""
+            # Thickness
+            if not self.tableWidget_Film_description.item(i, 0).text() == "substrate":
+                ENTRY.append(self.tableWidget_Film_description.item(i, 1).text() + "    layer " + str(i+1) + " ("+ self.tableWidget_Film_description.item(i, 0).text() + ") thickness (in A)\n" + self.__check_checked(self.tableWidget_Film_description.item(i, 2)) + "\n")
+            else: comment = "substrate's"
+            # SLD
+            ENTRY.append(self.tableWidget_Film_description.item(i, 3).text() + "    " + comment + " nbr nuclear SLD Nb'  (in A**-2) *1e6\n" + self.__check_checked(self.tableWidget_Film_description.item(i, 4)) + "\n")
+            # iSDL
+            ENTRY.append(self.tableWidget_Film_description.item(i, 5).text() + "    " + comment + " nbi nuclear SLD Nb'' (in A**-2) *1e6\n" + self.__check_checked(self.tableWidget_Film_description.item(i, 6)) + "\n")
+            if self.BoToFit_mode not in [0, 3, 6]:
+                # magnetic SLD
+                ENTRY.append(self.tableWidget_Film_description.item(i, 7).text() + "    magnetic SLD Np (in A**-2)*1e6\n" + self.__check_checked(self.tableWidget_Film_description.item(i, 8)) + "\n")
+                # c=<cos(delta_gamma)>
+                ENTRY.append(self.tableWidget_Film_description.item(i, 9).text() + "    c=<cos(delta_gamma)>\n" + self.__check_checked(self.tableWidget_Film_description.item(i, 10)) + "\n")
+            # roughness
+            ENTRY.append(self.tableWidget_Film_description.item(i, 11).text() + "    dw Debye-Waller in [AA]\n" + self.__check_checked(self.tableWidget_Film_description.item(i, 12)) + "\n\n")
+
+        if self.BoToFit_mode not in [0, 3, 6]:
+            # cg
+            ENTRY.append(self.lineEdit_Scan_parameters_Cg.text() + '    cg: mean value <cos(gamma)> over big domains\n' + self.__check_checked(self.checkBox_Scan_parameters_Cg) + "\n")
+            # sg
+            ENTRY.append(self.lineEdit_Scan_parameters_Sg.text() + '    sg: mean value <sin(gamma)> over big domains\n' + self.__check_checked(self.checkBox_Scan_parameters_Sg) + "\n")
+            # sg2
+            ENTRY.append(self.lineEdit_Scan_parameters_Sg2.text() + '    sg2: mean value <sin^2(gamma)> over big domains\n' + self.__check_checked(self.checkBox_Scan_parameters_Sg2) + "\n\n")
+
+        # ct - total scaling factor
+        ENTRY.append(self.lineEdit_Scan_parameters_Scaling_factor.text() + "   *ct  total scaling factor\n" + self.__check_checked(self.checkBox_Scan_parameters_Scaling_factor) + "\n")
+        # alpha_0 crossover angle overillumination
+        ENTRY.append(self.lineEdit_Scan_parameters_Crossover_overillumination.text() + "   *alpha_0 crossover angle overillumination (in mrad)\n" + self.__check_checked(self.checkBox_Scan_parameters_Crossover_overillumination) + "\n")
+        # background
+        ENTRY.append(self.lineEdit_Scan_parameters_Background.text() + "   *bgr background\n" + self.__check_checked(self.checkBox_Scan_parameters_Background) + "\n")
+
+        # correction of the detector 'zero'
+        ENTRY.append("\n" + self.lineEdit_Scan_parameters_Zero_correction.text() + "   correction of the detector 'zero' (in mrad)")
+
         with open(self.data_folder_name + 'entry.dat', 'w') as entry_file:
-
-            if self.BoToFit_mode not in [0, 3]:
-                # incident polarization (polariser)
-                entry_file.write("0     Pix incident polarization (polariser)\nf\n")
-                entry_file.write(self.lineEdit_Scan_parameters_Piy.text() + '    Piy\n')
-                if self.checkBox_Scan_parameters_Piy.isChecked(): entry_file.write("f" + "   \n")
-                else: entry_file.write("n" + "   \n")
-                entry_file.write("0     Piz\nf\n\n")
-
-                # outgoing polarization (analyser)
-                entry_file.write("0     Pfx outgoing polarization (analyser)\nf\n")
-                entry_file.write(self.lineEdit_Scan_parameters_Pfy.text() + '    Pfy\n')
-                if self.checkBox_Scan_parameters_Pfy.isChecked():
-                    entry_file.write("f" + "   \n")
-                else:
-                    entry_file.write("n" + "   \n")
-                entry_file.write("0     Pfz\nf\n\n")
-
-            if not self.BoToFit_mode in [3, 4, 5]:
-                entry_file.write(self.lineEdit_Scan_parameters_Wavelength.text() + '    wavelength (in Angstrem)\n')
-            else:
-                entry_file.write(self.lineEdit_Scan_parameters_Wavelength.text() + '    incident angle (in mrad)\n')
-
-            entry_file.write(self.lineEdit_Number_of_points.text() + "   *nn number of experimental points in alpha (<1001)\n")
-            entry_file.write(self.lineEdit_Scan_parameters_Number_of_pts_for_resolution_function.text() + "    *j0 number of points for resolution function (odd) (<102)\n")
-            entry_file.write(self.lineEdit_Scan_parameters_Step_for_resolution_function.text() + "    step for resolution function (in mrad)\n")
-            entry_file.write(self.lineEdit_Scan_parameters_Sigma.text() + "     *sigma of resolution function (in mrad)\n\n")
-            entry_file.write(str(self.tableWidget_Film_description.rowCount() - 1) + "   number of layers (excluding substrate) (<21)\n\n")
-            # read the table
-            for i in range(0, self.tableWidget_Film_description.rowCount()):
-                comment = ""
-                # Thickness
-                if not self.tableWidget_Film_description.item(i, 0).text() == "substrate":
-                    entry_file.write(self.tableWidget_Film_description.item(i, 1).text() + "    layer " + str(i+1) + " ("+ self.tableWidget_Film_description.item(i, 0).text() + ") thickness (in A)\n")
-                    if self.tableWidget_Film_description.item(i, 2).checkState() == 2: entry_file.write("f" + "   \n")
-                    else: entry_file.write("n" + "   \n")
-                else: comment = "substrate's"
-                # SLD
-                entry_file.write(self.tableWidget_Film_description.item(i, 3).text() + "    " + comment + " nbr nuclear SLD Nb'  (in A**-2) *1e6\n")
-                if self.tableWidget_Film_description.item(i, 4).checkState() == 2: entry_file.write("f" + "   \n")
-                else: entry_file.write("n" + "   \n")
-                # iSDL
-                entry_file.write(self.tableWidget_Film_description.item(i, 5).text() + "    " + comment + " nbi nuclear SLD Nb'' (in A**-2) *1e6\n")
-                if self.tableWidget_Film_description.item(i, 6).checkState() == 2: entry_file.write("f" + "   \n")
-                else: entry_file.write("n" + "   \n")
-
-                if self.BoToFit_mode not in [0, 3]:
-                    # magnetic SLD
-                    entry_file.write(self.tableWidget_Film_description.item(i, 7).text() + "    magnetic SLD Np (in A**-2)*1e6\n")
-                    if self.tableWidget_Film_description.item(i, 8).checkState() == 2: entry_file.write("f\n")
-                    else: entry_file.write("n\n")
-                    # c=<cos(delta_gamma)>
-                    entry_file.write(self.tableWidget_Film_description.item(i, 9).text() + "    c=<cos(delta_gamma)>\n")
-                    if self.tableWidget_Film_description.item(i, 10).checkState() == 2: entry_file.write("f\n")
-                    else: entry_file.write("n\n")
-
-                # roughness
-                entry_file.write(self.tableWidget_Film_description.item(i, 11).text() + "    dw Debye-Waller in [AA]\n")
-                if self.tableWidget_Film_description.item(i, 12).checkState() == 2: entry_file.write("f\n\n")
-                else: entry_file.write("n\n\n")
-
-            if self.BoToFit_mode not in [0, 3]:
-                # cg
-                entry_file.write(self.lineEdit_Scan_parameters_Cg.text() + '    cg: mean value <cos(gamma)> over big domains\n')
-                if self.checkBox_Scan_parameters_Cg.isChecked(): entry_file.write("f" + "   \n")
-                else: entry_file.write("n" + "   \n")
-                # sg
-                entry_file.write(self.lineEdit_Scan_parameters_Sg.text() + '    sg: mean value <sin(gamma)> over big domains\n')
-                if self.checkBox_Scan_parameters_Sg.isChecked(): entry_file.write("f" + "   \n")
-                else: entry_file.write("n" + "   \n")
-                # sg2
-                entry_file.write(self.lineEdit_Scan_parameters_Sg2.text() + '    sg2: mean value <sin^2(gamma)> over big domains\n')
-                if self.checkBox_Scan_parameters_Sg2.isChecked(): entry_file.write("f" + "  \n\n")
-                else: entry_file.write("n" + "   \n\n")
-
-            # ct - total scaling factor
-            entry_file.write(self.lineEdit_Scan_parameters_Scaling_factor.text() + "   *ct  total scaling factor\n")
-            if self.checkBox_Scan_parameters_Scaling_factor.isChecked(): entry_file.write("f" + "   \n")
-            else: entry_file.write("n" + "   \n")
-            # alpha_0 crossover angle overillumination
-            entry_file.write(self.lineEdit_Scan_parameters_Crossover_overillumination.text() + "   *alpha_0 crossover angle overillumination (in mrad)\n")
-            if self.checkBox_Scan_parameters_Crossover_overillumination.isChecked(): entry_file.write("f" + "   \n")
-            else: entry_file.write("n" + "   \n")
-            # background
-            entry_file.write(self.lineEdit_Scan_parameters_Background.text() + "   *bgr background\n")
-            if self.checkBox_Scan_parameters_Background.isChecked(): entry_file.write("f" + "   \n")
-            else: entry_file.write("n" + "   \n")
-            # correction of the detector 'zero'
-            entry_file.write("\n" + self.lineEdit_Scan_parameters_Zero_correction.text() + "   correction of the detector 'zero' (in mrad)\n")
+            for i in ENTRY: entry_file.write(i)
     ##<--
 
     ##--> "Results table" and "multiGrPr entry"
@@ -1069,7 +1019,7 @@ class GUI(Ui_MainWindow):
         for i in range(0, self.tableWidget_Fit_results.rowCount()): self.tableWidget_Fit_results.removeRow(0)
 
         # do fast run to find last iteration location
-        fit_file_name = "Fit2DBag.dat" if not self.BoToFit_mode in [0, 3] else "FitBag.dat"
+        fit_file_name = "Fit2DBag.dat" if not self.BoToFit_mode in [0, 3, 6] else "FitBag.dat"
 
         with open(self.data_folder_name + fit_file_name, "r") as fit_file:
             for line_number, line in enumerate(fit_file.readlines()):
@@ -1137,7 +1087,7 @@ class GUI(Ui_MainWindow):
                                 self.tableWidget_Fit_results.item(i, 4).setText(table_error)
                                 self.tableWidget_Fit_results.item(i, 5).setText(str(float(line.split()[5])))
 
-                            except: a = 1 # print("create_Fit_results_table_error_1")
+                            except: True
                             i += 1
 
                         # Fill multiGrPr.ent
@@ -1172,7 +1122,7 @@ class GUI(Ui_MainWindow):
                         elif line.split()[1] == 'Pi(y)': multiGrPr_data[0][1] = float(line.split()[2])
                         elif line.split()[1] == 'Pf(y)': multiGrPr_data[1][1] = float(line.split()[2])
 
-                    except: a = 1 #print("create_Fit_results_table_error_2 - skip this : " + line)
+                    except: True
 
         for i in range(0, len(multiGrPr_data)):
             for j in range(0, len(multiGrPr_data[i])):
@@ -1185,24 +1135,20 @@ class GUI(Ui_MainWindow):
     ##--> draw graphs
     def draw_reflectivity(self):
 
-        if self.sender().objectName() == "pushButton_Scan_parameters_Redraw_reflectivity":
-            self.graphicsView_Reflectivity_profile.getPlotItem().clear()
+        if self.sender().objectName() == "pushButton_Scan_parameters_Redraw_reflectivity": self.graphicsView_Reflectivity_profile.getPlotItem().clear()
 
         '''
         draw reflectivity in Angle vs. lg(I) scale using data from hidden table
         '''
         color = [0, 0, 0]
 
-        if "ang(Qz)" in self.input_structure:
-            self.label_Reflectivity_profile_and_Diff.setText("Reflectivity profile (I[10e] vs. Qz[Å**-1]) and Difference (Exper/Fit):")
-        elif "ang(rad)" in self.input_structure:
-            self.label_Reflectivity_profile_and_Diff.setText("Reflectivity profile (I[10e] vs. Angle[mrad]) and Difference (Exper/Fit):")
+        if "ang(Qz)" in self.input_structure: self.label_Reflectivity_profile_and_Diff.setText("Reflectivity profile (I[10e] vs. Qz[Å**-1]) and Difference (Exper/Fit):")
+        elif "ang(rad)" in self.input_structure: self.label_Reflectivity_profile_and_Diff.setText("Reflectivity profile (I[10e] vs. Angle[mrad]) and Difference (Exper/Fit):")
 
         # if tableWidget_Data_points is empty - do nothing
         try:
             self.tableWidget_Data_points.item(0, 0).text()
-        except:
-            return
+        except: return
 
         for i in range(0, 4):
             if self.tableWidget_Data_points.item(i, 0).text() not in ("", "[]"):
@@ -1211,18 +1157,15 @@ class GUI(Ui_MainWindow):
                 data_dI = self.tableWidget_Data_points.item(i, 2).text()[1: -1].replace(",", "").split()
 
                 # change color from black when 2 or 4 polarisations
-                if self.BoToFit_mode in [1, 4]:
+                if self.BoToFit_mode in [1, 4, 7]:
                     if i == 1: color = [255, 0, 0]
-                elif self.BoToFit_mode in [2, 5]:
+                elif self.BoToFit_mode in [2, 5, 8]:
                     if i == 1: color = [255, 0, 0]
                     if i == 2: color = [0, 255, 0]
                     if i == 3: color = [0, 0, 255]
 
                 # pyqtgraph can not rescale data in log scale, so we do it manually
-                plot_I = []
-                plot_angle = []
-                plot_dI_err_bottom = []
-                plot_dI_err_top = []
+                plot_I, plot_angle, plot_dI_err_bottom, plot_dI_err_top = [], [], [], []
 
                 for j in range(0, len(data_angle)):
                     if float(data_I[j]) > 0:
@@ -1234,7 +1177,7 @@ class GUI(Ui_MainWindow):
                             plot_dI_err_bottom.append(math.log10(float(data_I[j])) - math.log10(float(data_I[j]) - float(data_dI[j])))
                         else: plot_dI_err_bottom.append(0)
 
-                s1 = pg.ErrorBarItem(x=numpy.array(plot_angle[int(self.lineEdit_Scan_parameters_Points_to_exclude_First.text()): -int(self.lineEdit_Scan_parameters_Points_to_exclude_Last.text()) - 1]), y=numpy.array(plot_I[int(self.lineEdit_Scan_parameters_Points_to_exclude_First.text()): -int(self.lineEdit_Scan_parameters_Points_to_exclude_Last.text()) - 1]), top=numpy.array(plot_dI_err_top[int(self.lineEdit_Scan_parameters_Points_to_exclude_First.text()): -int(self.lineEdit_Scan_parameters_Points_to_exclude_Last.text()) - 1]), bottom=numpy.array(plot_dI_err_bottom[int(self.lineEdit_Scan_parameters_Points_to_exclude_First.text()): -int(self.lineEdit_Scan_parameters_Points_to_exclude_Last.text()) - 1]), pen=pg.mkPen(color[0], color[1], color[2]), brush=pg.mkBrush(color[0], color[1], color[2]))
+                s1 = pg.ErrorBarItem(x=np.array(plot_angle[int(self.lineEdit_Scan_parameters_Points_to_exclude_First.text()): -int(self.lineEdit_Scan_parameters_Points_to_exclude_Last.text()) - 1]), y=np.array(plot_I[int(self.lineEdit_Scan_parameters_Points_to_exclude_First.text()): -int(self.lineEdit_Scan_parameters_Points_to_exclude_Last.text()) - 1]), top=np.array(plot_dI_err_top[int(self.lineEdit_Scan_parameters_Points_to_exclude_First.text()): -int(self.lineEdit_Scan_parameters_Points_to_exclude_Last.text()) - 1]), bottom=np.array(plot_dI_err_bottom[int(self.lineEdit_Scan_parameters_Points_to_exclude_First.text()): -int(self.lineEdit_Scan_parameters_Points_to_exclude_Last.text()) - 1]), pen=pg.mkPen(color[0], color[1], color[2]), brush=pg.mkBrush(color[0], color[1], color[2]))
                 self.graphicsView_Reflectivity_profile.addItem(s1)
 
                 s2 = pg.ScatterPlotItem(x=plot_angle[int(self.lineEdit_Scan_parameters_Points_to_exclude_First.text()): -int(self.lineEdit_Scan_parameters_Points_to_exclude_Last.text()) - 1], y=plot_I[int(self.lineEdit_Scan_parameters_Points_to_exclude_First.text()): -int(self.lineEdit_Scan_parameters_Points_to_exclude_Last.text()) - 1], symbol="o", size=2, pen=pg.mkPen(color[0], color[1], color[2]), brush=pg.mkBrush(color[0], color[1], color[2]))
@@ -1245,21 +1188,19 @@ class GUI(Ui_MainWindow):
         draw BoToFit final fit function on top of the graph with experimental points
         '''
 
-        if self.BoToFit_mode in [0, 3]: fit_funct_files = [["FitFunct.dat", [0, 0, 0]], []]
-        elif self.BoToFit_mode in [1, 4]: fit_funct_files = [["Fit2DFunctUU.dat", [0, 0, 0]], ["Fit2DFunctDD.dat", [255, 0, 0]]]
-        elif self.BoToFit_mode in [2, 5]: fit_funct_files = [["Fit2DFunctUU.dat", [0, 0, 0]], ["Fit2DFunctDD.dat", [255, 0, 0]], ["Fit2DFunctUD.dat", [0, 255, 0]], ["Fit2DFunctDU.dat", [0, 0, 255]]]
+        if self.BoToFit_mode in [0, 3, 6]: fit_funct_files = [["FitFunct.dat", [0, 0, 0]], []]
+        elif self.BoToFit_mode in [1, 4, 7]: fit_funct_files = [["Fit2DFunctUU.dat", [0, 0, 0]], ["Fit2DFunctDD.dat", [255, 0, 0]]]
+        elif self.BoToFit_mode in [2, 5, 8]: fit_funct_files = [["Fit2DFunctUU.dat", [0, 0, 0]], ["Fit2DFunctDD.dat", [255, 0, 0]], ["Fit2DFunctUD.dat", [0, 255, 0]], ["Fit2DFunctDU.dat", [0, 0, 255]]]
 
         for file in fit_funct_files:
-            plot_I = []
-            plot_angle = []
+            plot_I, plot_angle = [], []
 
             if file == []: return
 
             # if user wants to work with data in Qz, he will get additional files during export
             if not self.BoToFit_mode in [3, 4, 5] and "ang(Qz)" in self.input_structure:
                 export_fit_funct_file_name = self.data_folder_name + "EXPORT - Qz_I - " + file[0]
-                if self.BoToFit_mode == 1:
-                    export_fit_funct_file_name = self.data_folder_name + "EXPORT - Qz_I - " + file[0][:-5] + ".dat"
+                if self.BoToFit_mode in [1, 7]: export_fit_funct_file_name = self.data_folder_name + "EXPORT - Qz_I - " + file[0][:-5] + ".dat"
 
                 export_fit_funct_file = open(export_fit_funct_file_name, "w")
 
@@ -1271,7 +1212,7 @@ class GUI(Ui_MainWindow):
                         else:
                             if "ang(Qz)" in self.input_structure: plot_angle.append(self.angle_convert("rad", "Qz", float(line.split()[0])))
                             elif "ang(rad)" in self.input_structure: plot_angle.append(float(line.split()[0]))
-                    except: a = 1
+                    except: True
 
                     # export data for user in (Qz I) format if needed
                     if not self.BoToFit_mode in [3, 4, 5] and "ang(Qz)" in self.input_structure: export_fit_funct_file.write(str((4 * math.pi / float(self.lineEdit_Scan_parameters_Wavelength.text())) * math.sin(float(line.split()[0]))) + "    " + str((line.split()[1])) + "\n")
@@ -1286,12 +1227,8 @@ class GUI(Ui_MainWindow):
 
         self.graphicsView_Sld_profile.getPlotItem().clear()
 
-        dist = []
-        sld_1 = []
-        sld_2 = []
-        points = -1
-        cut_1 = -1
-        cut_2 = -1
+        dist, sld_1, sld_2 = [], [], []
+        points, cut_1, cut_2 = -1, -1, -1
 
         with open(self.data_folder_name + 'SLD_profile.dat', 'r') as sld_file:
             for line_number, line in enumerate(sld_file.readlines()):
@@ -1299,7 +1236,7 @@ class GUI(Ui_MainWindow):
                     sld_1.append((float(line.split()[1].replace("D", "E"))))
                     sld_2.append((float(line.split()[2].replace("D", "E"))))
                     dist.append(float(line.split()[0].replace("D", "E")))
-                except: a = 1
+                except: True
                 points = line_number
 
             try:
@@ -1307,9 +1244,7 @@ class GUI(Ui_MainWindow):
                     if not round(sld_1[i], 3) == round(sld_1[points - 100], 3) and cut_1 == -1: cut_1 = i
                 for i in range(points-100, 0, -1):
                     if not round(sld_2[i], 3) == round(sld_2[points - 100], 3) and cut_2 == -1: cut_2 = i
-            except:
-                print("No cut")
-                cut_1 = cut_2 = points
+            except: cut_1 = cut_2 = points
 
             s4 = pg.PlotDataItem(dist[:max(cut_1, cut_2) + 50], sld_1[:max(cut_1, cut_2) + 50], pen=pg.mkPen(color=(255,0,0), width=2))
             self.graphicsView_Sld_profile.addItem(s4)
@@ -1329,9 +1264,9 @@ class GUI(Ui_MainWindow):
 
         self.graphicsView_Diff.getPlotItem().clear()
 
-        if self.BoToFit_mode in [0, 3]: fit_funct_files = [["FitFunct.dat", [0, 0, 0]], []]
-        elif self.BoToFit_mode in [1, 4]: fit_funct_files = [["Fit2DFunctUU.dat", [0, 0, 0]], ["Fit2DFunctDD.dat", [255, 0, 0]]]
-        elif self.BoToFit_mode in [2, 5]: fit_funct_files = [["Fit2DFunctUU.dat", [0, 0, 0]], ["Fit2DFunctDD.dat", [255, 0, 0]], ["Fit2DFunctUD.dat", [0, 255, 0]], ["Fit2DFunctDU.dat", [0, 0, 255]]]
+        if self.BoToFit_mode in [0, 3, 6]: fit_funct_files = [["FitFunct.dat", [0, 0, 0]], []]
+        elif self.BoToFit_mode in [1, 4, 7]: fit_funct_files = [["Fit2DFunctUU.dat", [0, 0, 0]], ["Fit2DFunctDD.dat", [255, 0, 0]]]
+        elif self.BoToFit_mode in [2, 5, 8]: fit_funct_files = [["Fit2DFunctUU.dat", [0, 0, 0]], ["Fit2DFunctDD.dat", [255, 0, 0]], ["Fit2DFunctUD.dat", [0, 255, 0]], ["Fit2DFunctDU.dat", [0, 0, 255]]]
 
         for i, file in enumerate(fit_funct_files):
             fit_funct_I = []
@@ -1354,21 +1289,19 @@ class GUI(Ui_MainWindow):
                                 fit_funct_angle.append((float(line.split()[0])))
                             else: fit_funct_angle.append((4 * math.pi / float(self.lineEdit_Scan_parameters_Wavelength.text())) * math.sin(float(line.split()[0])))
                         fit_funct_I.append(float(line.split()[1]))
-                    except:
-                        a = 1
+                    except: True
 
-                s = InterpolatedUnivariateSpline(numpy.array(fit_funct_angle), numpy.array(fit_funct_I), k=1)
+                s = InterpolatedUnivariateSpline(np.array(fit_funct_angle), np.array(fit_funct_I), k=1)
 
             if self.tableWidget_Data_points.item(i, 0).text() not in ("", "[]"):
-                scale_angle = numpy.array(self.tableWidget_Data_points.item(i, 0).text()[1: -1].replace(",", "").split()).astype(float)[int(self.lineEdit_Scan_parameters_Points_to_exclude_First.text()) : -int(self.lineEdit_Scan_parameters_Points_to_exclude_Last.text())-1]
-                data_I = numpy.array(self.tableWidget_Data_points.item(i, 1).text()[1: -1].replace(",", "").split()).astype(float)[int(self.lineEdit_Scan_parameters_Points_to_exclude_First.text()) : -int(self.lineEdit_Scan_parameters_Points_to_exclude_Last.text())-1]
+                scale_angle = np.array(self.tableWidget_Data_points.item(i, 0).text()[1: -1].replace(",", "").split()).astype(float)[int(self.lineEdit_Scan_parameters_Points_to_exclude_First.text()) : -int(self.lineEdit_Scan_parameters_Points_to_exclude_Last.text())-1]
+                data_I = np.array(self.tableWidget_Data_points.item(i, 1).text()[1: -1].replace(",", "").split()).astype(float)[int(self.lineEdit_Scan_parameters_Points_to_exclude_First.text()) : -int(self.lineEdit_Scan_parameters_Points_to_exclude_Last.text())-1]
 
                 for i in range(0, len(scale_angle)):
-                    if data_I[i] != 0:
-                        diff_I.append(data_I[i] / s(scale_angle[i]))
+                    if data_I[i] != 0: diff_I.append(data_I[i] / s(scale_angle[i]))
                     else: zero_I.append(i)
 
-            s6 = pg.PlotDataItem(numpy.delete(scale_angle, zero_I), diff_I, pen = pg.mkPen(color=(file[1][0], file[1][1], file[1][2]), width=2))
+            s6 = pg.PlotDataItem(np.delete(scale_angle, zero_I), diff_I, pen = pg.mkPen(color=(file[1][0], file[1][1], file[1][2]), width=2))
             self.graphicsView_Diff.addItem(s6)
     ##<--
 
@@ -1376,27 +1309,20 @@ class GUI(Ui_MainWindow):
     def export_for_user(self):
 
         # create reformatted files (in Qz I dI) named "Export"
-        if self.BoToFit_mode == 0: num_rows = 1
-        elif self.BoToFit_mode == 1: num_rows = 2
-        elif self.BoToFit_mode == 2: num_rows = 4
+        if self.BoToFit_mode in [0, 6]: num_rows = 1
+        elif self.BoToFit_mode in [1, 7]: num_rows = 2
+        elif self.BoToFit_mode in [2, 8]: num_rows = 4
 
         for i in range(0, num_rows):
-            if num_rows == 1:
-                file_name_export_Data_points = "/EXPORT - Qz_I_dI - data points.dat"
-            elif num_rows == 2:
-                if i == 0:
-                    file_name_export_Data_points = "/EXPORT - Qz_I_dI - data points - U.dat"
-                else:
-                    file_name_export_Data_points = "/EXPORT - Qz_I_dI - data points - D.dat"
+            file_name_export_Data_points = "/EXPORT - Qz_I_dI - data points.dat"
+            if num_rows == 2:
+                file_name_export_Data_points = "/EXPORT - Qz_I_dI - data points - U.dat"
+                if i == 1: file_name_export_Data_points = "/EXPORT - Qz_I_dI - data points - D.dat"
             elif num_rows == 4:
-                if i == 0:
-                    file_name_export_Data_points = "/EXPORT - Qz_I_dI - data points - UU.dat"
-                elif i == 1:
-                    file_name_export_Data_points = "/EXPORT - Qz_I_dI - data points - DD.dat"
-                elif i == 2:
-                    file_name_export_Data_points = "/EXPORT - Qz_I_dI - data points - UD.dat"
-                else:
-                    file_name_export_Data_points = "/EXPORT - Qz_I_dI - data points - DU.dat"
+                file_name_export_Data_points = "/EXPORT - Qz_I_dI - data points - UU.dat"
+                if i == 1: file_name_export_Data_points = "/EXPORT - Qz_I_dI - data points - DD.dat"
+                elif i == 2: file_name_export_Data_points = "/EXPORT - Qz_I_dI - data points - UD.dat"
+                elif i == 3: file_name_export_Data_points = "/EXPORT - Qz_I_dI - data points - DU.dat"
 
             with open(self.data_folder_name + file_name_export_Data_points, "w") as export_Data_points:
                 data_Qz = self.tableWidget_Data_points.item(i, 0).text()[1: -1].replace(",", "").split()
@@ -1453,8 +1379,7 @@ class GUI(Ui_MainWindow):
             # delete old FitFunct.dat file
             try:
                 os.remove(self.data_folder_name + self.MODE_SPECS[self.BoToFit_mode][1])
-            except:
-                print("Nothing to delete (FitFunct)")
+            except: True
 
             # check every second if BoToFit is done
             while self.MODE_SPECS[self.BoToFit_mode][1] not in os.listdir(self.data_folder_name):
@@ -1482,6 +1407,11 @@ class GUI(Ui_MainWindow):
     def __set_checked(self, parameter, checked):
         if checked == "n": parameter.setCheckState(0)
         elif checked == "f": parameter.setCheckState(2)
+
+    def __check_checked(self, parameter):
+        checked = "f"
+        if parameter.checkState() == 0: checked = "n"
+        return checked
 
 if __name__ == "__main__":
     import sys
