@@ -114,7 +114,7 @@ class Ui_MainWindow(QtGui.QMainWindow):
         # reform the table if Pol/NoPol mode is chosen
         item = QtWidgets.QTableWidgetItem()
         self.tableWidget_Film_description.setVerticalHeaderItem(0, item)
-        column_names = ["name", "thickness", "", "SLD", "", "iSLD", "", "mSLD", "", "cos(d-gamma)", "", "roughness", ""]
+        column_names = ["layer", "thickness", "", "SLD", "", "iSLD", "", "mSLD", "", "cos(d-gamma)", "", "roughness", ""]
         
         for i in range(0, 13):
             item = QtWidgets.QTableWidgetItem()
@@ -209,33 +209,58 @@ class Ui_MainWindow(QtGui.QMainWindow):
         self.label_Scan_parameters_Piy = QtWidgets.QLabel(self.tab_Scan_parameters)
         self.__create_element(self.label_Scan_parameters_Piy, [8, 144, 291, 17], "label_Scan_parameters_Piy", text="Piy incident polarization (polariser)", font=font_ee)
         self.lineEdit_Scan_parameters_Piy = QtWidgets.QLineEdit(self.tab_Scan_parameters)
-        self.__create_element(self.lineEdit_Scan_parameters_Piy, [268, 144, 60, 17], "lineEdit_Scan_parameters_Piy", font=font_ee)
+        self.__create_element(self.lineEdit_Scan_parameters_Piy, [269, 144, 60, 17], "lineEdit_Scan_parameters_Piy", font=font_ee)
         self.checkBox_Scan_parameters_Piy = QtWidgets.QCheckBox(self.tab_Scan_parameters)
         self.__create_element(self.checkBox_Scan_parameters_Piy, [332, 144, 21, 18], "checkBox_Scan_parameters_Piy")
         self.label_Scan_parameters_Pfy = QtWidgets.QLabel(self.tab_Scan_parameters)
         self.__create_element(self.label_Scan_parameters_Pfy, [8, 162, 251, 17], "label_Scan_parameters_Pfy", text="Pfy outgoing polarization (analyser)", font=font_ee)
         self.lineEdit_Scan_parameters_Pfy = QtWidgets.QLineEdit(self.tab_Scan_parameters)
-        self.__create_element(self.lineEdit_Scan_parameters_Pfy, [268, 162, 60, 17], "lineEdit_Scan_parameters_Pfy", font=font_ee)
+        self.__create_element(self.lineEdit_Scan_parameters_Pfy, [269, 162, 60, 17], "lineEdit_Scan_parameters_Pfy", font=font_ee)
         self.checkBox_Scan_parameters_Pfy = QtWidgets.QCheckBox(self.tab_Scan_parameters)
         self.__create_element(self.checkBox_Scan_parameters_Pfy, [332, 162, 21, 18], "checkBox_Scan_parameters_Pfy")
         self.label_Scan_parameters_Cg = QtWidgets.QLabel(self.tab_Scan_parameters)
         self.__create_element(self.label_Scan_parameters_Cg, [8, 180, 291, 17], "label_Scan_parameters_Cg", text="cg: mean value <cos(gamma)> of big domains", font=font_ee)
         self.lineEdit_Scan_parameters_Cg = QtWidgets.QLineEdit(self.tab_Scan_parameters)
-        self.__create_element(self.lineEdit_Scan_parameters_Cg, [268, 180, 60, 17], "lineEdit_Scan_parameters_Cg", font=font_ee)
+        self.__create_element(self.lineEdit_Scan_parameters_Cg, [269, 180, 60, 17], "lineEdit_Scan_parameters_Cg", font=font_ee)
         self.checkBox_Scan_parameters_Cg = QtWidgets.QCheckBox(self.tab_Scan_parameters)
         self.__create_element(self.checkBox_Scan_parameters_Cg, [332, 180, 21, 18], "checkBox_Scan_parameters_Cg")
         self.label_Scan_parameters_Sg = QtWidgets.QLabel(self.tab_Scan_parameters)
         self.__create_element(self.label_Scan_parameters_Sg, [8, 198, 291, 17], "label_Scan_parameters_Sg", text="sg: mean value <sin(gamma)> of big domains", font=font_ee)
         self.lineEdit_Scan_parameters_Sg = QtWidgets.QLineEdit(self.tab_Scan_parameters)
-        self.__create_element(self.lineEdit_Scan_parameters_Sg, [268, 198, 60, 17], "lineEdit_Scan_parameters_Sg", font=font_ee)
+        self.__create_element(self.lineEdit_Scan_parameters_Sg, [269, 198, 60, 17], "lineEdit_Scan_parameters_Sg", font=font_ee)
         self.checkBox_Scan_parameters_Sg = QtWidgets.QCheckBox(self.tab_Scan_parameters)
         self.__create_element(self.checkBox_Scan_parameters_Sg, [332, 198, 21, 18], "checkBox_Scan_parameters_Sg")
         self.label_Scan_parameters_Sg2 = QtWidgets.QLabel(self.tab_Scan_parameters)
         self.__create_element(self.label_Scan_parameters_Sg2, [8, 216, 291, 17], "label_Scan_parameters_Sg2", text="sg2: mean value <sin^2(gamma)> of big domains", font=font_ee)
         self.lineEdit_Scan_parameters_Sg2 = QtWidgets.QLineEdit(self.tab_Scan_parameters)
-        self.__create_element(self.lineEdit_Scan_parameters_Sg2, [268, 216, 60, 17], "lineEdit_Scan_parameters_Sg2", font=font_ee)
+        self.__create_element(self.lineEdit_Scan_parameters_Sg2, [269, 216, 60, 17], "lineEdit_Scan_parameters_Sg2", font=font_ee)
         self.checkBox_Scan_parameters_Sg2 = QtWidgets.QCheckBox(self.tab_Scan_parameters)
         self.__create_element(self.checkBox_Scan_parameters_Sg2, [332, 216, 21, 18], "checkBox_Scan_parameters_Sg2")
+
+        self.label_Scan_parameters_Gradient_period = QtWidgets.QLabel(self.tab_Scan_parameters)
+        self.__create_element(self.label_Scan_parameters_Gradient_period, [362, 144, 291, 17], "label_Scan_parameters_Gradient_period", text="Gradient (-1 < \"grad\"< 1):   Period", font=font_ee)
+        self.lineEdit_Scan_parameters_Gradient_period = QtWidgets.QLineEdit(self.tab_Scan_parameters)
+        self.__create_element(self.lineEdit_Scan_parameters_Gradient_period, [560, 144, 60, 17], "lineEdit_Scan_parameters_Gradient_period", font=font_ee)
+        self.checkBox_Scan_parameters_Gradient_period = QtWidgets.QCheckBox(self.tab_Scan_parameters)
+        self.__create_element(self.checkBox_Scan_parameters_Gradient_period, [623, 144, 21, 18], "checkBox_Scan_parameters_Gradient_period")
+        self.label_Scan_parameters_Gradient_roughness = QtWidgets.QLabel(self.tab_Scan_parameters)
+        self.__create_element(self.label_Scan_parameters_Gradient_roughness, [498, 162, 251, 17], "label_Scan_parameters_Gradient_roughness", text="Roughness", font=font_ee)
+        self.lineEdit_Scan_parameters_Gradient_roughness = QtWidgets.QLineEdit(self.tab_Scan_parameters)
+        self.__create_element(self.lineEdit_Scan_parameters_Gradient_roughness, [560, 162, 60, 17], "lineEdit_Scan_parameters_Gradient_roughness", font=font_ee)
+        self.checkBox_Scan_parameters_Gradient_roughness = QtWidgets.QCheckBox(self.tab_Scan_parameters)
+        self.__create_element(self.checkBox_Scan_parameters_Gradient_roughness, [623, 162, 21, 18], "checkBox_Scan_parameters_Gradient_roughness")
+        self.label_Scan_parameters_Gradient_sld = QtWidgets.QLabel(self.tab_Scan_parameters)
+        self.__create_element(self.label_Scan_parameters_Gradient_sld, [498, 180, 291, 17], "label_Scan_parameters_Gradient_sld", text="SLD", font=font_ee)
+        self.lineEdit_Scan_parameters_Gradient_sld = QtWidgets.QLineEdit(self.tab_Scan_parameters)
+        self.__create_element(self.lineEdit_Scan_parameters_Gradient_sld, [560, 180, 60, 17], "lineEdit_Scan_parameters_Gradient_sld", font=font_ee)
+        self.checkBox_Scan_parameters_Gradient_sld = QtWidgets.QCheckBox(self.tab_Scan_parameters)
+        self.__create_element(self.checkBox_Scan_parameters_Gradient_sld, [623, 180, 21, 18], "checkBox_Scan_parameters_Gradient_sld")
+        self.label_Scan_parameters_Gradient_msld = QtWidgets.QLabel(self.tab_Scan_parameters)
+        self.__create_element(self.label_Scan_parameters_Gradient_msld, [498, 198, 291, 17], "label_Scan_parameters_Gradient_msld", text="mSLD", font=font_ee)
+        self.lineEdit_Scan_parameters_Gradient_msld = QtWidgets.QLineEdit(self.tab_Scan_parameters)
+        self.__create_element(self.lineEdit_Scan_parameters_Gradient_msld, [560, 198, 60, 17], "lineEdit_Scan_parameters_Gradient_msld", font=font_ee)
+        self.checkBox_Scan_parameters_Gradient_msld = QtWidgets.QCheckBox(self.tab_Scan_parameters)
+        self.__create_element(self.checkBox_Scan_parameters_Gradient_msld, [623, 198, 21, 18], "checkBox_Scan_parameters_Gradient_msld")
 
         self.tabWidget_Start_fit_with.setCurrentIndex(0)
 
@@ -277,7 +302,7 @@ class Ui_MainWindow(QtGui.QMainWindow):
         self.tableWidget_Fit_results.setRowCount(0)
 
         column_names = ["No", "Parameter", "Value", "Error", "Factor"]
-        column_widths = [15, 20, 100, 78, 78, 78]
+        column_widths = [15, 20, 124, 70, 70, 70]
         for i in range(0, 6):
             item = QtWidgets.QTableWidgetItem()
             self.tableWidget_Fit_results.setHorizontalHeaderItem(i, item)
@@ -376,25 +401,25 @@ class Ui_MainWindow(QtGui.QMainWindow):
         self.__create_element(self.action_Mono_No_polarisation_multi, [999, 999, 999, 999], "action_Mono_No_polarisation_multi", checked=True, checkable=True, enabled=False, text="No polarisation (Multi)") # Mode 6
         self.menu_Mono.addAction(self.action_Mono_No_polarisation_multi)
         self.action_Mono_2_polarisations = QtWidgets.QAction(MainWindow)
-        self.__create_element(self.action_Mono_2_polarisations, [999, 999, 999, 999], "action_Mono_2_polarisations", checked=True, checkable=True, text="2 polarisation") # Mode 1
+        self.__create_element(self.action_Mono_2_polarisations, [999, 999, 999, 999], "action_Mono_2_polarisations", checked=True, checkable=True, text="2 polarisations") # Mode 1
         self.menu_Mono.addAction(self.action_Mono_2_polarisations)
         self.action_Mono_2_polarisations_multi = QtWidgets.QAction(MainWindow)
-        self.__create_element(self.action_Mono_2_polarisations_multi, [999, 999, 999, 999], "action_Mono_2_polarisations_multi", checked=True, checkable=True, enabled=False, text="2 polarisation (Multi)") # Mode 7
+        self.__create_element(self.action_Mono_2_polarisations_multi, [999, 999, 999, 999], "action_Mono_2_polarisations_multi", checked=True, checkable=True, enabled=False, text="2 polarisations (Multi)") # Mode 7
         self.menu_Mono.addAction(self.action_Mono_2_polarisations_multi)
         self.action_Mono_4_polarisations = QtWidgets.QAction(MainWindow)
-        self.__create_element(self.action_Mono_4_polarisations, [999, 999, 999, 999], "action_Mono_4_polarisations", checked=True, checkable=True, text="4 polarisation") # Mode 2
+        self.__create_element(self.action_Mono_4_polarisations, [999, 999, 999, 999], "action_Mono_4_polarisations", checked=True, checkable=True, text="4 polarisations") # Mode 2
         self.menu_Mono.addAction(self.action_Mono_4_polarisations)
         self.action_Mono_4_polarisations_multi = QtWidgets.QAction(MainWindow)
-        self.__create_element(self.action_Mono_4_polarisations_multi, [999, 999, 999, 999], "action_Mono_4_polarisations_multi", checked=True, checkable=True, text="4 polarisation (Multi)") # Mode 8
+        self.__create_element(self.action_Mono_4_polarisations_multi, [999, 999, 999, 999], "action_Mono_4_polarisations_multi", checked=True, checkable=True, text="4 polarisations (Multi)") # Mode 8
         self.menu_Mono.addAction(self.action_Mono_4_polarisations_multi)
         self.action_Tof_No_polarisation = QtWidgets.QAction(MainWindow)
         self.__create_element(self.action_Tof_No_polarisation, [999, 999, 999, 999], "action_Tof_No_polarisation", checked=True, checkable=True, text="No polarisation") # Mode 3
         self.menu_Tof.addAction(self.action_Tof_No_polarisation)
         self.action_Tof_2_polarisations = QtWidgets.QAction(MainWindow)
-        self.__create_element(self.action_Tof_2_polarisations, [999, 999, 999, 999], "action_Tof_2_polarisations", checked=True, checkable=True, text="2 polarisation") # Mode 4
+        self.__create_element(self.action_Tof_2_polarisations, [999, 999, 999, 999], "action_Tof_2_polarisations", checked=True, checkable=True, text="2 polarisations") # Mode 4
         self.menu_Tof.addAction(self.action_Tof_2_polarisations)
         self.action_Tof_4_polarisations = QtWidgets.QAction(MainWindow)
-        self.__create_element(self.action_Tof_4_polarisations, [999, 999, 999, 999], "action_Tof_4_polarisations", checked=True, checkable=True, text="4 polarisation") # Mode 5
+        self.__create_element(self.action_Tof_4_polarisations, [999, 999, 999, 999], "action_Tof_4_polarisations", checked=True, checkable=True, text="4 polarisations") # Mode 5
         self.menu_Tof.addAction(self.action_Tof_4_polarisations)
 
         # Statusbar
@@ -472,8 +497,13 @@ class GUI(Ui_MainWindow):
         # select mono_nopol by default
         try:
             action_mode = self.sender().objectName()
-        except:
-            action_mode = "action_Mono_No_polarisation"
+        except: action_mode = "action_Mono_No_polarisation"
+
+        dict_modes = {"action_Mono_No_polarisation":       0, "action_Mono_2_polarisations":        1, "action_Mono_4_polarisations":       2,
+                      "action_Tof_No_polarisation" :       3, "action_Tof_2_polarisations":         4, "action_Tof_4_polarisations":        5,
+                      "action_Mono_No_polarisation_multi": 6, "action_Mono_2_polarisations_multi":  7, "action_Mono_4_polarisations_multi": 8}
+
+        self.BoToFit_mode = dict_modes[action_mode]
 
         # program name, file to wait, default entry
         self.MODE_SPECS = [ ["Film500x0.exe", "FitFunct.dat", "UserDefaults_nopol.dat"],
@@ -489,34 +519,23 @@ class GUI(Ui_MainWindow):
         MODES = [self.action_Mono_No_polarisation, self.action_Mono_2_polarisations, self.action_Mono_4_polarisations, self.action_Tof_No_polarisation, self.action_Tof_2_polarisations, self.action_Tof_4_polarisations,
                  self.action_Mono_No_polarisation_multi, self.action_Mono_2_polarisations_multi, self.action_Mono_4_polarisations_multi]
 
-        if action_mode == "action_Mono_No_polarisation": self.BoToFit_mode = 0
-        elif action_mode == "action_Mono_2_polarisations": self.BoToFit_mode = 1
-        elif action_mode == "action_Mono_4_polarisations": self.BoToFit_mode = 2
-        elif action_mode == "action_Tof_No_polarisation": self.BoToFit_mode = 3
-        elif action_mode == "action_Tof_2_polarisations": self.BoToFit_mode = 4
-        elif action_mode == "action_Tof_4_polarisations": self.BoToFit_mode = 5
-        elif action_mode == "action_Mono_No_polarisation_multi": self.BoToFit_mode = 6
-        elif action_mode == "action_Mono_2_polarisations_multi": self.BoToFit_mode = 7
-        elif action_mode == "action_Mono_4_polarisations_multi": self.BoToFit_mode = 8
-
         for index, mode in enumerate(MODES):
             if index == self.BoToFit_mode: MODES[index].setChecked(True)
             else: MODES[index].setChecked(False)
 
-        # reformat table and polarisation parameters
+        # reformat table and show/hide polarisation parameters
         PARAMS_POL = [self.label_Scan_parameters_Piy, self.lineEdit_Scan_parameters_Piy, self.checkBox_Scan_parameters_Piy, self.label_Scan_parameters_Pfy, self.lineEdit_Scan_parameters_Pfy, self.checkBox_Scan_parameters_Pfy, self.label_Scan_parameters_Pfy, self.lineEdit_Scan_parameters_Pfy, self.checkBox_Scan_parameters_Pfy, self.label_Scan_parameters_Cg, self.lineEdit_Scan_parameters_Cg, self.checkBox_Scan_parameters_Cg, self.label_Scan_parameters_Sg, self.lineEdit_Scan_parameters_Sg, self.checkBox_Scan_parameters_Sg, self.label_Scan_parameters_Sg2, self.lineEdit_Scan_parameters_Sg2, self.checkBox_Scan_parameters_Sg2]
-        if self.BoToFit_mode in [0, 3, 6]:
-            for param in PARAMS_POL: param.setEnabled(False)
-            # columns with checkboxes can change their width depends on Windows scaling settings, so we correct our table
-            col_width = [106, 106, 1, 106, 1, 106, 1, 0, 0, 0, 0, 106, 1]
-            for i in range(0, 13): self.tableWidget_Film_description.setColumnWidth(i, col_width[i])
 
-        elif self.BoToFit_mode in [1, 2, 4, 5, 7, 8]:
-            for param in PARAMS_POL: param.setEnabled(True)
-            # columns with checkboxes can change their width depends on Windows scaling settings, so we correct our table
-            col_width = [65, 73, 1, 59, 1, 59, 1, 59, 1, 81, 1, 75, 1]
-            for i in range(0, 13):
-                self.tableWidget_Film_description.setColumnWidth(i, col_width[i])
+        if self.BoToFit_mode in [0, 3, 6]: enable, col_width = False, [106, 106, 1, 106, 1, 106, 1, 0, 0, 0, 0, 106, 1]
+        elif self.BoToFit_mode in [1, 2, 4, 5, 7, 8]: enable, col_width = True,  [65, 73, 1, 59, 1, 59, 1, 59, 1, 81, 1, 75, 1]
+        for param in PARAMS_POL: param.setEnabled(enable)
+        for i in range(0, 13): self.tableWidget_Film_description.setColumnWidth(i, col_width[i])
+
+        # show/hide multi parameters
+        PARAM_MULTI = [self.label_Scan_parameters_Gradient_period, self.lineEdit_Scan_parameters_Gradient_period, self.checkBox_Scan_parameters_Gradient_period, self.label_Scan_parameters_Gradient_roughness, self.lineEdit_Scan_parameters_Gradient_roughness, self.checkBox_Scan_parameters_Gradient_roughness, self.label_Scan_parameters_Gradient_sld, self.lineEdit_Scan_parameters_Gradient_sld, self.checkBox_Scan_parameters_Gradient_sld, self.label_Scan_parameters_Gradient_msld, self.lineEdit_Scan_parameters_Gradient_msld, self.checkBox_Scan_parameters_Gradient_msld]
+
+        enable = [True if self.BoToFit_mode in [6, 7, 8] else False][0]
+        for param in PARAM_MULTI: param.setEnabled(enable)
 
         # reformat checkboxes (I, dI, Qz, rad) and Wavelength/Inc.angle field
         CHECKBOXES = [self.comboBox_Data_file_Column_1, self.comboBox_Data_file_Column_2, self.comboBox_Data_file_Column_3]
@@ -617,29 +636,32 @@ class GUI(Ui_MainWindow):
             parameter = self.tableWidget_Fit_results.item(i, 2).text().split()
 
             # Fill in the table:
-            # Substrate has 2 parameters, Layers have 3
+            # Substrate has 2 parameters, Layers 3
             if not len(parameter) == 1:
                 index, start_fit_table_row = 1, self.tableWidget_Film_description.rowCount() - 1
-                if len(parameter) == 3:
-                    index, start_fit_table_row = 2, int(parameter[1]) - 1
+                if len(parameter) == 3: index, start_fit_table_row = 2, int(parameter[1]) - 1
 
-                if parameter[index] == "thickness": start_fit_table_column = 1
+                if parameter[index] == "Thickness": start_fit_table_column = 1
                 elif parameter[index] == "SLD": start_fit_table_column = 3
                 elif parameter[index] == "iSLD": start_fit_table_column = 5
                 elif parameter[index] == "mSLD": start_fit_table_column = 7
-                elif parameter[index] == "cos(d-gamma)": start_fit_table_column = 9
-                elif parameter[index] == "roughness": start_fit_table_column = 11
+                elif parameter[index] == "Cos(d-gamma)": start_fit_table_column = 9
+                elif parameter[index] == "Roughness": start_fit_table_column = 11
 
-                self.tableWidget_Film_description.item(start_fit_table_row, start_fit_table_column).setText(self.tableWidget_Fit_results.item(i, 3).text())
+                self.tableWidget_Film_description.item(start_fit_table_row, start_fit_table_column).setText(str(float(self.tableWidget_Fit_results.item(i, 3).text())))
 
-            if parameter[0] == 'Scaling_factor': self.lineEdit_Scan_parameters_Scaling_factor.setText(self.tableWidget_Fit_results.item(i, 3).text())
-            if parameter[0] == 'Overillumination': self.lineEdit_Scan_parameters_Crossover_overillumination.setText(self.tableWidget_Fit_results.item(i, 3).text())
-            if parameter[0] == 'Background': self.lineEdit_Scan_parameters_Background.setText(self.tableWidget_Fit_results.item(i, 3).text())
-            if parameter[0] == '<Cos(gamma)>': self.lineEdit_Scan_parameters_Cg.setText(self.tableWidget_Fit_results.item(i, 3).text())
-            if parameter[0] == '<Sin(gamma)>': self.lineEdit_Scan_parameters_Sg.setText(self.tableWidget_Fit_results.item(i, 3).text())
-            if parameter[0] == '<Sin^2(gamma)>': self.lineEdit_Scan_parameters_Sg2.setText(self.tableWidget_Fit_results.item(i, 3).text())
-            if parameter[0] == 'Pi(y)': self.lineEdit_Scan_parameters_Piy.setText(self.tableWidget_Fit_results.item(i, 3).text())
-            if parameter[0] == 'Pf(y)': self.lineEdit_Scan_parameters_Pfy.setText(self.tableWidget_Fit_results.item(i, 3).text())
+            if parameter[0] == 'Scaling_factor': self.lineEdit_Scan_parameters_Scaling_factor.setText(str(float(self.tableWidget_Fit_results.item(i, 3).text())))
+            elif parameter[0] == 'Overillumination': self.lineEdit_Scan_parameters_Crossover_overillumination.setText(str(float(self.tableWidget_Fit_results.item(i, 3).text())))
+            elif parameter[0] == 'Background': self.lineEdit_Scan_parameters_Background.setText(str(float(self.tableWidget_Fit_results.item(i, 3).text())))
+            elif parameter[0] == '<Cos(gamma)>': self.lineEdit_Scan_parameters_Cg.setText(str(float(self.tableWidget_Fit_results.item(i, 3).text())))
+            elif parameter[0] == '<Sin(gamma)>': self.lineEdit_Scan_parameters_Sg.setText(str(float(self.tableWidget_Fit_results.item(i, 3).text())))
+            elif parameter[0] == '<Sin^2(gamma)>': self.lineEdit_Scan_parameters_Sg2.setText(str(float(self.tableWidget_Fit_results.item(i, 3).text())))
+            elif parameter[0] == 'Pi(y)': self.lineEdit_Scan_parameters_Piy.setText(str(float(self.tableWidget_Fit_results.item(i, 3).text())))
+            elif parameter[0] == 'Pf(y)': self.lineEdit_Scan_parameters_Pfy.setText(str(float(self.tableWidget_Fit_results.item(i, 3).text())))
+            elif parameter[0] == 'grad.Period': self.lineEdit_Scan_parameters_Gradient_period.setText(str(float(self.tableWidget_Fit_results.item(i, 3).text())))
+            elif parameter[0] == 'grad.Roughness': self.lineEdit_Scan_parameters_Gradient_roughness.setText(str(float(self.tableWidget_Fit_results.item(i, 3).text())))
+            elif parameter[0] == 'grad.SLD': self.lineEdit_Scan_parameters_Gradient_sld.setText(str(float(self.tableWidget_Fit_results.item(i, 3).text())))
+            elif parameter[0] == 'grad.mSLD': self.lineEdit_Scan_parameters_Gradient_msld.setText(str(float(self.tableWidget_Fit_results.item(i, 3).text())))
 
     def button_Start_fitting(self):
 
@@ -672,10 +694,9 @@ class GUI(Ui_MainWindow):
         if not self.lineEdit_Save_at.text():
             self.lineEdit_Save_at.setText(self.current_dir)
 
-        self.data_folder_name = self.lineEdit_Save_at.text() + "/" + data_file_input_name + "/"
+        self.data_folder_name = self.lineEdit_Save_at.text() + data_file_input_name + "/"
 
-        if not os.path.exists(self.data_folder_name):
-            os.makedirs(self.data_folder_name)
+        if not os.path.exists(self.data_folder_name): os.makedirs(self.data_folder_name)
 
         # create entry for BoToFit
         self.create_input_Data_file()
@@ -709,7 +730,7 @@ class GUI(Ui_MainWindow):
         self.graphicsView_Reflectivity_profile.getPlotItem().clear()
         self.draw_reflectivity()
         self.draw_and_export_reform_FitFunct()
-        self.create_Fit_results_table_and_multiGrPr_entry()
+        self.create_entry_for_multiGrPr()
 
         self.draw_diff()
 
@@ -838,10 +859,8 @@ class GUI(Ui_MainWindow):
         self.tableWidget_Film_description.setCurrentCell(-1, -1)
 
         if self.lineEdit_Scan_parameters_Wavelength.text() == "":
-            if self.MODE_SPECS[self.BoToFit_mode][2] in os.listdir(self.current_dir + "/User_Defaults"):
-                entry_file = self.current_dir + "/User_Defaults/" + self.MODE_SPECS[self.BoToFit_mode][2]
-        else:
-            entry_file = QtWidgets.QFileDialog().getOpenFileName(None, "FileNames", self.current_dir)[0]
+            if self.MODE_SPECS[self.BoToFit_mode][2] in os.listdir(self.current_dir + "/User_Defaults"): entry_file = self.current_dir + "/User_Defaults/" + self.MODE_SPECS[self.BoToFit_mode][2]
+        else: entry_file = QtWidgets.QFileDialog().getOpenFileName(None, "FileNames", self.current_dir)[0]
 
         if entry_file == "": return
 
@@ -860,17 +879,32 @@ class GUI(Ui_MainWindow):
         self.lineEdit_Scan_parameters_Step_for_resolution_function.setText(ENTRY[index_reference+3].split()[0]) # step for resolution function (in mrad)
         self.lineEdit_Scan_parameters_Sigma.setText(ENTRY[index_reference+4].split()[0]) # "sigma" of resolution function (in mrad)
 
-        number_of_layers = int(ENTRY[index_reference+5].split()[0])
-        
-        # delete all layers except substrate
-        while not self.tableWidget_Film_description.rowCount() == 1:
-            self.tableWidget_Film_description.removeRow(0)
-        # add layers
+        if self.BoToFit_mode in [0, 1, 2, 3, 4, 5]: number_of_layers, index_reference = int(ENTRY[index_reference+5].split()[0]), index_reference + 6   # no multi modules
+        elif self.BoToFit_mode in [6, 7, 8]: # multi modules
+            number_of_layers_cap = int(ENTRY[index_reference + 5].split()[0]) # "ncap" number of cap layers
+            number_of_layers_sub = int(ENTRY[index_reference + 6].split()[0]) # "nsub" number of sub-ayers in a superstructure
+            number_of_layers_repetitions = int(ENTRY[index_reference + 7].split()[0]) # "nrep" number of repetitions
+            number_of_layers_buffer = int(ENTRY[index_reference + 8].split()[0]) # "nbuf" number of buffer layers
+            number_of_layers, index_reference = number_of_layers_cap + number_of_layers_sub + number_of_layers_buffer, index_reference + 9
+
+        # delete all layers except substrate from the table
+        while not self.tableWidget_Film_description.rowCount() == 1: self.tableWidget_Film_description.removeRow(0)
+        # add layers to the table
         for i in range(0, number_of_layers):
             self.buttons_add_remove_layer()
-            self.tableWidget_Film_description.item(0, 0).setText("Layer " + str(number_of_layers - i))
+            self.tableWidget_Film_description.item(0, 0).setText(str(number_of_layers - i))
+
+        # reformat the table in multi modes
+        if self.BoToFit_mode in [6, 7, 8]:
+            self.tableWidget_Film_description.setSpan(number_of_layers_cap, 0, number_of_layers_sub, 1)
+
+            for row in range(0, number_of_layers):
+                if row < number_of_layers_cap: self.tableWidget_Film_description.item(row, 0).setText(str(row+1))
+                elif row < number_of_layers_cap + number_of_layers_sub: self.tableWidget_Film_description.item(row, 0).setText(str(row+1) + " x " + str(number_of_layers_repetitions))
+                else: self.tableWidget_Film_description.item(row, 0).setText(str(row+2-number_of_layers_sub))
+
         # fill the table
-        row, col, index_reference = 0, 1, index_reference+6
+        row, col = 0, 1
         for row in range(0, number_of_layers+1):
             if not row == number_of_layers:
                 self.tableWidget_Film_description.item(row, col).setText(ENTRY[index_reference].split()[0].replace("d", "e")) # Thickness
@@ -893,41 +927,44 @@ class GUI(Ui_MainWindow):
                 self.__set_checked(self.tableWidget_Film_description.item(row, col + 11), ENTRY[index_reference+11].split()[0])
                 index_reference = index_reference + 12
 
+        if self.BoToFit_mode in [6, 7, 8]:
+            self.lineEdit_Scan_parameters_Gradient_period.setText(ENTRY[index_reference].split()[0])    # Gradient Period (-1 < "grad"< 1)
+            self.__set_checked(self.checkBox_Scan_parameters_Gradient_period, ENTRY[index_reference + 1].split()[0])
+            self.lineEdit_Scan_parameters_Gradient_roughness.setText(ENTRY[index_reference + 2].split()[0])     # Gradient Roughness (DW)  (-1 < "grad"< 1)
+            self.__set_checked(self.checkBox_Scan_parameters_Gradient_roughness, ENTRY[index_reference + 3].split()[0])
+            self.lineEdit_Scan_parameters_Gradient_sld.setText(ENTRY[index_reference + 4].split()[0])       # Gradient SLD (Nb) (-1 < "grad"< 1)
+            self.__set_checked(self.checkBox_Scan_parameters_Gradient_sld, ENTRY[index_reference + 5].split()[0])
+            self.lineEdit_Scan_parameters_Gradient_msld.setText(ENTRY[index_reference + 6].split()[0])      # Gradient mSLD (Np) (-1 < "grad"< 1)
+            self.__set_checked(self.checkBox_Scan_parameters_Gradient_msld, ENTRY[index_reference + 7].split()[0])
+            index_reference = index_reference + 8
+
         if not self.BoToFit_mode in [0, 3, 6]:
-            # cg: mean value <cos(gamma)> over big domains
-            self.lineEdit_Scan_parameters_Cg.setText(ENTRY[index_reference].split()[0])
+            self.lineEdit_Scan_parameters_Cg.setText(ENTRY[index_reference].split()[0])     # cg: mean value <cos(gamma)> over big domains
             self.__set_checked(self.checkBox_Scan_parameters_Cg, ENTRY[index_reference + 1].split()[0])
-            # sg: mean value <sin(gamma)> over big domains
-            self.lineEdit_Scan_parameters_Sg.setText(ENTRY[index_reference + 2].split()[0])
+            self.lineEdit_Scan_parameters_Sg.setText(ENTRY[index_reference + 2].split()[0])     # sg: mean value <sin(gamma)> over big domains
             self.__set_checked(self.checkBox_Scan_parameters_Sg, ENTRY[index_reference + 3].split()[0])
-            # sg2: mean value <sin^2(gamma)> over big domains
-            self.lineEdit_Scan_parameters_Sg2.setText(ENTRY[index_reference + 4].split()[0])
+            self.lineEdit_Scan_parameters_Sg2.setText(ENTRY[index_reference + 4].split()[0])    # sg2: mean value <sin^2(gamma)> over big domains
             self.__set_checked(self.checkBox_Scan_parameters_Sg2, ENTRY[index_reference + 5].split()[0])
         else: index_reference -= 6
 
-        # ct  total scaling factor
-        self.lineEdit_Scan_parameters_Scaling_factor.setText(ENTRY[index_reference + 6].split()[0])
+
+        self.lineEdit_Scan_parameters_Scaling_factor.setText(ENTRY[index_reference + 6].split()[0])     # ct  total scaling factor
         self.__set_checked(self.checkBox_Scan_parameters_Scaling_factor, ENTRY[index_reference + 7].split()[0])
-        # alpha_0 crossover angle overillumination (in mrad)
-        self.lineEdit_Scan_parameters_Crossover_overillumination.setText(ENTRY[index_reference + 8].split()[0])
+        self.lineEdit_Scan_parameters_Crossover_overillumination.setText(ENTRY[index_reference + 8].split()[0])     # alpha_0 crossover angle overillumination (in mrad)
         self.__set_checked(self.checkBox_Scan_parameters_Crossover_overillumination, ENTRY[index_reference + 9].split()[0])
-        # bgr 'background'
-        self.lineEdit_Scan_parameters_Background.setText(ENTRY[index_reference + 10].split()[0])
+        self.lineEdit_Scan_parameters_Background.setText(ENTRY[index_reference + 10].split()[0])    # bgr 'background'
         self.__set_checked(self.checkBox_Scan_parameters_Background, ENTRY[index_reference + 11].split()[0])
-        # correction of the detector 'zero' (in mrad)
-        self.lineEdit_Scan_parameters_Zero_correction.setText(ENTRY[index_reference + 12].split()[0])
+        self.lineEdit_Scan_parameters_Zero_correction.setText(ENTRY[index_reference + 12].split()[0])   # correction of the detector 'zero' (in mrad)
 
     def create_entry_for_BoToFit(self):
         '''
         BoToFit needs its own entry file, so we make one using data from the table
         '''
 
-        ENTRY = []
+        ENTRY, self.ncap, self.nsub, self.nrep, self.nbuf = [], 0, 0, 0, 0
 
         if self.BoToFit_mode not in [0, 3, 6]:
-            # incident polarization (polariser)
             ENTRY.append("0     Pix incident polarization (polariser)\nf\n" + self.lineEdit_Scan_parameters_Piy.text() + '    Piy\n' + self.__check_checked(self.checkBox_Scan_parameters_Piy) + "\n" + "0     Piz\nf\n\n")
-            # outgoing polarization (analyser)
             ENTRY.append("0     Pfx outgoing polarization (analyser)\nf\n" + self.lineEdit_Scan_parameters_Pfy.text() + '    Pfy\n' + self.__check_checked(self.checkBox_Scan_parameters_Pfy) + "\n" + "0     Pfz\nf\n\n")
 
         if not self.BoToFit_mode in [3, 4, 5]: ENTRY.append(self.lineEdit_Scan_parameters_Wavelength.text() + '    wavelength (in Angstrem)\n')
@@ -937,42 +974,55 @@ class GUI(Ui_MainWindow):
         ENTRY.append(self.lineEdit_Scan_parameters_Number_of_pts_for_resolution_function.text() + "    *j0 number of points for resolution function (odd) (<102)\n")
         ENTRY.append(self.lineEdit_Scan_parameters_Step_for_resolution_function.text() + "    step for resolution function (in mrad)\n")
         ENTRY.append(self.lineEdit_Scan_parameters_Sigma.text() + "     *sigma of resolution function (in mrad)\n\n")
-        ENTRY.append(str(self.tableWidget_Film_description.rowCount() - 1) + "   number of layers (excluding substrate) (<21)\n\n")
+
+        if self.BoToFit_mode in [0, 1, 2, 3, 4, 5]: ENTRY.append(str(self.tableWidget_Film_description.rowCount() - 1) + "   number of layers (excluding substrate) (<21)\n\n")
+        else:
+            for row, span in enumerate([self.tableWidget_Film_description.rowSpan(row, 0) for row in range(0, self.tableWidget_Film_description.rowCount() - 1)]):
+                if self.nsub == 0 and self.nrep == 0 and span == 1: self.ncap += 1
+                if span > 1 or "x" in self.tableWidget_Film_description.item(row, 0).text():
+                    self.nsub, self.nrep = span, int(self.tableWidget_Film_description.item(row, 0).text()[self.tableWidget_Film_description.item(row, 0).text().find("x") + 1:])
+                if self.nrep > 0 and not span > 1: self.nbuf += 1
+
+            ENTRY.append(str(self.ncap) + "   \"ncap\" number of cap layers\n")
+            ENTRY.append(str(self.nsub) + "   \"nsub\" number of sub-layers in a superstructure\n")
+            ENTRY.append(str(self.nrep) + "   \"nrep\" number of repetitions\n")
+            ENTRY.append(str(self.nbuf) + "   \"nbuf\" number of buffer layers\n\n")
+
         # read the table
         for i in range(0, self.tableWidget_Film_description.rowCount()):
             comment = ""
             # Thickness
             if not self.tableWidget_Film_description.item(i, 0).text() == "substrate":
-                ENTRY.append(self.tableWidget_Film_description.item(i, 1).text() + "    layer " + str(i+1) + " ("+ self.tableWidget_Film_description.item(i, 0).text() + ") thickness (in A)\n" + self.__check_checked(self.tableWidget_Film_description.item(i, 2)) + "\n")
+                if self.BoToFit_mode in [0, 1, 2, 3, 4, 5]: layer = str(i+1)
+                elif self.BoToFit_mode in [6, 7, 8]:
+                    if i < self.ncap: layer = "Cap " + str(i+1)
+                    elif i < self.ncap + self.nsub: layer = "Sub " + str(i+1-self.ncap)
+                    elif i < self.ncap + self.nsub + self.nbuf: layer = "Buffer " + str(i+1-self.ncap-self.nsub)
+
+                ENTRY.append(self.tableWidget_Film_description.item(i, 1).text() + "    layer " + layer + " - thickness (in A)\n" + self.__check_checked(self.tableWidget_Film_description.item(i, 2)) + "\n")
             else: comment = "substrate's"
-            # SLD
             ENTRY.append(self.tableWidget_Film_description.item(i, 3).text() + "    " + comment + " nbr nuclear SLD Nb'  (in A**-2) *1e6\n" + self.__check_checked(self.tableWidget_Film_description.item(i, 4)) + "\n")
-            # iSDL
             ENTRY.append(self.tableWidget_Film_description.item(i, 5).text() + "    " + comment + " nbi nuclear SLD Nb'' (in A**-2) *1e6\n" + self.__check_checked(self.tableWidget_Film_description.item(i, 6)) + "\n")
             if self.BoToFit_mode not in [0, 3, 6]:
-                # magnetic SLD
                 ENTRY.append(self.tableWidget_Film_description.item(i, 7).text() + "    magnetic SLD Np (in A**-2)*1e6\n" + self.__check_checked(self.tableWidget_Film_description.item(i, 8)) + "\n")
-                # c=<cos(delta_gamma)>
                 ENTRY.append(self.tableWidget_Film_description.item(i, 9).text() + "    c=<cos(delta_gamma)>\n" + self.__check_checked(self.tableWidget_Film_description.item(i, 10)) + "\n")
-            # roughness
             ENTRY.append(self.tableWidget_Film_description.item(i, 11).text() + "    dw Debye-Waller in [AA]\n" + self.__check_checked(self.tableWidget_Film_description.item(i, 12)) + "\n\n")
 
+        if self.BoToFit_mode in [6, 7, 8]:
+            ENTRY.append(self.lineEdit_Scan_parameters_Gradient_period.text() + '    Period gardient (-1 < "grad"< 1)\n' + self.__check_checked(self.checkBox_Scan_parameters_Gradient_period) + "\n")
+            ENTRY.append(self.lineEdit_Scan_parameters_Gradient_roughness.text() + '    DW gardient (-1 < "grad"< 1)\n' + self.__check_checked(self.checkBox_Scan_parameters_Gradient_roughness) + "\n")
+            ENTRY.append(self.lineEdit_Scan_parameters_Gradient_sld.text() + '    Nb gardient (-1 < "grad"< 1)\n' + self.__check_checked(self.checkBox_Scan_parameters_Gradient_sld) + "\n")
+            ENTRY.append(self.lineEdit_Scan_parameters_Gradient_msld.text() + '    Np gardient (-1 < "grad"< 1)\n' + self.__check_checked(self.checkBox_Scan_parameters_Gradient_msld) + "\n\n")
+
         if self.BoToFit_mode not in [0, 3, 6]:
-            # cg
             ENTRY.append(self.lineEdit_Scan_parameters_Cg.text() + '    cg: mean value <cos(gamma)> over big domains\n' + self.__check_checked(self.checkBox_Scan_parameters_Cg) + "\n")
-            # sg
             ENTRY.append(self.lineEdit_Scan_parameters_Sg.text() + '    sg: mean value <sin(gamma)> over big domains\n' + self.__check_checked(self.checkBox_Scan_parameters_Sg) + "\n")
-            # sg2
             ENTRY.append(self.lineEdit_Scan_parameters_Sg2.text() + '    sg2: mean value <sin^2(gamma)> over big domains\n' + self.__check_checked(self.checkBox_Scan_parameters_Sg2) + "\n\n")
 
-        # ct - total scaling factor
         ENTRY.append(self.lineEdit_Scan_parameters_Scaling_factor.text() + "   *ct  total scaling factor\n" + self.__check_checked(self.checkBox_Scan_parameters_Scaling_factor) + "\n")
-        # alpha_0 crossover angle overillumination
         ENTRY.append(self.lineEdit_Scan_parameters_Crossover_overillumination.text() + "   *alpha_0 crossover angle overillumination (in mrad)\n" + self.__check_checked(self.checkBox_Scan_parameters_Crossover_overillumination) + "\n")
-        # background
         ENTRY.append(self.lineEdit_Scan_parameters_Background.text() + "   *bgr background\n" + self.__check_checked(self.checkBox_Scan_parameters_Background) + "\n")
 
-        # correction of the detector 'zero'
         ENTRY.append("\n" + self.lineEdit_Scan_parameters_Zero_correction.text() + "   correction of the detector 'zero' (in mrad)")
 
         with open(self.data_folder_name + 'entry.dat', 'w') as entry_file:
@@ -980,11 +1030,8 @@ class GUI(Ui_MainWindow):
     ##<--
 
     ##--> "Results table" and "multiGrPr entry"
-    def create_Fit_results_table_and_multiGrPr_entry(self):
-        '''
-        this is another entry, used for multiGrPr.exe. It is used to calculate SLD profile
-        '''
-
+    def create_entry_for_multiGrPr(self):
+        # Create multiGrPr template
         multiGrPr_data = [[0, 0.977836, 0],
                           [0, 0.985158, 0],
                           [0, 0, 30, 0, 30, -200, 3000, 1999, 0.36, 3],
@@ -996,140 +1043,131 @@ class GUI(Ui_MainWindow):
 
         multiGrPr_info = [["Pix incident polarization (polariser)", "Piy", "Piz"],
                           ["Pfx outgoing polarization (analyser)", "Pfy", "Pfz"],
-                          ["wavelength lambda (in A)", "min. angle of incidence alphai  (in mrad)", "max. angle of incidence alhamax (in mrad)", "min. angle of exit  (in mrad)", "max. angle of exit  (in mrad)", "min. z  (in Angstrom)", "max. z  (in Angstrom)", "'nn' number of points in alphai (alphaf)", "'delta' width of Gaussian in (mrad)", "'nn0' number of withs averaged"],
-                          ["number of cap layers", "number of sub-layers", "number of repetitions", "number of buffer layers"],
-                          ["Layer 1  thickness in (A)", "real part of nuclear SLD Nb'  (in A**-2) *1e-6", "imaginary part of nuclear SLD Nb'' (in A**-2) *1e-6", "magn. scatt. length density (SLD) Np (in A**-2) *1e-6", "c=<cos(delta_gamma)>_{over small domains}", "dw Debye-Waller in [AA]", "grad_d", "grad_Nb", "grad_Np", "grad_DW"],
-                          ["Substrate SLD Nb' (in A**-2) *1e-6", "Substrate   Nb'' im. part of nucl. SLD Nb'' (in A**-2) *1e-6", "magnetic scattering length density Np (in A**-2) *1e-6", "c=<cos(delta_phi)>_{over small domains}", "dw Debye-Waller in [AA]"],
+                          ["Wavelength lambda (in A)", "Min. angle of incidence alphai  (in mrad)", "Max. angle of incidence alhamax (in mrad)", "Min. angle of exit  (in mrad)",
+                           "Max. angle of exit  (in mrad)", "Min. z  (in Angstrom)", "Max. z  (in Angstrom)", "'nn' number of points in alphai (alphaf)", "'delta' width of Gaussian in (mrad)",
+                           "'nn0' number of withs averaged"],
+                          ["Number of cap layers", "Number of sub-layers", "Number of repetitions", "Number of buffer layers"],
+                          ["Layer 1  thickness in (A)", "Real part of nuclear SLD Nb'  (in A**-2) *1e-6", "Imaginary part of nuclear SLD Nb'' (in A**-2) *1e-6",
+                           "Magn. scatt. length density (SLD) Np (in A**-2) *1e-6", "c=<cos(delta_gamma)>_{over small domains}", "dw Debye-Waller in [AA]", "Gradient Period", "Gradient SLD", "Gradient mSLD", "Gradient Roughness"],
+                          ["Substrate Real part of nuclear SLD Nb' (in A**-2) *1e-6", "Imaginary part of nuclear SLD Nb'' (in A**-2) *1e-6", "Magnetic scattering length density Np (in A**-2) *1e-6",
+                           "c=<cos(delta_phi)>_{over small domains}", "dw Debye-Waller in [AA]"],
                           ["cg: mean value <cos(gamma)>  of 'big domains'' ! cg^2<1-sg2", "sg: mean <sin(gamma)>", "sg2: mean value <sin^2(gamma)> of 'big domains'"],
                           ["ct  total scaling factor", "alpha_0 [mrad] crossover illumination angle", "bgr"]
                           ]
 
         for i in range(1, self.tableWidget_Film_description.rowCount() - 1):
             multiGrPr_data.insert(5, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
-            multiGrPr_info.insert(5, ["Layer " + str(self.tableWidget_Film_description.rowCount() - i) + " thickness in (A)", "real part of nuclear SLD Nb'  (in A**-2) *1e-6", "imaginary part of nuclear SLD Nb'' (in A**-2) *1e-6", "magn. scatt. length density (SLD) Np (in A**-2) *1e-6", "c=<cos(delta_gamma)>_{over small domains}", "dw Debye-Waller in [AA]", "grad_d", "grad_Nb", "grad_Np", "grad_DW"])
+            multiGrPr_info.insert(5, ["Layer " + str(self.tableWidget_Film_description.rowCount() - i) + " thickness in (A)", "real part of nuclear SLD Nb'  (in A**-2) *1e-6",
+                                      "imaginary part of nuclear SLD Nb'' (in A**-2) *1e-6", "magn. scatt. length density (SLD) Np (in A**-2) *1e-6", "c=<cos(delta_gamma)>_{over small domains}",
+                                      "dw Debye-Waller in [AA]", "Gradient Period", "Gradient SLD", "Gradient mSLD", "Gradient Roughness"])
 
-        last_itr_loc = 0
+        # analize FitBag file
+        fitbag_file_name = "Fit2DBag.dat" if not self.BoToFit_mode in [0, 3, 6] else "FitBag.dat"
 
-        multiGrPr = open(self.data_folder_name + 'multiGrPr.ent', 'w')
+        dict_replace = {"total scaling": "Scaling_factor", "alpha_0": "Overillumination", "Re{Nb}": "SLD", "Im{Nb}": "iSLD", "N_p": "mSLD", "Debye-Waller": "Roughness", "background": "Background",
+                        "<Cos(delta_gamma": "Cos(d-gamma)", "+/-": "", "on bound": "", "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%": "skip",
+                        "<grad>":"grad.Period", "<gradDw>":"grad.Roughness", "<gradNb>":"grad.SLD", "<gradNp>":"grad.mSLD", "thickness":"Thickness"}
+        fitbag_data = []
+        with open(self.data_folder_name + fitbag_file_name, "r") as fit_file:
+            for line_number, line in reversed(list(enumerate(fit_file.readlines()))):
+                for i in dict_replace.keys(): line = line.replace(i, dict_replace[i])
 
+                line_arr = line.split()
+                if len(line_arr) == 0 or line_arr[0] in ['skip', "sqrt(D):", "D=<Cos(gam)^2>-<Cos(gam)>^2:"]: continue
+
+                fitbag_data.append(line_arr)
+                if line.find(" iterate ") > 0: break
+
+        self.FITBAG_df = pd.DataFrame(fitbag_data[::-1], columns=["Number", "Name", "Value", "Error", "Factor"]).fillna("None")
+
+        if not self.BoToFit_mode in [0, 3, 6]:
+            multiGrPr_data[0][1] = float(self.FITBAG_df[self.FITBAG_df["Name"] == "Pi(y)"]['Value'])
+            multiGrPr_data[1][1] = float(self.FITBAG_df[self.FITBAG_df["Name"] == "Pf(y)"]['Value'])
         multiGrPr_data[2][0] = self.lineEdit_Scan_parameters_Wavelength.text()
-        multiGrPr_data[3][3] = self.tableWidget_Film_description.rowCount() - 1
 
+        if not self.BoToFit_mode in [6, 7, 8]: multiGrPr_data[3][3] = self.tableWidget_Film_description.rowCount() - 1
+        else: multiGrPr_data[3] = self.ncap, self.nsub, self.nrep, self.nbuf
+
+        # layers
+        for layer_number in range(0, self.tableWidget_Film_description.rowCount()-1):
+            multiGrPr_data[4 + layer_number][0] = float(self.FITBAG_df[self.FITBAG_df["Name"] == "Thickness"].iloc[layer_number]['Value'])
+            multiGrPr_data[4 + layer_number][1] = float(self.FITBAG_df[self.FITBAG_df["Name"] == "SLD"].iloc[layer_number]['Value']) * 10e+5
+            multiGrPr_data[4 + layer_number][2] = float(self.FITBAG_df[self.FITBAG_df["Name"] == "iSLD"].iloc[layer_number]['Value']) * 10e+5
+            if not self.BoToFit_mode in [0, 3, 6]:
+                multiGrPr_data[4 + layer_number][3] = float(self.FITBAG_df[self.FITBAG_df["Name"] == "mSLD"].iloc[layer_number]['Value']) * 10e+5
+                multiGrPr_data[4 + layer_number][4] = float(self.FITBAG_df[self.FITBAG_df["Name"] == "Cos(d-gamma)"].iloc[layer_number]['Value'])
+            multiGrPr_data[4 + layer_number][5] = float(self.FITBAG_df[self.FITBAG_df["Name"] == "Roughness"].iloc[layer_number]['Value'])
+            # HERE (what to do with gradients)
+            if self.BoToFit_mode in [6, 7, 8] and layer_number + 1 > self.ncap and layer_number < self.ncap + self.nsub:
+                multiGrPr_data[4 + layer_number][6] = float(self.FITBAG_df[self.FITBAG_df["Name"] == "grad.Period"]['Value'])
+                multiGrPr_data[4 + layer_number][7] = float(self.FITBAG_df[self.FITBAG_df["Name"] == "grad.SLD"]['Value'])
+                multiGrPr_data[4 + layer_number][8] = float(self.FITBAG_df[self.FITBAG_df["Name"] == "grad.mSLD"]['Value'])
+                multiGrPr_data[4 + layer_number][9] = float(self.FITBAG_df[self.FITBAG_df["Name"] == "grad.Roughness"]['Value'])
+
+        # substrate
+        multiGrPr_data[4 + self.tableWidget_Film_description.rowCount()-1][0] = float(self.FITBAG_df[self.FITBAG_df["Name"] == "SLD"].iloc[self.tableWidget_Film_description.rowCount()-1]['Value']) * 10e+5
+        multiGrPr_data[4 + self.tableWidget_Film_description.rowCount()-1][1] = float(self.FITBAG_df[self.FITBAG_df["Name"] == "iSLD"].iloc[self.tableWidget_Film_description.rowCount()-1]['Value']) * 10e+5
+        if not self.BoToFit_mode in [0, 3, 6]:
+            multiGrPr_data[4 + self.tableWidget_Film_description.rowCount()-1][2] = float(self.FITBAG_df[self.FITBAG_df["Name"] == "mSLD"].iloc[self.tableWidget_Film_description.rowCount()-1]['Value']) * 10e+5
+            multiGrPr_data[4 + self.tableWidget_Film_description.rowCount()-1][3] = float(self.FITBAG_df[self.FITBAG_df["Name"] == "Cos(d-gamma)"].iloc[self.tableWidget_Film_description.rowCount()-1]['Value'])
+        multiGrPr_data[4 + self.tableWidget_Film_description.rowCount()-1][4] = float(self.FITBAG_df[self.FITBAG_df["Name"] == "Roughness"].iloc[self.tableWidget_Film_description.rowCount()-1]['Value'])
+
+        if not self.BoToFit_mode in [0, 3, 6]:
+            multiGrPr_data[4 + self.tableWidget_Film_description.rowCount()][0] = float(self.FITBAG_df[self.FITBAG_df["Name"] == "<Cos(gamma)>"]['Value'])
+            multiGrPr_data[4 + self.tableWidget_Film_description.rowCount()][1] = float(self.FITBAG_df[self.FITBAG_df["Name"] == "<Sin(gamma)>"]['Value'])
+            multiGrPr_data[4 + self.tableWidget_Film_description.rowCount()][2] = float(self.FITBAG_df[self.FITBAG_df["Name"] == "<Sin^2(gamma)>"]['Value'])
+        multiGrPr_data[4 + self.tableWidget_Film_description.rowCount() + 1][0] = float(self.FITBAG_df[self.FITBAG_df["Name"] == "Scaling_factor"]['Value'])
+        multiGrPr_data[4 + self.tableWidget_Film_description.rowCount() + 1][1] = float(self.FITBAG_df[self.FITBAG_df["Name"] == "Overillumination"]['Value'])
+        multiGrPr_data[4 + self.tableWidget_Film_description.rowCount() + 1][2] = float(self.FITBAG_df[self.FITBAG_df["Name"] == "Background"]['Value'])
+
+        # Write file
+        with open(self.data_folder_name + 'multiGrPr.ent', 'w') as multiGrPr:
+            for i in range(0, len(multiGrPr_data)):
+                for j in range(0, len(multiGrPr_data[i])): multiGrPr.write(str(multiGrPr_data[i][j]) + "     " + str(multiGrPr_info[i][j]) + "\n")
+                multiGrPr.write("\n")
+
+        self.fill_Fit_results_table()
+
+    def fill_Fit_results_table(self):
         # clear results_table before another fit
         for i in range(0, self.tableWidget_Fit_results.rowCount()): self.tableWidget_Fit_results.removeRow(0)
 
-        # do fast run to find last iteration location
-        fit_file_name = "Fit2DBag.dat" if not self.BoToFit_mode in [0, 3, 6] else "FitBag.dat"
+        self.lineEdit_Fit_results_Chi_square.setText(str(float(self.FITBAG_df[self.FITBAG_df["Number"] == "hi_sq.norm:"]["Name"])))
+        self.lineEdit_Fit_results_Number_of_iterations.setText(str(int(self.FITBAG_df[self.FITBAG_df["Name"] == "iterate"]['Number'])))
 
-        with open(self.data_folder_name + fit_file_name, "r") as fit_file:
-            for line_number, line in enumerate(fit_file.readlines()):
-                if line.find(" iterate ") > 0:
-                    last_itr_loc = line_number
+        layer_name, counter_i = "", 0
+        for row_df in self.FITBAG_df[self.FITBAG_df["Error"] != "fixed"].iterrows():
+            # define prefix before parameter name
+            if row_df[1]["Number"] in ["Layer", "Substrate", "hi_sq.norm:"] or row_df[1]["Name"] == "iterate":
+                layer_name = row_df[1]["Number"] + " " + [row_df[1]["Name"] if row_df[1]["Number"] == "Layer" else ""][0]
+                continue
 
-        # show it in the table
-        with open(self.data_folder_name + fit_file_name, "r") as fit_file:
-            layer_name = 0
-            layer_num = 0
-            i = 0
-            for line_number, line in enumerate(fit_file.readlines()):
-                if line_number >= last_itr_loc:
+            if not row_df[1]["Name"] in ['Thickness', 'SLD', 'iSLD', 'mSLD', 'Cos(d-gamma)', 'Roughness']: layer_name = ""
 
-                    try:
-                        if line.split()[0] == "Layer": layer_name = "Layer " + str(line.split()[1]) + " "
-                        elif line.split()[0] == "Substrate": layer_name = "Substrate "
-                        elif line.split()[1] in ['<Cos(gamma)>', 'total', 'alpha_0', 'background']: layer_name = ""
+            # create table rows and set their properties
+            self.tableWidget_Fit_results.insertRow(self.tableWidget_Fit_results.rowCount())
+            self.tableWidget_Fit_results.setRowHeight(counter_i, 22)
+            for j in range(0, 6):
+                item = QtWidgets.QTableWidgetItem()
+                item.setTextAlignment(QtCore.Qt.AlignCenter)
+                item.setFlags(QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsDragEnabled)
+                if j == 0:
+                    item.setFlags(QtCore.Qt.ItemIsUserCheckable | QtCore.Qt.ItemIsEnabled)
+                    item.setCheckState(QtCore.Qt.Unchecked)
+                self.tableWidget_Fit_results.setItem(counter_i, j, item)
 
-                        if line.split()[1] == 'total': line = line.replace("total scaling", "Scaling_factor")
-                        elif line.split()[1] == 'alpha_0': line = line.replace("alpha_0", "Overillumination")
-                        elif line.split()[1] == 'Re{Nb}': line = line.replace("Re{Nb}", "SLD")
-                        elif line.split()[1] == 'Im{Nb}': line = line.replace("Im{Nb}", "iSLD")
-                        elif line.split()[1] == 'N_p': line = line.replace("N_p", "mSLD")
-                        elif line.split()[1] == 'Debye-Waller': line = line.replace("Debye-Waller", "roughness")
-                        elif line.split()[1] == 'background': line = line.replace("background", "Background")
-                        elif line.split()[1] == '<Cos(delta_gamma': line = line.replace("<Cos(delta_gamma", "cos(d-gamma)")
+            # fill the row
+            self.tableWidget_Fit_results.item(counter_i, 1).setText(str(counter_i + 1))
+            self.tableWidget_Fit_results.item(counter_i, 2).setText(layer_name + " " + str(row_df[1]["Name"]))
+            if not "infinite" in [row_df[1]["Value"], row_df[1]["Error"], row_df[1]["Factor"]]:
+                self.tableWidget_Fit_results.item(counter_i, 3).setText(str(round(float(row_df[1]["Value"]) * [10e5 if row_df[1]["Name"] in ['SLD', 'iSLD', 'mSLD'] else 1][0], 8)))
+                self.tableWidget_Fit_results.item(counter_i, 4).setText(str(round(float(row_df[1]["Error"]) * [10e5 if row_df[1]["Name"] in ['SLD', 'iSLD', 'mSLD'] else 1][0], 8)))
+                self.tableWidget_Fit_results.item(counter_i, 5).setText(str(round(float(row_df[1]["Factor"]), 8)))
+            else:
+                self.tableWidget_Fit_results.item(counter_i, 3).setText(str(round(float(row_df[1]["Value"]) * [10e5 if row_df[1]["Name"] in ['SLD', 'iSLD', 'mSLD'] else 1][0], 8)))
+                self.tableWidget_Fit_results.item(counter_i, 4).setText(str(row_df[1]["Error"]))
 
-                        if line.split()[0] == "hi_sq.norm:": self.lineEdit_Fit_results_Chi_square.setText(str("0") + str(line.split()[1]))
-
-                        if line.split()[1] == "iterate": self.lineEdit_Fit_results_Number_of_iterations.setText(str(line.split()[0]))
-
-                        # Fill table
-                        if line.split()[1] in ['thickness', 'SLD', 'iSLD', 'roughness', 'mSLD', 'cos(d-gamma)', 'Scaling_factor',
-                                               'Overillumination', 'Background', '<Cos(gamma)>', '<Sin(gamma)>', '<Sin^2(gamma)>', 'Pi(x)', 'Pi(y)', 'Pi(z)', 'Pf(x)', 'Pf(y)', 'Pf(z)'] and not line.split()[3] == "fixed":
-
-                            self.tableWidget_Fit_results.insertRow(self.tableWidget_Fit_results.rowCount())
-
-                            try:
-                                self.tableWidget_Fit_results.setRowHeight(i, 22)
-                                for j in range(0, 6):
-                                    item = QtWidgets.QTableWidgetItem()
-                                    item.setTextAlignment(QtCore.Qt.AlignCenter)
-                                    item.setFlags(
-                                        QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsDragEnabled)
-                                    if j == 0:
-                                        item.setFlags(QtCore.Qt.ItemIsUserCheckable | QtCore.Qt.ItemIsEnabled)
-                                        item.setCheckState(QtCore.Qt.Unchecked)
-                                    self.tableWidget_Fit_results.setItem(i, j, item)
-
-                                self.tableWidget_Fit_results.item(i, 1).setText(str(i + 1))
-                                self.tableWidget_Fit_results.item(i, 2).setText(layer_name + " " + line.split()[1])
-                                if line.split()[1] in ['SLD', 'iSLD', 'mSLD']:
-                                    self.tableWidget_Fit_results.item(i, 3).setText(str(round(float(line.split()[2]) * 10e5, 4)))
-                                else:
-                                    self.tableWidget_Fit_results.item(i, 3).setText(str(float(line.split()[2])))
-
-                                if str(line.split()[3]) == "fixed": table_error = "fixed"
-                                elif str(line.split()[4]) == "infinite": table_error = "infinite"
-                                else:
-                                    if line.split()[1] in ['SLD', 'iSLD', 'mSLD']:
-                                        table_error = str(line.split()[3]) + str(round(float(line.split()[4])* 10e5, 4))
-                                    else: table_error = str(line.split()[3]) + str(float(line.split()[4]))
-
-                                self.tableWidget_Fit_results.item(i, 4).setText(table_error)
-                                self.tableWidget_Fit_results.item(i, 5).setText(str(float(line.split()[5])))
-
-                            except: True
-                            i += 1
-
-                        # Fill multiGrPr.ent
-                        ## layers
-                        if line.split()[1] in ['thickness', 'SLD', 'iSLD', 'roughness', 'mSLD', 'cos(d-gamma)'] and not layer_name == "Substrate ":
-                            if line.split()[1] == 'thickness': multiGrPr_data[4+layer_num][0] = float(line.split()[2])
-                            elif line.split()[1] == 'SLD': multiGrPr_data[4+layer_num][1] = float(line.split()[2]) * 10e+5
-                            elif line.split()[1] == 'iSLD': multiGrPr_data[4+layer_num][2] = float(line.split()[2]) * 10e+5
-                            elif line.split()[1] == 'mSLD': multiGrPr_data[4+layer_num][3] = float(line.split()[2]) * 10e+5
-                            elif line.split()[1] == 'cos(d-gamma)': multiGrPr_data[4+layer_num][4] = float(line.split()[2])
-                            elif line.split()[1] == 'roughness':
-                                multiGrPr_data[4+layer_num][5] = float(line.split()[2])
-                                layer_num += 1
-
-                        ## substrate
-                        elif line.split()[1] in ['SLD', 'iSLD', 'roughness', 'mSLD', 'cos(d-gamma)'] and layer_name == "Substrate ":
-                            if line.split()[1] == 'SLD': multiGrPr_data[4+layer_num][0] = float(line.split()[2]) * 10e+5
-                            elif line.split()[1] == 'iSLD': multiGrPr_data[4+layer_num][1] = float(line.split()[2]) * 10e+5
-                            elif line.split()[1] == 'mSLD': multiGrPr_data[4 + layer_num][2] = float(line.split()[2]) * 10e+5
-                            elif line.split()[1] == 'cos(d-gamma)': multiGrPr_data[4 + layer_num][3] = float(line.split()[2])
-                            elif line.split()[1] == 'roughness': multiGrPr_data[4 + layer_num][4] = float(line.split()[2])
-
-                        ## end of file
-                        elif line.split()[1] in ['Scaling_factor', 'Overillumination', 'Background', '<Cos(gamma)>', '<Sin(gamma)>', '<Sin^2(gamma)>']:
-                            if line.split()[1] == '<Cos(gamma)>': multiGrPr_data[4+self.tableWidget_Film_description.rowCount()][0] = float(line.split()[2])
-                            if line.split()[1] == '<Sin(gamma)>': multiGrPr_data[4 + self.tableWidget_Film_description.rowCount()][1] = float(line.split()[2])
-                            if line.split()[1] == '<Sin^2(gamma)>': multiGrPr_data[4 + self.tableWidget_Film_description.rowCount()][2] = float(line.split()[2])
-                            if line.split()[1] == 'Scaling_factor': multiGrPr_data[4 + self.tableWidget_Film_description.rowCount()+1][0] = float(line.split()[2])
-                            if line.split()[1] == 'Overillumination': multiGrPr_data[4 + self.tableWidget_Film_description.rowCount()+1][1] = float(line.split()[2])
-                            if line.split()[1] == 'Background': multiGrPr_data[4 + self.tableWidget_Film_description.rowCount()+1][2] = float(line.split()[2])
-
-                        elif line.split()[1] == 'Pi(y)': multiGrPr_data[0][1] = float(line.split()[2])
-                        elif line.split()[1] == 'Pf(y)': multiGrPr_data[1][1] = float(line.split()[2])
-
-                    except: True
-
-        for i in range(0, len(multiGrPr_data)):
-            for j in range(0, len(multiGrPr_data[i])):
-                multiGrPr.write(str(multiGrPr_data[i][j]) + "     " + str(multiGrPr_info[i][j]) + "\n")
-            multiGrPr.write("\n")
-
-        multiGrPr.close()
+            counter_i += 1
     ##<--
 
     ##--> draw graphs
