@@ -772,18 +772,18 @@ class GUI(Ui_MainWindow):
         else: # add lines into {tableWidget_FilmDescription}
             i = self.tableWidget_FilmDescription.currentRow() if self.tableWidget_FilmDescription.currentRow() >= 0 else 0
 
-            for index, tabWidget in enumerate([self.tableWidget_FilmDescription, self.tableWidget_FilmDescription_2]):
-                tabWidget.insertRow(i)
-                tabWidget.setRowHeight(i, 21)
+            for index, tableWidget in enumerate([self.tableWidget_FilmDescription, self.tableWidget_FilmDescription_2]):
+                tableWidget.insertRow(i)
+                tableWidget.setRowHeight(i, 21)
                 for j in range(0, 13):
                     item = QtWidgets.QTableWidgetItem()
                     item.setTextAlignment(QtCore.Qt.AlignCenter)
-                    if j in (1, 2) and index == 1: item.setFlags(QtCore.Qt.NoItemFlags) # leave "thickness" only in the first table
-                    if j in (4, 6, 8, 10, 12):
+                    if j in (2, 4, 6, 8, 10, 12):
                         item.setFlags(QtCore.Qt.ItemIsUserCheckable | QtCore.Qt.ItemIsEnabled)
                         item.setCheckState(QtCore.Qt.Checked if j == 6 else QtCore.Qt.Unchecked)
+                    if j in (1, 2) and index == 1: item.setFlags(QtCore.Qt.NoItemFlags)  # leave "thickness" only in the first table
 
-                    tabWidget.setItem(i, j, item)
+                    tableWidget.setItem(i, j, item)
 
         # Step 3 (optional for FRAC): synchronize thicknesses
         self.f_fracThickness_synchronize()
@@ -875,6 +875,13 @@ class GUI(Ui_MainWindow):
         self.f_clearStuff(chi_prev=False)
         self.f_reflectivity_draw()
         self.statusbar.clearMessage()
+
+        # RUN - step 1 - create new directory or rewrite files if they already exists
+        if not self.lineEdit_SaveAt_Dir_1.text(): self.lineEdit_SaveAt_Dir_1.setText(self.dir_current + "/")
+        self.FOLDER_DATA = self.lineEdit_SaveAt_Dir_1.text() + self.lineEdit_SaveAt_Dir_2.text() + (
+            "/" if not self.lineEdit_SaveAt_Dir_2.text()[-1] == "/" else "")
+        if not os.path.exists(self.FOLDER_DATA): os.makedirs(self.FOLDER_DATA)
+
         # delete files from previous run
         for SLD_MultiGrPr_file in [self.MODE_SPECS[self.BoToFit_mode][1], 'SLD_profile.dat', 'SLD_profile_F1.dat', 'SLD_profile_F2.dat', 'multiGrPr.ent',
                                    'multiGrPr_2.ent', 'multiGrPr_F1.ent', 'multiGrPr_F2.ent']:
@@ -882,12 +889,6 @@ class GUI(Ui_MainWindow):
                 os.remove(self.FOLDER_DATA + SLD_MultiGrPr_file)
             except:
                 True
-
-        # RUN - step 1 - create new directory or rewrite files if they already exists
-        if not self.lineEdit_SaveAt_Dir_1.text(): self.lineEdit_SaveAt_Dir_1.setText(self.dir_current + "/")
-        self.FOLDER_DATA = self.lineEdit_SaveAt_Dir_1.text() + self.lineEdit_SaveAt_Dir_2.text() + (
-            "/" if not self.lineEdit_SaveAt_Dir_2.text()[-1] == "/" else "")
-        if not os.path.exists(self.FOLDER_DATA): os.makedirs(self.FOLDER_DATA)
 
         # RUN - step 2 - get ready to start BoToFit
         self.f_inputDataFile_create()
